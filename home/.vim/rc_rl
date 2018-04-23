@@ -1,0 +1,63 @@
+" virmrc from rl (Har'el?), not really in use.
+" Switch to hebrew:
+map __ :set invrl invhk<CR>
+map! __ <Esc>:set invrl invhk<CR>a
+" Command Mappings:
+map _s :w<CR>:!ispell -x %<CR>:e!<CR>
+map _i :w<CR>:!ci -zLT -u -m. -M %<CR>:e!<CR>
+map _o :!co -zLT -l %<CR>:e!<CR>
+map _v :!curl -F uploaded_file=@% http://validator.w3.org/check\|w3m -T text/html<CR>
+map _m :!mozilla -remote "openurl($PWD/%)"<CR>
+" Up and Down
+map <PageDown> <C-F>
+map <PageUp> <C-B>
+map <Esc>[5~ <C-B>
+map <Esc>[6~ <C-F>
+" Param setup
+set backspace=2
+set sts=4
+set sw=4
+set ignorecase
+set mouse=a
+if !has('nvim')
+    set ttymouse=xterm2
+endif
+set showmatch
+set history=10000
+set autowrite
+set efm=%f:%l:%c:%*\\d:%*\\d:%m
+set makeprg=jikes\ -Xstdout\ +E\ **/*.java
+set grepprg=grep\ -n
+set title
+set allowrevins
+set hlsearch
+set wm=1
+set ruler
+set rulerformat=U+%B\ %l,%c%V
+" set statusline=%<%f%h%m%r%=%b\ 0x%B\ \ %l,%c%V\ %P
+" set laststatus=2
+syntax on
+"Allow current directory initialization files
+set exrc
+autocmd FileType c,cpp  set formatoptions=croq cindent comments&
+let c_space_errors=1
+" Special setup for aleph for unicode (the default value, 224, is suitable for
+" iso-8859-1 only!)
+if &encoding == "utf-8"
+    set aleph=1488
+    " Unicode for Hebrew punctuation: maqaf, geresh, gershayim.
+    map! _- ־
+    map! _' ׳
+    map! _" ״
+endif
+" Digraphs:
+" Hebrew quotation marks:   :9 („) "6 (“) .9 (‚) '6 (‘)
+" Latin quotation marks:    "9 (”) "6 (“) '9 (’) '6 (‘)
+"Color (needs 16 color xterm)
+" set t_Co=16
+" set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+" set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+"Color (needs 8 color xterm)
+set t_Co=8
+set t_Sf=[3%p1%dm
+set t_Sb=[4%p1%dm

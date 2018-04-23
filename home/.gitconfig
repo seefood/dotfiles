@@ -1,0 +1,129 @@
+[user]
+  name = Ira Abramov
+  #signingkey = 360171CD018E78F
+
+[github]
+    user = seefood
+
+[alias]
+  p = !git checkout master && git pull origin master && git push origin master && git checkout -
+  pp = !git checkout develop && git pull origin develop && git push origin develop && git checkout -
+  co = checkout
+  ci = commit
+  ca = commit -a
+  st = status
+  br = branch
+  ba = branch -a
+  r = reset
+  rh = reset --hard
+  cp = cherry-pick
+  wdiff = diff --word-diff=color --ignore-all-space
+  plog = log --pretty=fixes
+  slog = log --oneline --decorate
+  review = git-review
+  graph = log --graph --pretty=format:'%C(red)%h%Creset%C(red bold)%d%Creset %s%Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+  pu = push --force-with-lease
+  hist = log --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %s %C(yellow)%an %C(cyan)%cr%Creset' --abbrev-commit --date=relative
+  type = cat-file -t
+  dump = cat-file -p
+  aliases = config --get-regexp alias
+  df = diff
+  dc = diff --cached
+  lg = log -p
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  ls = ls-files
+  unstash = stash apply
+  new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+  l = log --pretty=oneline -n 20 --graph --abbrev-commit
+  s = status -s
+  d = "!\"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat\""
+  di = "di = !\"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d\""
+  c = clone --recursive
+  ca = !git add -A && git commit -av
+  go = "\"!f() { git checkout -b \\\"$1\\\" 2> /dev/null || git checkout \\\"$1\\\"; }; f\""
+  tags = tag -l
+  branches = branch -a
+  remotes = remote -v
+  amend = commit --amend --reuse-message=HEAD
+  credit = "\"!f() { git commit --amend --author \\\"$1 <$2>\\\" -C HEAD; }; f\""
+  reb = "\"!r() { git rebase -i HEAD~$1; }; r\""
+  retag = "\"!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r\""
+  fb = "!f() { git branch -a --contains ; }; f"
+  ft = "!f() { git describe --always --contains ; }; f"
+  fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S; }; f"
+  fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=; }; f"
+  dm = \"!git branch --merged | grep -v \\* | xargs -n 1 git branch -d\"
+  contributors = shortlog --summary --numbered
+  squash = !"f() { NL=$1; GIT_EDITOR=\"sed -i '2,$NL s/pick/squash/;/# This is the 2nd commit message:/,$ {d}'\"; git rebase -i HEAD~$NL; }; f"
+  dfs = diff --cached
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  # fixup is like amend but for older commits. From https://blog.filippo.io/git-fixup-amending-an-older-commit/
+  fixup = "!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
+
+[push]
+  default = simple
+
+[color]
+  ui = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+[color "decorate"]
+  tag = blue
+
+[diff "zip"]
+  textconv = unzip -v
+
+[pretty]
+  fixes = Fixes: %h (\"%s\")
+
+[log]
+  decorate=true
+
+[url "https://"]
+  insteadOf = git://
+
+[merge]
+  tool = meld
+  log = true
+
+[commit]
+#  template = /home/ira/.stCommitMsg
+
+[rebase]
+#  autosquash = true
+
+[core]
+  editor = vim
+  pager = less -R
+  abbrev = 12
+  #whitespace = nowarn
+  #pager = diff-so-fancy | less --tabs=4 -RFX
+  excludesfile = $HOME/.gitignore_global
+  autocrlf = input
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
+  process = git-lfs filter-process
+
+[help]
+  autocorrect = 1
+
+[http]
+  postBuffer = 1048576000
+
+[pack]
+  threads = 1

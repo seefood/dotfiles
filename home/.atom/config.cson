@@ -1,0 +1,13 @@
+"*":
+  core:
+    disabledPackages: [
+      "language-objective-c"
+      "language-ruby-on-rails"
+    ]
+    telemetryConsent: "no"
+  editor:
+    lineHeight: 1.2
+  "exception-reporting":
+    userId: "3d668916-f749-4325-965f-598c685f78a2"
+  welcome:
+    showOnStartup: false
