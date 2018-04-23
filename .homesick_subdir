@@ -2,6 +2,7 @@
 .config
 .gnupg
 .vim
+.vim/after/ftplugin
 .vim/syntax
 .vim/bundle
 .vim/bundle/repos
