@@ -31,9 +31,16 @@ Then symlink the dotfiles to your home directory
 
     homesick symlink dotfiles
 
+#### Optional tools
 To install additional tools, run the following scripts (in this order):
 
-* `~/.homesick/repos/dotfiles/install_bash_it.sh`: This will download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
+Install [FZF](https://github.com/junegunn/fzf):
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+
+Hub from https://github.com/github/hub/ (see code snippet in my bootstrap.sh for a quick setup)
+
+Download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
+    ~/.homesick/repos/dotfiles/install_bash_it.sh
 
 MacOS Users:
 * `~/.homesick/repos/dotfiles/install_homebrew.sh`: This will download and install [Homebrew](https://brew.sh).
