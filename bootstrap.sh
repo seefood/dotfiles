@@ -32,7 +32,7 @@
     echo "homesick appears to be installed"
   else
     echo "installing git"
-    sudo apt-get install -y git
+    sudo apt-get install -y git curl
 
     echo "installing homesick"
 
@@ -73,4 +73,6 @@ else
   echo "Hub exists."
 fi
 
-
+# Install pathogen for vim/neovim
+mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
