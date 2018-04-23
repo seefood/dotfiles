@@ -2,6 +2,8 @@
 
 #source ~/.bashrc
 
+[[ "$DEBFULLNAME" ]] || source ~/.bashrc
+
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
 export BASH_IT_THEME="ia42"
