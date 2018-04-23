@@ -25,21 +25,21 @@ Install homesick first
 
 Clone the dotfiles repo
 
-    homesick clone seefood/dotfiles .config/dotfiles
+    homesick clone seefood/dotfiles
 
 Then symlink the dotfiles to your home directory
 
-    homesick symlink .config/dotfiles
+    homesick symlink dotfiles
 
 To install additional tools, run the following scripts (in this order):
 
-* `install_bash_it.sh`: This will download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
+* `~/.homesickrc/repos/dotfiles/install_bash_it.sh`: This will download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
 
 MacOS Users:
-* `install_homebrew.sh`: This will download and install [Homebrew](https://brew.sh).
-* `install_general.sh`: This will install a standard set of tools (command line and UI).
-* `install_dev.sh`: Optional file, will install a set of development tools - only run if you plan to use the machine for software development.
-* `osx-settings.sh`: Based on [Mathias Bynens' Dotfiles](https://github.com/mathiasbynens/dotfiles), a common set of OS X settings.
+* `~/.homesickrc/repos/dotfiles/install_homebrew.sh`: This will download and install [Homebrew](https://brew.sh).
+* `~/.homesickrc/repos/dotfiles/install_general.sh`: This will install a standard set of tools (command line and UI).
+* `~/.homesickrc/repos/dotfiles/install_dev.sh`: Optional file, will install a set of development tools - only run if you plan to use the machine for software development.
+* `~/.homesickrc/repos/dotfiles/osx-settings.sh`: Based on [Mathias Bynens' Dotfiles](https://github.com/mathiasbynens/dotfiles), a common set of OS X settings.
 
 Then log out and back in again to apply the changes.
 
