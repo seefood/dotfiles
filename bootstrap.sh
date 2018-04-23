@@ -50,8 +50,10 @@ homesick clone seefood/dotfiles dotfiles
 
 homesick symlink dotfiles
 
+mkdir -p ~/bin
+
 # Download Hub
-if [ ! -e "$HOME/.bin/hub" ]; then
+if [ ! -e "$HOME/bin/hub" ]; then
   HUB_VERSION=2.3.0-pre10
   HUB_DOWNLOAD_URL=https://github.com/github/hub/releases/download
   HUB_OS=hub-linux-amd64
@@ -66,7 +68,7 @@ if [ ! -e "$HOME/.bin/hub" ]; then
 
   curl -fL ${FULL_URL} > /tmp/hub.tgz && \
     tar zxf /tmp/hub.tgz -C /tmp && \
-    mv /tmp/${HUB_OS}-${HUB_VERSION}/bin/hub ~/.bin/hub
+    mv /tmp/${HUB_OS}-${HUB_VERSION}/bin/hub ~/bin/hub
 
   rm -Rf /tmp/hub*
 else
