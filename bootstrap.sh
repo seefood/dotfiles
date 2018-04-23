@@ -46,9 +46,9 @@
 #fi
 
 ## Clone dotfiles
-homesick clone seefood/dotfiles .config/dotfiles
+homesick clone seefood/dotfiles dotfiles
 
-homesick symlink .config/dotfiles
+homesick symlink dotfiles
 
 # Download Hub
 if [ ! -e "$HOME/.bin/hub" ]; then

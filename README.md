@@ -13,6 +13,12 @@ My collection of dotfiles, maintained through [homesick](https://github.com/tech
 ## Installation
 ------------
 
+### Fast and careless
+
+    curl https://raw.githubusercontent.com/seefood/dotfiles/master/bootstrap.sh | bash
+
+### Slow and Careful
+
 Install homesick first
 
     sudo gem install homesick
