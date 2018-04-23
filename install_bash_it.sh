@@ -19,5 +19,5 @@ bash-it enable plugin alias-completion base battery browser docker \
   python ruby ssh tmux virtualenv xterm z_autoenv fzf
 
 # Aliases
-bash-it enable alias apt docker emacs vim atom git general fuck tmux \
+bash-it enable alias ag apt docker emacs vim atom git general fuck tmux \
     vagrant homesick

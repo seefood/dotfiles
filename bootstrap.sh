@@ -23,7 +23,7 @@
 #  hash yadm 2>/dev/null || (echo "yadm install failed" && exit 1)
 #
 #  echo "getting some important extra brew packages"
-#  brew install screen neovim ack
+#  brew install screen neovim silversearcher-ag
 #
 #elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
   echo "Doing Debian install of homesick"
@@ -42,7 +42,7 @@
   hash homesick 2>/dev/null || (echo "homesick install failed" && exit 1)
 
   echo "installing some essential packages"
-  sudo apt-get install -y neovim screen ack-grep
+  sudo apt-get install -y neovim screen silversearcher-ag
 #fi
 
 ## Clone dotfiles
