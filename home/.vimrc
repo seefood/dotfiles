@@ -1,7 +1,9 @@
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
-  endif
+endif
+
+execute pathogen#infect()
 
 " Required:
 set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
