@@ -11,3 +11,5 @@ zstyle :compinstall filename '/home/ira/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

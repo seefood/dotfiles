@@ -155,3 +155,5 @@ export GPG_TTY=$(tty)
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
   sleep 1s; screen -q -m -RR -x
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

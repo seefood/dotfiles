@@ -22,6 +22,8 @@ if dein#load_state(expand('~/.vim/bundle/'))
   call dein#add('~/.vim/bundle/repos/github.com/Shougo/dein.vim')
 
   " Add or remove your plugins here:
+  call dein#add('tpope/vim-pathogen')
+  call dein#add('junegunn/fzf.vim')
   " Git diff symbols in the gutter
   call dein#add('airblade/vim-gitgutter')
   " call dein#add('Shougo/neosnippet.vim')
@@ -68,6 +70,11 @@ if dein#load_state(expand('~/.vim/bundle/'))
   call dein#end()
   call dein#save_state()
 endif
+
+" If installed using Homebrew
+" set rtp+=/usr/local/opt/fzf
+" If installed using git
+set rtp+=~/.fzf
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
