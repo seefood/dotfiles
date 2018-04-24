@@ -28,21 +28,34 @@
 #elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
   echo "Doing Debian install of homesick"
 
+  # Adding backports, neovim and other useful bits.
+  sudo add-apt-repository -u "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-backports main restricted universe multiverse"
+
   if hash homesick 2>/dev/null; then
     echo "homesick appears to be installed"
   else
     echo "installing git"
-    sudo apt-get install -y git curl ruby thefuck
+    sudo apt-get install -y curl git ruby
 
     echo "installing homesick"
 
-    sudo gem install homesick
+    sudo gem install homesick --no-ri --no-rdoc
   fi
   # Have ensured that homesick is available
   hash homesick 2>/dev/null || (echo "homesick install failed" && exit 1)
 
   echo "installing some essential packages"
-  sudo apt-get install -y neovim screen silversearcher-ag
+  sudo apt-get install -y screen silversearcher-ag curl thefuck git
+
+  if ! hash nvim ; then
+    echo "install neovim, trying from default sources"
+    sudo apt-get install -y neovim
+    if [[ $? -ne 0 ]] ; then
+      sudo add-apt-repository -u ppa:neovim-ppa/stable
+      sudo apt-get install -y neovim
+    fi
+  fi
+
 #fi
 
 ## Clone dotfiles
