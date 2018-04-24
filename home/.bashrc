@@ -146,6 +146,12 @@ export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
 [[ "$BASH_IT_THEME" ]] || . ~/.bash_profile
 
+# If FD is installed, let FZF use it.
+if hash fzf > /dev/null ; then
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+
 # Configure TMUX - screen spltter
 #tmux source-file ~/.tmux.conf
 

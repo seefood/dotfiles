@@ -75,6 +75,21 @@ else
   echo "Hub exists."
 fi
 
+# Download fd
+if hash fd; then
+  echo "fd exists."
+else
+  fdversion=7.0.0
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    brew install fd
+  elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
+    wget https://github.com/sharkdp/fd/releases/download/v${fdversion}/fd_${fdversion}_amd64.deb && \
+        sudo dpkg -i fd_${fdversion}_amd64.deb
+  fi
+
+  rm -Rf fd_${fdversion}_amd64.deb
+fi
+
 # Install pathogen for vim/neovim
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim

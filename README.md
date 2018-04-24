@@ -31,13 +31,15 @@ Then symlink the dotfiles to your home directory
 
     homesick symlink dotfiles
 
-#### Optional tools
+#### Optional tools installed by my bootstrap.sh
 To install additional tools, run the following scripts (in this order):
 
 Install [FZF](https://github.com/junegunn/fzf):
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 
 Hub from https://github.com/github/hub/ (see code snippet in my bootstrap.sh for a quick setup)
+
+[fd](https://github.com/sharkdp/fd) (smart, fast alternative to find).
 
 Download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
     ~/.homesick/repos/dotfiles/install_bash_it.sh
