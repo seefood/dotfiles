@@ -34,6 +34,8 @@ Then symlink the dotfiles to your home directory
 #### Optional tools installed by my bootstrap.sh
 To install additional tools, run the following scripts (in this order):
 
+Install [TheFuck](https://github.com/nvbn/thefuck) by `sudo apt install thefuck`
+
 Install [FZF](https://github.com/junegunn/fzf):
 
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install

@@ -32,7 +32,7 @@
     echo "homesick appears to be installed"
   else
     echo "installing git"
-    sudo apt-get install -y git curl ruby
+    sudo apt-get install -y git curl ruby thefuck
 
     echo "installing homesick"
 
