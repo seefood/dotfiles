@@ -32,7 +32,7 @@
     echo "homesick appears to be installed"
   else
     echo "installing git"
-    sudo apt-get install -y git curl
+    sudo apt-get install -y git curl ruby
 
     echo "installing homesick"
 
@@ -48,7 +48,7 @@
 ## Clone dotfiles
 homesick clone seefood/dotfiles dotfiles
 
-homesick symlink dotfiles
+yes | homesick symlink dotfiles
 
 mkdir -p ~/bin
 

@@ -35,6 +35,7 @@ Then symlink the dotfiles to your home directory
 To install additional tools, run the following scripts (in this order):
 
 Install [FZF](https://github.com/junegunn/fzf):
+
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 
 Hub from https://github.com/github/hub/ (see code snippet in my bootstrap.sh for a quick setup)
@@ -42,6 +43,7 @@ Hub from https://github.com/github/hub/ (see code snippet in my bootstrap.sh for
 [fd](https://github.com/sharkdp/fd) (smart, fast alternative to find).
 
 Download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
+
     ~/.homesick/repos/dotfiles/install_bash_it.sh
 
 MacOS Users:
