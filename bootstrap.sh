@@ -28,6 +28,9 @@
 #elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
   echo "Doing Debian install of homesick"
 
+  echo "installing some essential packages"
+  sudo apt-get install -y screen silversearcher-ag curl thefuck git software-properties-common
+
   # Adding backports, neovim and other useful bits.
   sudo add-apt-repository -u "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-backports main restricted universe multiverse"
 
@@ -35,7 +38,7 @@
     echo "homesick appears to be installed"
   else
     echo "installing git"
-    sudo apt-get install -y curl git ruby
+    sudo apt-get install -y ruby
 
     echo "installing homesick"
 
@@ -44,15 +47,20 @@
   # Have ensured that homesick is available
   hash homesick 2>/dev/null || (echo "homesick install failed" && exit 1)
 
-  echo "installing some essential packages"
-  sudo apt-get install -y screen silversearcher-ag curl thefuck git
-
   if ! hash nvim ; then
     echo "install neovim, trying from default sources"
     sudo apt-get install -y neovim
-    if [[ $? -ne 0 ]] ; then
-      sudo add-apt-repository -u ppa:neovim-ppa/stable
+    if [[ $? -eq 100 ]] ; then
+      echo | sudo add-apt-repository -u ppa:neovim-ppa/stable
       sudo apt-get install -y neovim
+      sudo update-alternatives --set editor /usr/bin/nvim
+      sudo update-alternatives --set ex /usr/bin/ex.nvim
+      sudo update-alternatives --set rview /usr/bin/rview.nvim
+      sudo update-alternatives --set rvim /usr/bin/rvim.nvim
+      sudo update-alternatives --set vi /usr/bin/nvim
+      sudo update-alternatives --set view /usr/bin/view.nvim
+      sudo update-alternatives --set vim /usr/bin/nvim
+      sudo update-alternatives --set vimdiff /usr/bin/vimdiff.nvim
     fi
   fi
 
