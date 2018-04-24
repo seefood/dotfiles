@@ -55,8 +55,8 @@ if dein#load_state(expand('~/.vim/bundle/'))
   " call dein#add('joshdick/onedark.vim')
   " Oceanic/Next theme immitates Sublime's
   " call dein#add('mhartington/oceanic-next')
-  " Dynamic Autocomplete
-  call dein#add('Shougo/deoplete.nvim')
+  " Dynamic Autocomplete - needs a newer neovim
+  " call dein#add('Shougo/deoplete.nvim')
   call dein#add('stephpy/vim-yaml')
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
