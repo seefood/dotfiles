@@ -29,7 +29,10 @@
   echo "Doing Debian install of homesick"
 
   echo "installing some essential packages"
-  sudo apt-get install -y screen silversearcher-ag curl thefuck git software-properties-common
+  sudo apt-get install -y screen silversearcher-ag curl thefuck git \
+      software-properties-common python3-pip
+  pip3 install --upgrade powerline-status
+  pip3 install --upgrade neovim
 
   # Adding backports, neovim and other useful bits.
   sudo add-apt-repository -u "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-backports main restricted universe multiverse"
