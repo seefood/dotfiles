@@ -69,6 +69,10 @@
 ## Clone dotfiles
 homesick clone seefood/dotfiles dotfiles
 
+for dir in `cat ~/.homesick/repos/dotfiles/.homesick_subdir` ; do
+    mkdir -p "~/${dir}"
+done
+
 yes | homesick symlink dotfiles
 
 mkdir -p ~/bin
