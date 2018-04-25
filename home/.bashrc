@@ -6,13 +6,13 @@ for newpath in ${HOME}/workspace/devops/tools ${HOME}/bin ; do
 done
 unset newpath
 
-[ "$PS1" ] || return
+[[ "$PS1" ]] || return
 
-[ "$LC_CTYPE" = "UTF-8" ] && export LC_CTYPE=en_US.UTF-8
+[[ "$LC_CTYPE" == "UTF-8" ]] && export LC_CTYPE=en_US.UTF-8
 unset LC_TIME
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
+if [[ -f /etc/bashrc ]]; then
   . /etc/bashrc
 fi
 
