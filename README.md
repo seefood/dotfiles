@@ -15,6 +15,17 @@ My collection of dotfiles, maintained through [homesick](https://github.com/tech
 
 ### Fast and careless
 
+There's a quick bootstrap included for my personal use, go over it and see it does what you expect.
+If it does not, you may prefer to run parts of it manually or fork and tweak
+it for yourself. If you come up with good fixes to the problems I bumped into,
+please send me a PR.
+
+I repeat: this is for my personal use, it installs several things as root,
+expects open sudo access and may be a bit destructive (though idempotent).
+Do *NOT* run it if you didn't go over it and agreed to what it does, and as
+a genral rule, it's NEVER a good idea to run `curl *URL*|bash` ever ever ever.
+having said that, have a ball :-)
+
     curl https://raw.githubusercontent.com/seefood/dotfiles/master/bootstrap.sh | bash
 
 ### Slow and Careful
