@@ -56,7 +56,7 @@ if dein#load_state(expand('~/.vim/bundle/'))
   " Oceanic/Next theme immitates Sublime's
   " call dein#add('mhartington/oceanic-next')
   " Dynamic Autocomplete - needs a newer neovim
-  " call dein#add('Shougo/deoplete.nvim')
+  call dein#add('Shougo/deoplete.nvim')
   call dein#add('stephpy/vim-yaml')
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
@@ -68,6 +68,9 @@ if dein#load_state(expand('~/.vim/bundle/'))
 
   " Required:
   call dein#end()
+  if dein#check_install()
+    call dein#install()
+  endif
   call dein#save_state()
 endif
 
@@ -182,7 +185,7 @@ set nowrap                  " don't wrap text
 set linebreak               " don't wrap textin the middle of a word
 set autoindent              " always set autoindenting on
 set smartindent             " use smart indent if there is no indent file
-set tabstop=4               " <tab> inserts 4 spaces 
+set tabstop=4               " <tab> inserts 4 spaces
 set shiftwidth=4            " but an indent level is 2 spaces wide.
 set softtabstop=4           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
@@ -225,7 +228,7 @@ set list
 """ Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
 set smartcase               " unless uppercase letters are used in the regex.
-set smarttab                " Handle tabs more intelligently 
+set smarttab                " Handle tabs more intelligently
 set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
 
