@@ -36,7 +36,6 @@ if dein#load_state(expand('~/.vim/bundle/'))
   call dein#add('bling/vim-airline')
   call dein#add('tmhedberg/matchit')
   " call dein#add('scrooloose/nerdcommenter')
-  call dein#add('scrooloose/syntastic')
   " call dein#add('scrooloose/nerdtree')
   " Support .editorconfig files.
   call dein#add('editorconfig/editorconfig-vim')
