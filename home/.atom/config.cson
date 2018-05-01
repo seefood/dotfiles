@@ -5,9 +5,15 @@
       "language-ruby-on-rails"
     ]
     telemetryConsent: "no"
+    themes: [
+      "atom-dark-ui"
+      "atom-dark-syntax"
+    ]
   editor:
     lineHeight: 1.2
   "exception-reporting":
-    userId: "3d668916-f749-4325-965f-598c685f78a2"
+    userId: "3d27f752-690f-4559-8307-76b2f9cd9bb1"
+  "force-text-direction":
+    enabled: true
   welcome:
     showOnStartup: false

@@ -47,11 +47,6 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -62,6 +57,11 @@ if [ -d ~/.bash_aliases.d ]; then
 fi
 
 #export LANG=he_IL.UTF-8
+# Set my editor and git editor
+export EDITOR="vim"
+export GIT_EDITOR="vim"
+export VISUAL="vim"
+export QMAILMFTFILE=~ira/.qmailLISTS
 # . ~/.javaenv
 
 # enable programmable completion features (you don't need to enable
@@ -85,12 +85,18 @@ complete -C /usr/bin/command_completion_for_rake -o default rake
 umask 022
 UBUNTU_MENUPROXY=0
 
+if [[ -d $HOME/.rbenv/bin ]] ; then
+  export PATH="$HOME/.rbenv/bin:$PATH:$HOME/bin"
+  eval "$(rbenv init -)"
+fi
+
 export MY_WORKSPACE=~/workspace
 if [ -d ${MY_WORKSPACE} ]; then
   pushd ${MY_WORKSPACE} > /dev/null
   . ./env
   popd > /dev/null
 fi
+unset MY_WORKSPACE
 
 set -o emacs
 export EDITOR=vim
@@ -119,47 +125,39 @@ export BASH_IT_DOCKER_MACHINE="default"
 #ulimit -S -m 250000
 ulimit -v unlimited
 
-ssh-add ~/.ssh/iabramov &> /dev/null
-ssh-add ~/.ssh/ira.pem &> /dev/null
-ssh-add ~/.ssh/id_iraATwork &> /dev/null
-
-# Path to the bash it configuration
-export BASH_IT=~/.bash_it
-
-# Don't check mail when opening terminal.
-unset MAILCHECK
-
-# Change this to your console based IRC client of choice.
-export IRC_CLIENT='irssi'
-
-# Set this to the command you use for todo.txt-cli
-export TODO="t"
-
-# Set Xterm/screen/Tmux title with only a short hostname.
-# Uncomment this (or set SHORT_HOSTNAME to something else),
-# Will otherwise fall back on $HOSTNAME.
-export SHORT_HOSTNAME=$(hostname -s)
+for key in ~/.ssh/iabramov ~/.ssh/ira.pem ~/.ssh/id_iraATwork ; do
+  [[ -f $key ]] && ssh-add $key &> /dev/null
+done
 
 # (Advanced): Uncomment this to make Bash-it reload itself automatically
 # after enabling or disabling aliases, plugins, and completions.
 export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
+# Source the bash_it!
 [[ "$BASH_IT_THEME" ]] || . ~/.bash_profile
 
-# If FD is installed, let FZF use it.
+# Setup fzf
 if [[ -x ~/.fzf/bin/fzf ]] ; then
-  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  # If FD is installed, let FZF use it.
+  if [[ -x /usr/bin/fd ]]
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  fi
+  if [[ ! "$PATH" == */home/ira/.fzf/bin* ]]; then
+    export PATH="$PATH:/home/ira/.fzf/bin"
+  fi
+
+  # Auto-completion
+  # ---------------
+  [[ $- == *i* ]] && source "/home/ira/.fzf/shell/completion.bash" 2> /dev/null
+
+  # Key bindings
+  # ------------
+  source "/home/ira/.fzf/shell/key-bindings.bash"
 fi
 
-# Configure TMUX - screen spltter
-#tmux source-file ~/.tmux.conf
-
-export BUILD_TYPE=rel
 export GPG_TTY=$(tty)
 
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
   sleep 1s; screen -q -m -RR -x
 fi
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash

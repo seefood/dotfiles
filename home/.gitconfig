@@ -1,9 +1,9 @@
 [user]
-  name = Ira Abramov
   #signingkey = 360171CD018E78F
+  name = Ira Abramov
 
 [github]
-    user = seefood
+  user = seefood
 
 [alias]
   p = !git checkout master && git pull origin master && git push origin master && git checkout -
@@ -97,6 +97,7 @@
 [merge]
   tool = meld
   log = true
+  renamelimit = 2000
 
 [commit]
 #  template = /home/ira/.stCommitMsg
