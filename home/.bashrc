@@ -139,7 +139,7 @@ export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 # Setup fzf
 if [[ -x ~/.fzf/bin/fzf ]] ; then
   # If FD is installed, let FZF use it.
-  if [[ -x /usr/bin/fd ]]
+  if [[ -x /usr/bin/fd ]] ; then
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   fi
