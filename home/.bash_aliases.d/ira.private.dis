@@ -66,6 +66,7 @@ if [ -x /usr/bin/dircolors ]; then
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
 else
+  declare -A COLOR_CODES
   COLOR_CODES=(
     [BLUE]="\033[0;34m"
     [LIGHT_BLUE]="\033[1;34m"
@@ -77,12 +78,11 @@ else
     [LIGHT_GRAY]="\033[0;37m"
     [RESET]="\033[0m"
   )
+
+  function colorize {
+    echo -en "${COLOR_CODES[$1]}$2${COLOR_CODES[RESET]}"
+  }
 fi
-
-function colorize {
-  echo -en "${COLOR_CODES[$1]}$2${COLOR_CODES[RESET]}"
-}
-
 
 # set a fancy prompt (commenting out, this will be set by bash-it)
 #$PS1='\u@\h:\w\$ '
