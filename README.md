@@ -59,6 +59,8 @@ Download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
 
     ~/.homesick/repos/dotfiles/install_bash_it.sh
 
+Other nice to have (not auto installed) is [progress](https://github.com/Xfennec/progress).
+
 MacOS Users:
 * `~/.homesick/repos/dotfiles/install_homebrew.sh`: This will download and install [Homebrew](https://brew.sh).
 * `~/.homesick/repos/dotfiles/install_general.sh`: This will install a standard set of tools (command line and UI).
