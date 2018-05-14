@@ -134,7 +134,7 @@ done
 export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
 # Source the bash_it!
-[[ "$BASH_IT_THEME" ]] || . ~/.bash_profile
+[[ "$PS1" == *chroot* ]] && . ~/.bash_profile
 
 # Setup fzf
 if [[ -x ~/.fzf/bin/fzf ]] ; then
@@ -143,21 +143,22 @@ if [[ -x ~/.fzf/bin/fzf ]] ; then
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   fi
-  if [[ ! "$PATH" == */home/ira/.fzf/bin* ]]; then
-    export PATH="$PATH:/home/ira/.fzf/bin"
+  if [[ ! "$PATH" == */.fzf/bin* ]]; then
+    export PATH="$PATH:$HOME/.fzf/bin"
   fi
 
   # Auto-completion
   # ---------------
-  [[ $- == *i* ]] && source "/home/ira/.fzf/shell/completion.bash" 2> /dev/null
+  [[ $- == *i* ]] && source ~/.fzf/shell/completion.bash 2> /dev/null
 
   # Key bindings
   # ------------
-  source "/home/ira/.fzf/shell/key-bindings.bash"
+  source "$HOME/.fzf/shell/key-bindings.bash"
 fi
 
 export GPG_TTY=$(tty)
 
+if [[ "$TILIX_ID" ]] || [[ "$VTE_VERSION" ]] ; then source /etc/profile.d/vte.sh; fi # Ubuntu Budgie Added
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
   sleep 1s; screen -q -m -RR -x
 fi
