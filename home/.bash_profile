@@ -44,6 +44,7 @@ export SHORT_HOSTNAME=$(hostname -s)
 source $BASH_IT/bash_it.sh
 
 #POWERLINE_LEFT_PROMPT="clock user_info scm python_venv ruby cwd in_vim"
-#POWERLINE_RIGHT_PROMPT=""
+POWERLINE_LEFT_PROMPT="scm python_venv ruby cwd"
+POWERLINE_RIGHT_PROMPT="in_vim clock user_info hostname"
 
 export PATH="$HOME/.cargo/bin:$PATH"
