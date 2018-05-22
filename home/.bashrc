@@ -134,7 +134,7 @@ done
 export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
 # Source the bash_it!
-[[ "$PS1" == *chroot* ]] && . ~/.bash_profile
+echo "$PS1" | grep -q chroot && . ~/.bash_profile
 
 # Setup fzf
 if [[ -x ~/.fzf/bin/fzf ]] ; then
