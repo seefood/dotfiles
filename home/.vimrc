@@ -33,7 +33,7 @@ if dein#load_state(expand('~/.vim/bundle/'))
   call dein#add('MarcWeber/vim-addon-mw-utils')
   " call dein#add('vim-scripts/Gundo')
   call dein#add('tpope/vim-fugitive')
-  call dein#add('bling/vim-airline')
+  call dein#add('vim-airline/vim-airline')
   call dein#add('tmhedberg/matchit')
   " call dein#add('scrooloose/nerdcommenter')
   " call dein#add('scrooloose/nerdtree')
@@ -54,13 +54,27 @@ if dein#load_state(expand('~/.vim/bundle/'))
   " call dein#add('joshdick/onedark.vim')
   " Oceanic/Next theme immitates Sublime's
   " call dein#add('mhartington/oceanic-next')
-  " Dynamic Autocomplete - needs a newer neovim
-  call dein#add('Shougo/deoplete.nvim')
   call dein#add('stephpy/vim-yaml')
   if !has('nvim')
+    " Dynamic Autocomplete - needs a newer neovim
+    call dein#add('Shougo/deoplete.nvim')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
+    " call dein#add('zchee/deoplete-clang')
+    " call dein#add('zchee/deoplete-jedi')
   endif
+  " From Adir:
+  " call dein#add('davidhalter/jedi-vim')
+  " call dein#add('fatih/vim-go')
+  " call dein#add('kien/ctrlp.vim')
+  " call dein#add('mileszs/ack.vim')
+  " call dein#add('morhetz/gruvbox')
+  " call dein#add('tpope/vim-surround')
+  " call dein#add('christoomey/vim-tmux-navigator')
+  " call dein#add('ekalinin/Dockerfile.vim')
+  " call dein#add('majutsushi/tagbar')
+  " call dein#add('skywind3000/asyncrun.vim')
+  " call dein#add('w0rp/ale')
 
   " You can specify revision/branch/tag.
   " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
@@ -106,7 +120,30 @@ let g:PyFlakeRangeCommand = 'Q'
 let g:PyFlakeForcePyVersion = 3
 let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
 
+" ack
+let g:ackprg = "ag --vimgrep"
+
+" deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/include/clang/6.0/include/'
+let g:deoplete#sources#clang#clang_complete_database = '.'
+
+" airline
+let g:airline_extensions = []       " disable all extensions
+let g:airline_section_x = ""        " hide file type
+let g:airline_section_y = ""        " hide file encoding
+
+" cscope
+if has("cscope")
+    " add any database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+    " else add database pointed to by environment
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+endif
 
 " Required:
 filetype plugin indent on
@@ -116,6 +153,15 @@ syntax enable
 if dein#check_install()
   call dein#install()
 endif
+
+" plugins
+" minibufferexplorer
+map <leader>mbt :MBEToggle<cr>
+map <leader>mbf :MBEFocus<cr>
+
+" syntastic
+let g:syntastic_python_pep8_args = "--max-line-size=180" 
+let g:syntastic_python_flake8_args = "--max-line-size=180" 
 
 "End dein Scripts-------------------------
 
@@ -153,7 +199,7 @@ set noerrorbells
 set vb t_vb=
 
 " Ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc
+set wildignore+=*.o,*.obj,.git,*.pyc,*~
 set wildignore+=eggs/**
 set wildignore+=*.egg-info/**
 
@@ -231,6 +277,11 @@ set smarttab                " Handle tabs more intelligently
 set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
 
+" disable backup
+set nobackup
+set nowritebackup
+"set noswapfile
+
 """" Display
 if has("gui_running")
     colorscheme desert
@@ -244,10 +295,15 @@ else
 endif
 
 "colorscheme molokai
+"colorscheme gruvbox
 
 " Paste from clipboard
 "map <leader>p "+p
 map <leader>p "+gP
+
+" treat long lines as break lines
+map j gj
+map k gk
 
 " Quit window on <leader>q
 nnoremap <leader>q :q<CR>

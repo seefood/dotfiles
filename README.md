@@ -80,6 +80,7 @@ Thanks
 * [Bash-it](https://github.com/bash-it/bash-it) for the _Bash-it_ framework.
 * [dotfiles by Nils Winkler](https://github.com/nwinkler/dotfiles).
 * [dotfiles by Lital Natan](https://github.com/smackware/bashprofile).
+* [dotfiles by Adir Gabay](https://github.com/adirg/dotfiles).
 
 License
 -------
