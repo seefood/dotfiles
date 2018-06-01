@@ -159,7 +159,10 @@ fi
 export GPG_TTY=$(tty)
 export LB_FUNC_LOAD=true
 
-if [[ "$TILIX_ID" ]] || [[ "$VTE_VERSION" ]] ; then source /etc/profile.d/vte.sh; fi # Ubuntu Budgie Added
+if [[ -f /etc/profile.d/vte.sh ]] && [ "$TILIX_ID" -o "$VTE_VERSION" ] ; then
+    source /etc/profile.d/vte.sh;
+fi # Ubuntu Budgie Added
+
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
   sleep 1s; screen -q -m -RR -x
 fi
