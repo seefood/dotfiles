@@ -45,7 +45,8 @@ source $BASH_IT/bash_it.sh
 
 #export POWERLINE_LEFT_PROMPT="clock user_info scm python_venv ruby cwd in_vim"
 export POWERLINE_LEFT_PROMPT="scm python_venv ruby cwd"
-export POWERLINE_RIGHT_PROMPT="in_vim clock user_info hostname"
+export POWERLINE_RIGHT_PROMPT="in_vim clock user_info"
+[[ "$SSH_CONNECTION" ]] && export POWERLINE_RIGHT_PROMPT="$POWERLINE_RIGHT_PROMPT hostname"
 #export POWERLINE_LEFT_SEPARATOR=""
 #export POWERLINE_LEFT_END=""
 #export POWERLINE_RIGHT_SEPARATOR=""
