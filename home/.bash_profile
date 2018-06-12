@@ -53,6 +53,6 @@ export POWERLINE_RIGHT_PROMPT="in_vim clock user_info"
 #export POWERLINE_RIGHT_END=""
 export SCM_GIT_CHAR=" "
 export USER_INFO_THEME_PROMPT_COLOR_SUDO=63
-export POWERLINE_PROMPT_CHAR=""
+export POWERLINE_PROMPT_CHAR="➡️"
 
 export PATH="$HOME/.cargo/bin:$PATH"
