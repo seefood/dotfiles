@@ -40,9 +40,6 @@ export SHORT_HOSTNAME=$(hostname -s)
 # https://github.com/xvzf/vcprompt
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
 
-# Load Bash It
-source $BASH_IT/bash_it.sh
-
 #export POWERLINE_LEFT_PROMPT="clock user_info scm python_venv ruby cwd in_vim"
 export POWERLINE_LEFT_PROMPT="scm python_venv ruby cwd"
 export POWERLINE_RIGHT_PROMPT="in_vim clock user_info"
@@ -54,5 +51,8 @@ export POWERLINE_RIGHT_PROMPT="in_vim clock user_info"
 export SCM_GIT_CHAR=" "
 export USER_INFO_THEME_PROMPT_COLOR_SUDO=63
 export POWERLINE_PROMPT_CHAR="➡️"
+
+# Load Bash It
+source $BASH_IT/bash_it.sh
 
 export PATH="$HOME/.cargo/bin:$PATH"
