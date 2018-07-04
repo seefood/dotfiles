@@ -87,6 +87,12 @@ if dein#load_state(expand('~/.vim/bundle/'))
   call dein#save_state()
 endif
 
+filetype plugin indent on
+syntax enable
+
+"End dein Scripts-------------------------
+
+
 " If installed using Homebrew
 " set rtp+=/usr/local/opt/fzf
 " If installed using git
@@ -144,10 +150,6 @@ if has("cscope")
         cs add $CSCOPE_DB
     endif
 endif
-
-" Required:
-filetype plugin indent on
-syntax enable
 
 " If you want to install not installed plugins on startup.
 if dein#check_install()
