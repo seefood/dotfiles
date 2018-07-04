@@ -9,6 +9,9 @@
 # Add rvm gems and nginx to the path
 export PATH=$PATH:~/.gem/ruby/1.9.1/bin:/opt/nginx/sbin
 
+# Set a default locale or the system will pick out something unusable.
+export LANG=en_US.UTF-8
+
 # Path to the bash it configuration
 export BASH_IT=$HOME/.bash_it
 

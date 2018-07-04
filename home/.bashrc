@@ -57,6 +57,7 @@ if [ -d ~/.bash_aliases.d ]; then
 fi
 
 #export LANG=he_IL.UTF-8
+export LANG=en_US.UTF-8
 # Set my editor and git editor
 export EDITOR="vim"
 export GIT_EDITOR="vim"
