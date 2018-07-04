@@ -4,10 +4,4 @@
 .vim
 .vim/after/ftplugin
 .vim/syntax
-.vim/bundle/repos/github.com/Shougo/dein.vim
-.vim/bundle/repos/github.com/Shougo/dein.vim/autoload/dein/types
-.vim/bundle/repos/github.com/Shougo/dein.vim/autoload/unite/sources
-.vim/bundle/repos/github.com/Shougo/dein.vim/autoload/unite/kinds
-.vim/bundle/repos/github.com/Shougo/dein.vim/test
-.vim/bundle/repos/github.com/Shougo/dein.vim/rplugin/python3/denite/source
 .atom

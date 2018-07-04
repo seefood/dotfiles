@@ -122,6 +122,10 @@ fi
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
+# Also install dein, the plugin-manager
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > /tmp/dein-installer.sh && \
+    sh /tmp/dein-installer.sh ~/.vim/bundle
+
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 
 ~/.homesick/repos/dotfiles/install_bash_it.sh
