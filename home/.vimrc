@@ -101,7 +101,7 @@ set rtp+=~/.fzf
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 " try loading powerline
