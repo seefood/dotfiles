@@ -134,9 +134,6 @@ done
 # after enabling or disabling aliases, plugins, and completions.
 export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
-# Source the bash_it!
-echo "$PS1" | grep -q chroot && . ~/.bash_profile
-
 # Setup fzf
 if [[ -x ~/.fzf/bin/fzf ]] ; then
   # If FD is installed, let FZF use it.
@@ -160,9 +157,14 @@ fi
 export GPG_TTY=$(tty)
 export LB_FUNC_LOAD=true
 
-if [[ -f /etc/profile.d/vte.sh ]] && [ "$TILIX_ID" -o "$VTE_VERSION" ] ; then
-    source /etc/profile.d/vte.sh;
-fi # Ubuntu Budgie Added
+# Ubuntu Budgie Added
+#if [[ -f /etc/profile.d/vte.sh ]] && [ "$TILIX_ID" -o "$VTE_VERSION" ] ; then
+#    source /etc/profile.d/vte.sh;
+#fi
+
+# Source the bash_it!
+echo "$PROMPT_COMMAND" | grep -q powerline_prompt || source ~/.bash_profile
+
 
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
   sleep 1s; screen -q -m -RR -x
