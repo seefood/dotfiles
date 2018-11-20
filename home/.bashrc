@@ -1,7 +1,7 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-for newpath in ${HOME}/workspace/devops/tools ${HOME}/bin ; do
+for newpath in ${HOME}/workspace/devops/tools ${HOME}/bin ~/.gem/ruby/1.9.1/bin /opt/nginx/sbin; do
   [[ -d $newpath ]] && export PATH=${PATH}:${newpath}
 done
 unset newpath
@@ -48,7 +48,7 @@ fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 if [ -d ~/.bash_aliases.d ]; then
   for file in  ~/.bash_aliases.d/*.sh; do
@@ -58,12 +58,7 @@ fi
 
 #export LANG=he_IL.UTF-8
 export LANG=en_US.UTF-8
-# Set my editor and git editor
-export EDITOR="vim"
-export GIT_EDITOR="vim"
-export VISUAL="vim"
 export QMAILMFTFILE=~ira/.qmailLISTS
-# . ~/.javaenv
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -73,6 +68,8 @@ if ! shopt -oq posix; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  elif [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
   fi
 fi
 
@@ -87,27 +84,21 @@ umask 022
 UBUNTU_MENUPROXY=0
 
 if [[ -d $HOME/.rbenv/bin ]] ; then
-  export PATH="$HOME/.rbenv/bin:$PATH:$HOME/bin"
+  export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
 fi
 
-export MY_WORKSPACE=~/workspace
-if [ -d ${MY_WORKSPACE} ]; then
-  pushd ${MY_WORKSPACE} > /dev/null
-  . ./env
-  popd > /dev/null
-fi
-unset MY_WORKSPACE
-
 set -o emacs
-export EDITOR=vim
-export VISUAL=vim
+# Set my editor and git editor
+export EDITOR="vim"
 alias vi='vim'
-if [[ -x /usr/bin/nvim ]] ; then
-    export EDITOR=nvim
-    export VISUAL=nvim
-    alias vi='nvim'
+if hash nvim ; then
+  export EDITOR=nvim
+  alias vi='nvim'
 fi
+export GIT_EDITOR=$EDITOR
+export VISUAL=$EDITOR
+
 export HISTIGNORE="&:[fb]g"
 export DEBEMAIL="nospam-debmail@ira.abramov.org"
 export DEBFULLNAME="Ira Abramov"
@@ -151,17 +142,11 @@ if [[ -x ~/.fzf/bin/fzf ]] ; then
 fi
 
 export GPG_TTY=$(tty)
-export LB_FUNC_LOAD=true
-
-# Ubuntu Budgie Added
-#if [[ -f /etc/profile.d/vte.sh ]] && [ "$TILIX_ID" -o "$VTE_VERSION" ] ; then
-#    source /etc/profile.d/vte.sh;
-#fi
 
 # Source the bash_it!
-echo "$PROMPT_COMMAND" | grep -q powerline_prompt || source ~/.bash_profile
+[[ "$BASH_IT_THEME" ]] || source ~/.bash_profile
 
-
+# If an SSH connection and screen is available, attach to it.
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
   sleep 1s; screen -q -m -RR -x
 else

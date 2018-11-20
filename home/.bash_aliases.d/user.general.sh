@@ -22,9 +22,14 @@ alias mc='mv'
 #alias mutt='xttitle mutt:$USER mutt:$USER; /usr/bin/mutt'
 
 # enable color support of ls and also add handy aliases
-if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then
-  eval "$(dircolors -b)"
-  alias ls='ls --color=auto -F'
+if [ "$TERM" != "dumb" ] ; then
+  if [ -x /usr/bin/dircolors ]; then
+    eval "$(dircolors -b)"
+  else
+    export LSCOLORS=ExFxBxDxCxegedabagacad
+  fi
+
+  alias ls='\ls -hGF'
   #alias dir='ls --color=auto --format=vertical'
   #alias vdir='ls --color=auto --format=long'
 
@@ -50,6 +55,7 @@ function theme_change () {
     exit
   fi
   sed -i '' 's/\(.*BASH_IT_THEME=\).*/\1"'$1'"/'  ~/.bash_profile
+  unset PS1 PROMPT_COMMAND
   source ~/.bash_profile
 }
 complete -o default -C 'theme_change --complete $@' theme_change

@@ -74,6 +74,9 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
+# Finder: Show dotfiles and other hidden
+defaults write com.apple.Finder AppleShowAllFiles -bool true
+
 # Finder: show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 
@@ -102,12 +105,12 @@ defaults write NSGlobalDomain com.apple.springing.delay -float 0
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 # Disable disk image verification
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
+#defaults write com.apple.frameworks.diskimages skip-verify -bool true
+#defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
+#defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
 # Enable AirDrop over Ethernet and on unsupported Macs running Lion
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+#defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Enable the MacBook Air SuperDrive on any Mac
 sudo nvram boot-args="mbasd=1"
@@ -194,7 +197,7 @@ EOD
 ###############################################################################
 
 # Menu Bar Date Format
-defaults write com.apple.menuextra.clock "DateFormat" "EEE d MMM  HH:mm:ss"
+#defaults write com.apple.menuextra.clock "DateFormat" "EEE d MMM  HH:mm:ss"
 
 # Menu Bar Battery Percentage
 defaults write com.apple.menuextra.battery "ShowPercent" "YES"

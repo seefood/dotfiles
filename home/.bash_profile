@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
 #source ~/.bashrc
-[[ "$DEBFULLNAME" ]] || source ~/.bashrc
+[[ "$PYTHONSTARTUP" ]] || source ~/.bashrc
 
 # Load RVM, if you are using it
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
-
-# Add rvm gems and nginx to the path
-export PATH=$PATH:~/.gem/ruby/1.9.1/bin:/opt/nginx/sbin
 
 # Set a default locale or the system will pick out something unusable.
 export LANG=en_US.UTF-8
@@ -17,8 +14,6 @@ export BASH_IT=$HOME/.bash_it
 
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
-#export BASH_IT_THEME="ia42"
-#export BASH_IT_THEME="liquidprompt"
 export BASH_IT_THEME="powerline-multiline"
 
 # Your place for hosting Git repos. I use this for private repos.
@@ -53,9 +48,17 @@ export POWERLINE_RIGHT_PROMPT="in_vim clock user_info"
 #export POWERLINE_RIGHT_END=""
 export SCM_GIT_CHAR=" "
 export USER_INFO_THEME_PROMPT_COLOR_SUDO=63
+#export POWERLINE_PROMPT_CHAR="⥤"
+#export POWERLINE_PROMPT_CHAR="➤"
+export POWERLINE_PROMPT_CHAR="↳" # Use this one instead if iTerm or another terminal gives you trouble
 export POWERLINE_PROMPT_CHAR="➡️ "
 
 # Load Bash It
 source $BASH_IT/bash_it.sh
 
-export PATH="$HOME/.cargo/bin:$PATH"
+# Refresh iTerm2 integration after bash-it as necessary.
+
+if [[ $TERM_PROGRAM = "iTerm.app" ]] ; then
+  unset ITERM_SHELL_INTEGRATION_INSTALLED
+  source ~/.iterm2_shell_integration.bash
+fi

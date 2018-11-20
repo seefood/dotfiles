@@ -99,7 +99,10 @@
   insteadOf = git://
 
 [merge]
+  # If Linux:
   tool = meld
+  # If Mac:
+  # tool = diffmerge
   log = true
   renamelimit = 2000
 
@@ -134,4 +137,7 @@
   threads = 1
 
 [rerere]
-enabled = true
+  enabled = true
+[pull]
+  # Change as appropriate (or per repo)
+  # rebase = true

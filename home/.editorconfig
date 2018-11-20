@@ -45,10 +45,7 @@ indent_size = 2
 indent_style = space
 indent_size = 2
 
-# Default YAML fallback
-[*.yaml]
-indent_style = space
-indent_size = 2
-[*.yml]
+# Standards I like
+[{*.sh,.bash*,*.yaml,*.yml}]
 indent_style = space
 indent_size = 2
