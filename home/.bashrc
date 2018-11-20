@@ -126,10 +126,6 @@ export BASH_IT_DOCKER_MACHINE="default"
 #ulimit -S -m 250000
 ulimit -v unlimited
 
-for key in ~/.ssh/iabramov ~/.ssh/ira.pem ~/.ssh/id_iraATwork ; do
-  [[ -f $key ]] && ssh-add $key &> /dev/null
-done
-
 # (Advanced): Uncomment this to make Bash-it reload itself automatically
 # after enabling or disabling aliases, plugins, and completions.
 export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
@@ -168,4 +164,8 @@ echo "$PROMPT_COMMAND" | grep -q powerline_prompt || source ~/.bash_profile
 
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
   sleep 1s; screen -q -m -RR -x
+else
+  for key in ~/.ssh/iabramov ~/.ssh/ira.pem ~/.ssh/id_iraATwork ; do
+    [[ -f $key ]] && ssh-add $key &> /dev/null
+  done
 fi
