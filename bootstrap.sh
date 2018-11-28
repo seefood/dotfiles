@@ -35,7 +35,7 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
   brew tap chef/chef
 
   echo "installing some essential packages"
-  sudo apt-get install -y screen silversearcher-ag curl thefuck git \
+  sudo apt-get install -y screen silversearcher-ag curl git \
       software-properties-common python3-pip ruby
 
   # Adding backports, neovim and other useful bits.
@@ -62,6 +62,9 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
 
   brew install fzf fd hub
 
+else
+  echo "Not sure what OS you are running, stopping just in case."
+  return 1
 fi
 
 echo "installing homesick"
@@ -73,7 +76,7 @@ fi
 # Have ensured that homesick is available
 hash homesick 2>/dev/null || (echo "homesick install failed" && exit 1)
 
-pip3 install --upgrade powerline-status neovim thefuck
+pip3 install --upgrade powerline-status neovim
 
 ## Clone dotfiles
 homesick clone bluevine-dev/dotfiles dotfiles

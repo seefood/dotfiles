@@ -1,181 +1,27 @@
 #!/bin/bash
 
-brew install ack
-
-# brew install autojump
-
-brew install coreutils
-
-brew install cv
-
-brew install editorconfig
-
-# brew install faac
-
-brew install fasd
-
-# brew install ffmpeg
-
-brew install freetype
-
-# brew install fzf
-
-brew install gawk gnu-sed bat gpg
-
-# brew install git-lfs
-
+brew install ack cv editorconfig fasd multitail rsync tree thefuck
 brew install --HEAD git-extras
-
-brew install htop-osx
-
-# brew install httpie
-
-# brew install lame
-
-# brew install links
-
-brew install mplayer
-
-brew install multitail
-
-brew install osxutils
-
-brew install pkgdiff
-
-brew install proctools
-
-brew install psgrep
-
-brew install rsync
-
-# http://apple.stackexchange.com/questions/135565/how-do-i-get-detailed-smart-disk-information-on-os-x-mavericks-or-later
-brew install smartmontools
-
-# brew install ssh-copy-id
-
-# brew install todo-txt
-
-brew install tree
 
 # https://bitbucket.org/WAHa_06x36/theunarchiver
 brew install unar
 
-# brew install unison
+if [[ "$OSTYPE" == "darwin"* ]] ; then
+  brew install coreutils freetype gawk gnu-sed bat gpg htop-osx osxutils \
+    pkgdiff proctools psgrep neovim wdiff
 
-# brew install unrar
+  # http://apple.stackexchange.com/questions/135565/how-do-i-get-detailed-smart-disk-information-on-os-x-mavericks-or-later
+  brew install smartmontools
 
-brew install neovim
+  export HOMEBREW_CASK_OPTS=--appdir=/Applications
+  brew cask install iterm2
 
-brew install wdiff
+  brew cask install sourcetree
 
-# brew install wget
-
-# brew install youtube-dl
-
-# brew install --universal --with-java subversion
-# sudo mkdir -p /Library/Java/Extensions
-# sudo ln -s /usr/local/lib/libsvnjavahl-1.dylib /Library/Java/Extensions/libsvnjavahl-1.dylib
-
-# brew install dos2unix
-
-export HOMEBREW_CASK_OPTS=--appdir=/Applications
-
-# sudo chown root:staff /Applications
-
-# brew cask install appcleaner
-
-# brew cask install atom
-
-# brew cask install backuploupe
-
-# brew cask install clipmenu
-
-# brew cask install cscreen
-
-# brew cask install disk-inventory-x
-
-# brew cask install dropbox
-
-# brew cask install etrecheck
-
-# brew cask install evernote
-
-# brew cask install gimp
-
-# brew cask install hiss
-
-# brew cask install hyperterm
-
-brew cask install iterm2
-
-# brew cask install java
-
-#brew cask install keepassx
-
-# brew cask install dwihn0r-keepassx
-
-# brew cask install kindle
-
-# brew cask install launchcontrol
-
-# brew cask install skitch
-
-# brew cask install superduper
-
-brew cask install sourcetree
-
-# brew cask install the-unarchiver
-
-brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json \
+  brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json \
     qlprettypatch quicklook-csv betterzipql qlimagesize webpquicklook \
     suspicious-package
 
-brew cask install font-source-code-pro-for-powerline font-inconsolata-dz-for-powerline
+  brew cask install font-source-code-pro-for-powerline font-inconsolata-dz-for-powerline
 
-brew cask install bettertouchtool clementine vlc karabiner-elements\
-    progress rsync vagrant-completion alfred
-
-# brew cask install aerial gpg-suite deluge hands-off 
-
-#sudo chown root:admin /Applications
-
-# Gem tools
-
-# https://github.com/aanand/git-up
-# sudo gem install git-up
-
-# https://github.com/jneen/rouge
-# sudo gem install rouge
-
-# Python tools
-
-# https://github.com/nvbn/thefuck
-sudo pip3 install thefuck
-
-# http://pygments.org/
-# sudo pip3 install Pygments
-
-# https://github.com/nicolargo/glances
-sudo pip3 install glances
-
-# Atom packages
-
-# apm stars --install --user nwinkler
-# apm install linter
-# apm install linter-shellcheck
-
-#mkdir -p ~/workspaces/tools
-# # Zoom tool - https://gitlab.com/mjwhitta/zoom
-# git clone https://gitlab.com/mjwhitta/zoom.git ~/workspaces/tools/zoom
-# cd ~/workspaces/tools/zoom
-# sudo rake install
-# cd /usr/local/bin
-# # In order to avoid confusion with the `z` function from fasd
-# sudo ln -s z zo
-# cd
-# /usr/local/bin/z --switch=ag
-# # Required for using `zo` as an alias for the `z` command
-# /usr/local/bin/z --rename=zo
-#
-#cd ~/workspaces/tools
-#git clone https://github.com/sampson-chen/sack.git && cd sack && chmod +x install_sack.sh && ./install_sack.sh
+fi
