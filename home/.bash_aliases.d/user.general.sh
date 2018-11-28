@@ -57,3 +57,22 @@ function theme_change () {
 complete -o default -C 'theme_change --complete $@' theme_change
 
 function nd() { mkdir "$1" && cd "$1"; }
+
+
+# Setup fzf
+if hash fzf 2> /dev/null && hash fd 2> /dev/null ; then
+  # If FD is installed, let FZF use it.
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+  ## These are now handled in bash-it
+  if ! hash bash-it > /dev/null ; then
+    # Auto-completion
+    # IC_AWS_ENVIRONMENT
+    [[ $- == *i* ]] && source $(brew --prefix fzf)/shell/completion.bash 2> /dev/null
+
+    # Key bindings
+    # ------------
+    source "$(brew --prefix fzf)/shell/key-bindings.bash"
+  fi
+fi

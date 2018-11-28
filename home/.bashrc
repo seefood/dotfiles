@@ -129,24 +129,6 @@ ulimit -v unlimited
 # after enabling or disabling aliases, plugins, and completions.
 #export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
-# Setup fzf
-if [[ -x ~/.fzf/bin/fzf ]] ; then
-  # If FD is installed, let FZF use it.
-  if [[ -x /usr/bin/fd ]] ; then
-    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  fi
-  export PATH="$(path_append "${HOME}/.fzf/bin" "${PATH}")"
-
-  # Auto-completion
-  # ---------------
-  [[ $- == *i* ]] && source ~/.fzf/shell/completion.bash 2> /dev/null
-
-  # Key bindings
-  # ------------
-  source "$HOME/.fzf/shell/key-bindings.bash"
-fi
-
 export GPG_TTY=$(tty)
 
 # Source the bash_it!
