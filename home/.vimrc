@@ -1,7 +1,9 @@
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
-  endif
+endif
+
+execute pathogen#infect()
 
 " Required:
 set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
@@ -20,6 +22,8 @@ if dein#load_state(expand('~/.vim/bundle/'))
   call dein#add('~/.vim/bundle/repos/github.com/Shougo/dein.vim')
 
   " Add or remove your plugins here:
+  call dein#add('tpope/vim-pathogen')
+  call dein#add('junegunn/fzf.vim')
   " Git diff symbols in the gutter
   call dein#add('airblade/vim-gitgutter')
   " call dein#add('Shougo/neosnippet.vim')
@@ -29,14 +33,13 @@ if dein#load_state(expand('~/.vim/bundle/'))
   call dein#add('MarcWeber/vim-addon-mw-utils')
   " call dein#add('vim-scripts/Gundo')
   call dein#add('tpope/vim-fugitive')
-  call dein#add('bling/vim-airline')
+  call dein#add('vim-airline/vim-airline')
   call dein#add('tmhedberg/matchit')
   " call dein#add('scrooloose/nerdcommenter')
-  call dein#add('scrooloose/syntastic')
   " call dein#add('scrooloose/nerdtree')
   " Support .editorconfig files.
   call dein#add('editorconfig/editorconfig-vim')
-  call dein#add('vim-syntastic/syntastic')
+  " call dein#add('vim-syntastic/syntastic')
   call dein#add('mileszs/ack.vim')
   " call dein#add('eikenb/acp')
   " call dein#add('duythinht/vim-coffee')
@@ -51,32 +54,65 @@ if dein#load_state(expand('~/.vim/bundle/'))
   " call dein#add('joshdick/onedark.vim')
   " Oceanic/Next theme immitates Sublime's
   " call dein#add('mhartington/oceanic-next')
-  " Dynamic Autocomplete
-  call dein#add('Shougo/deoplete.nvim')
   call dein#add('stephpy/vim-yaml')
   if !has('nvim')
+    " Dynamic Autocomplete - needs a newer neovim
+    call dein#add('Shougo/deoplete.nvim')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
+    " call dein#add('zchee/deoplete-clang')
+    " call dein#add('zchee/deoplete-jedi')
   endif
+  " From Adir:
+  " call dein#add('davidhalter/jedi-vim')
+  " call dein#add('fatih/vim-go')
+  " call dein#add('kien/ctrlp.vim')
+  " call dein#add('mileszs/ack.vim')
+  " call dein#add('morhetz/gruvbox')
+  " call dein#add('tpope/vim-surround')
+  " call dein#add('christoomey/vim-tmux-navigator')
+  " call dein#add('ekalinin/Dockerfile.vim')
+  " call dein#add('majutsushi/tagbar')
+  " call dein#add('skywind3000/asyncrun.vim')
+  " call dein#add('w0rp/ale')
 
   " You can specify revision/branch/tag.
   " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
   " Required:
   call dein#end()
+  if dein#check_install()
+    call dein#install()
+  endif
   call dein#save_state()
 endif
 
+filetype plugin indent on
+syntax enable
+
+"End dein Scripts-------------------------
+
+
+" If installed using Homebrew
+" set rtp+=/usr/local/opt/fzf
+" If installed using git
+set rtp+=~/.fzf
+
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" try loading powerline
+"python3 from powerline.vim import setup as powerline_setup
+"python3 powerline_setup()
+"python3 del powerline_setup
+
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 let g:PyFlakeDisabledMessages = 'E501'
 let g:PyFlakeOnWrite = 0
@@ -90,16 +126,44 @@ let g:PyFlakeRangeCommand = 'Q'
 let g:PyFlakeForcePyVersion = 3
 let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
 
-let g:deoplete#enable_at_startup = 1
+" ack
+let g:ackprg = "ag --vimgrep"
 
-" Required:
-filetype plugin indent on
-syntax enable
+" deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/include/clang/6.0/include/'
+let g:deoplete#sources#clang#clang_complete_database = '.'
+
+" airline
+let g:airline_extensions = []       " disable all extensions
+let g:airline_section_x = ""        " hide file type
+let g:airline_section_y = ""        " hide file encoding
+
+" cscope
+if has("cscope")
+    " add any database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+    " else add database pointed to by environment
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+endif
 
 " If you want to install not installed plugins on startup.
 if dein#check_install()
   call dein#install()
 endif
+
+" plugins
+" minibufferexplorer
+map <leader>mbt :MBEToggle<cr>
+map <leader>mbf :MBEFocus<cr>
+
+" syntastic
+let g:syntastic_python_pep8_args = "--max-line-size=180" 
+let g:syntastic_python_flake8_args = "--max-line-size=180" 
 
 "End dein Scripts-------------------------
 
@@ -113,7 +177,7 @@ if has("unix")
   if filereadable(FILE)
     exe "source " . FILE
   endif
-  let FILE=expand("~/.vim/rc.ira")
+  let FILE=expand("~/.vim/rc_rl")
   if filereadable(FILE)
     exe "source " . FILE
   endif
@@ -137,7 +201,7 @@ set noerrorbells
 set vb t_vb=
 
 " Ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc
+set wildignore+=*.o,*.obj,.git,*.pyc,*~
 set wildignore+=eggs/**
 set wildignore+=*.egg-info/**
 
@@ -168,7 +232,7 @@ set nowrap                  " don't wrap text
 set linebreak               " don't wrap textin the middle of a word
 set autoindent              " always set autoindenting on
 set smartindent             " use smart indent if there is no indent file
-set tabstop=4               " <tab> inserts 4 spaces 
+set tabstop=4               " <tab> inserts 4 spaces
 set shiftwidth=4            " but an indent level is 2 spaces wide.
 set softtabstop=4           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
@@ -201,7 +265,7 @@ set report=0                " : commands always print changed line count.
 set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.
 set ruler                   " Show some info, even without statuslines.
 set laststatus=2            " Always show statusline, even if only 1 window.
-set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
+"set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 
 " displays tabs with :set list & displays when a line runs off-screen
 set showbreak=↪\ 
@@ -211,9 +275,14 @@ set list
 """ Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
 set smartcase               " unless uppercase letters are used in the regex.
-set smarttab                " Handle tabs more intelligently 
+set smarttab                " Handle tabs more intelligently
 set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
+
+" disable backup
+set nobackup
+set nowritebackup
+"set noswapfile
 
 """" Display
 if has("gui_running")
@@ -228,10 +297,15 @@ else
 endif
 
 "colorscheme molokai
+"colorscheme gruvbox
 
 " Paste from clipboard
 "map <leader>p "+p
 map <leader>p "+gP
+
+" treat long lines as break lines
+map j gj
+map k gk
 
 " Quit window on <leader>q
 nnoremap <leader>q :q<CR>

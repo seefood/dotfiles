@@ -1,7 +1,7 @@
 dotfiles
 ========
 
-My collection of dotfiles, maintained through [homesick](https://github.com/technicalpickles/homesick).
+A collection of dotfiles, maintained through [homesick](https://github.com/technicalpickles/homesick) and some extra customizations.
 
 ## Preparation
 
@@ -11,11 +11,22 @@ My collection of dotfiles, maintained through [homesick](https://github.com/tech
 * Mac users: Install the Xcode Developer Tools: xcode-select --install. This will prompt you to download the Xcode Developer Tools, which include required tools like git. Using this method prevents you from having to download the full 2+GB Xcode installer.
 
 ## Installation
-------------
+---------------
 
 ### Fast and careless
 
-    curl https://raw.githubusercontent.com/seefood/dotfiles/master/bootstrap.sh | bash
+There's a quick bootstrap included for my personal use, go over it and see it does what you expect.
+If it does not, you may prefer to run parts of it manually or fork and tweak
+it for yourself. If you come up with good fixes to the problems I bumped into,
+please send me a PR.
+
+I repeat: this is for my personal use, it installs several things as root,
+expects open sudo access and may be a bit destructive (though idempotent).
+Do *NOT* run it if you didn't go over it and agreed to what it does, and as
+a genral rule, it's NEVER a good idea to run `curl *URL*|bash` ever ever ever.
+having said that, have a ball :-)
+
+    download https://raw.githubusercontent.com/bluevine-dev/dotfiles/master/bootstrap.sh and run it locally.
 
 ### Slow and Careful
 
@@ -25,21 +36,37 @@ Install homesick first
 
 Clone the dotfiles repo
 
-    homesick clone seefood/dotfiles
+    homesick clone bluevine-dev/dotfiles
 
 Then symlink the dotfiles to your home directory
 
     homesick symlink dotfiles
 
+#### Optional tools installed by my bootstrap.sh
 To install additional tools, run the following scripts (in this order):
 
-* `~/.homesickrc/repos/dotfiles/install_bash_it.sh`: This will download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
+Install [TheFuck](https://github.com/nvbn/thefuck) by `sudo apt install thefuck` or `brew install thefuck`
+
+Install [FZF](https://github.com/junegunn/fzf):
+
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+or
+    brew install thefuck
+
+Hub from https://github.com/github/hub/ (see code snippet in my bootstrap.sh for a quick setup)
+
+[fd](https://github.com/sharkdp/fd) (smart, fast alternative to find, also available from homebrew).
+
+Download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
+
+    ~/.homesick/repos/dotfiles/install_bash_it.sh
+
+Other nice to have (not auto installed) is [progress](https://github.com/Xfennec/progress).
 
 MacOS Users:
-* `~/.homesickrc/repos/dotfiles/install_homebrew.sh`: This will download and install [Homebrew](https://brew.sh).
-* `~/.homesickrc/repos/dotfiles/install_general.sh`: This will install a standard set of tools (command line and UI).
-* `~/.homesickrc/repos/dotfiles/install_dev.sh`: Optional file, will install a set of development tools - only run if you plan to use the machine for software development.
-* `~/.homesickrc/repos/dotfiles/osx-settings.sh`: Based on [Mathias Bynens' Dotfiles](https://github.com/mathiasbynens/dotfiles), a common set of OS X settings.
+* `~/.homesick/repos/dotfiles/install_general.sh`: This will install a standard set of tools (command line and UI).
+* `~/.homesick/repos/dotfiles/install_dev.sh`: Optional file, will install a set of development tools - only run if you plan to use the machine for software development.
+* `~/.homesick/repos/dotfiles/osx-settings.sh`: Based on [Mathias Bynens' Dotfiles](https://github.com/mathiasbynens/dotfiles), a common set of OS X settings.
 
 Then log out and back in again to apply the changes.
 
@@ -54,6 +81,7 @@ Thanks
 * [Bash-it](https://github.com/bash-it/bash-it) for the _Bash-it_ framework.
 * [dotfiles by Nils Winkler](https://github.com/nwinkler/dotfiles).
 * [dotfiles by Lital Natan](https://github.com/smackware/bashprofile).
+* [dotfiles by Adir Gabay](https://github.com/adirg/dotfiles).
 
 License
 -------

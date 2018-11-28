@@ -1,18 +1,29 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-for newpath in ${HOME}/workspace/devops/tools ${HOME}/bin ; do
-  [[ -d $newpath ]] && export PATH=${PATH}:${newpath}
+
+function path_append ()  { local res="$(path_remove "$1" "$2")" ; echo "$res:$1" ; }
+function path_prepend () { local res="$(path_remove "$1" "$2")" ; echo "$1:$res" ; }
+function path_remove ()  { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//' ; }
+
+for newpath in ${HOME}/.iterm2 ~/bin /opt/nginx/sbin \
+      /usr/local/opt/coreutils/libexec/gnubin ; do
+  [[ -d $newpath ]] && export PATH="$(path_append "${newpath}" "${PATH}")"
 done
+
+for newpath in /usr/local/opt/coreutils/libexec/gnuman ; do
+  [[ -d $newpath ]] && export MANPATH="$(path_append "${newpath}" "${MANPATH}")"
+done
+
 unset newpath
 
-[ "$PS1" ] || return
+[[ "$PS1" ]] || return
 
-[ "$LC_CTYPE" = "UTF-8" ] && export LC_CTYPE=en_US.UTF-8
+[[ "$LC_CTYPE" == "UTF-8" ]] && export LC_CTYPE=en_US.UTF-8
 unset LC_TIME
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
+if [[ -f /etc/bashrc ]]; then
   . /etc/bashrc
 fi
 
@@ -47,13 +58,8 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 if [ -d ~/.bash_aliases.d ]; then
   for file in  ~/.bash_aliases.d/*.sh; do
@@ -62,7 +68,7 @@ if [ -d ~/.bash_aliases.d ]; then
 fi
 
 #export LANG=he_IL.UTF-8
-# . ~/.javaenv
+export LANG=en_US.UTF-8
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -72,6 +78,8 @@ if ! shopt -oq posix; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  elif [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
   fi
 fi
 
@@ -85,25 +93,23 @@ complete -C /usr/bin/command_completion_for_rake -o default rake
 umask 022
 UBUNTU_MENUPROXY=0
 
-export MY_WORKSPACE=~/workspace
-if [ -d ${MY_WORKSPACE} ]; then
-  pushd ${MY_WORKSPACE} > /dev/null
-  . ./env
-  popd > /dev/null
+if [[ -d ${HOME}/.rbenv/bin ]] ; then
+  export PATH="$(path_prepend "${HOME}/.rbenv/bin" "${PATH}")"
+  eval "$(rbenv init -)"
 fi
 
 set -o emacs
-export EDITOR=vim
-export VISUAL=vim
+# Set my editor and git editor
+export EDITOR="vim"
 alias vi='vim'
-if [[ -x /usr/bin/nvim ]] ; then
-    export EDITOR=nvim
-    export VISUAL=nvim
-    alias vi='nvim'
+if hash nvim ; then
+  export EDITOR=nvim
+  alias vi='nvim'
 fi
+export GIT_EDITOR=$EDITOR
+export VISUAL=$EDITOR
+
 export HISTIGNORE="&:[fb]g"
-export DEBEMAIL="nospam-debmail@ira.abramov.org"
-export DEBFULLNAME="Ira Abramov"
 export PYTHONSTARTUP="$HOME/.pythonrc"
 
 export QUILT_PATCHES=debian/patches
@@ -119,39 +125,34 @@ export BASH_IT_DOCKER_MACHINE="default"
 #ulimit -S -m 250000
 ulimit -v unlimited
 
-ssh-add ~/.ssh/iabramov &> /dev/null
-ssh-add ~/.ssh/ira.pem &> /dev/null
-ssh-add ~/.ssh/id_iraATwork &> /dev/null
-
-# Path to the bash it configuration
-export BASH_IT=~/.bash_it
-
-# Don't check mail when opening terminal.
-unset MAILCHECK
-
-# Change this to your console based IRC client of choice.
-export IRC_CLIENT='irssi'
-
-# Set this to the command you use for todo.txt-cli
-export TODO="t"
-
-# Set Xterm/screen/Tmux title with only a short hostname.
-# Uncomment this (or set SHORT_HOSTNAME to something else),
-# Will otherwise fall back on $HOSTNAME.
-export SHORT_HOSTNAME=$(hostname -s)
-
 # (Advanced): Uncomment this to make Bash-it reload itself automatically
 # after enabling or disabling aliases, plugins, and completions.
-export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
+#export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
-[[ "$BASH_IT_THEME" ]] || . ~/.bash_profile
+# Setup fzf
+if [[ -x ~/.fzf/bin/fzf ]] ; then
+  # If FD is installed, let FZF use it.
+  if [[ -x /usr/bin/fd ]] ; then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  fi
+  export PATH="$(path_append "${HOME}/.fzf/bin" "${PATH}")"
 
-# Configure TMUX - screen spltter
-#tmux source-file ~/.tmux.conf
+  # Auto-completion
+  # ---------------
+  [[ $- == *i* ]] && source ~/.fzf/shell/completion.bash 2> /dev/null
 
-export BUILD_TYPE=rel
+  # Key bindings
+  # ------------
+  source "$HOME/.fzf/shell/key-bindings.bash"
+fi
+
 export GPG_TTY=$(tty)
 
+# Source the bash_it!
+[[ "$BASH_IT_THEME" ]] || source ~/.bash_profile
+
+# If an SSH connection and screen is available, attach to it.
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
   sleep 1s; screen -q -m -RR -x
 fi

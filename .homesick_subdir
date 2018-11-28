@@ -1,0 +1,12 @@
+.bash_aliases.d
+.config
+.gnupg
+.vim
+.vim/after/ftplugin
+.vim/syntax
+.atom
+.chef
+.chef/production
+.chef/staging
+.chef/development
+.aws
