@@ -28,3 +28,6 @@
 
 'atom-text-editor:not(.mini)':
   'ctrl-alt-b': 'atom-beautify:beautify-editor'
+
+'atom-text-editor:not([mini])':
+  'alt-s': 'sort-lines:sort'
