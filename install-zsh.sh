@@ -44,28 +44,6 @@ echo "Now installing powerlevel9k..."
 echo ''
 git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
-# Vim color scheme install
-echo ''
-echo "Now installing vim wombat color scheme..."
-echo ''
-git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat 
-mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
-
-# Speedtest-cli, pip and jq install
-echo ''
-echo "Now installing Speedtest-cli, pip, tmux and jq..."
-echo ''
-sudo apt-get install jq tmux python-pip -y
-sudo pip install --upgrade pip
-sudo pip install speedtest-cli
-
-# Bash color scheme
-echo ''
-echo "Now installing solarized dark WSL color scheme..."
-echo ''
-wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-mv dircolors.256dark .dircolors
-
 # Set default shell to zsh
 echo ''
 read -p "Do you want to change your default shell? y/n" -n 1 -r

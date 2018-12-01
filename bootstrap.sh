@@ -2,10 +2,30 @@
 
 set -e
 
+function info () {
+  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+}
+
+function user () {
+  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
+}
+
+function success () {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+function fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  echo ''
+  exit 1
+}
+
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
+  info "Installing Brew"
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  hash brew 2>/dev/null || (echo "install brew first" && exit 1)
+  hash brew 2>/dev/null || fail "install brew first"
 
   brew doctor
   brew tap homebrew/versions
@@ -13,21 +33,16 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew tap caskroom/fonts
   brew tap chef/chef
 
-  echo "getting some important extra brew packages"
-  brew install homesick-completion screen neovim the_silver_searcher git curl
-  pip3 install homesick thefuck neovim powerline-status
+  info "getting some important extra brew packages"
+  brew install thefuck screen neovim the_silver_searcher git curl hub fd fzf
+  pip3 install neovim powerline-status
 
-  echo "installing homesick"
-
-  sudo gem install homesick --no-ri --no-rdoc
-
-  # Have ensured that homesick is available
-  hash homesick 2>/dev/null || (echo "homesick install failed" && exit 1)
+  info "installing homesick"
 
 elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
-  echo "Doing Debian install of homesick"
+  info "Doing Debian install of homesick"
 
-  echo "installing some essential packages"
+  info "installing some essential packages"
   sudo apt-get install -y screen silversearcher-ag curl thefuck git \
       software-properties-common python3-pip
   pip3 install --upgrade powerline-status
@@ -36,21 +51,8 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
   # Adding backports, neovim and other useful bits.
   sudo add-apt-repository -u "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-backports main restricted universe multiverse"
 
-  if hash homesick 2>/dev/null; then
-    echo "homesick appears to be installed"
-  else
-    echo "installing git"
-    sudo apt-get install -y ruby
-
-    echo "installing homesick"
-
-    sudo gem install homesick --no-ri --no-rdoc
-  fi
-  # Have ensured that homesick is available
-  hash homesick 2>/dev/null || (echo "homesick install failed" && exit 1)
-
   if ! hash nvim ; then
-    echo "install neovim, trying from default sources"
+    info "install neovim, trying from default sources"
     sudo apt-get install -y neovim
     if [[ $? -eq 100 ]] ; then
       echo | sudo add-apt-repository -u ppa:neovim-ppa/stable
@@ -65,57 +67,61 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
       sudo update-alternatives --set vimdiff /usr/bin/vimdiff.nvim
     fi
   fi
+
+  mkdir -p ~/bin
+
+  # Download Hub
+  if [ ! -e "$HOME/bin/hub" ] && [ ! -e /usr/local/bin/hub ] ; then
+    HUB_VERSION=2.6.0
+    HUB_DOWNLOAD_URL=https://github.com/github/hub/releases/download
+    HUB_OS=hub-linux-amd64
+
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+      brew install hub
+    else
+
+      FULL_URL=${HUB_DOWNLOAD_URL}/v${HUB_VERSION}/${HUB_OS}-${HUB_VERSION}.tgz
+
+      echo "Downloading Hub ${HUB_VERSION}"
+
+      curl -fL ${FULL_URL} > /tmp/hub.tgz && \
+        tar zxf /tmp/hub.tgz -C /tmp && \
+        mv /tmp/${HUB_OS}-${HUB_VERSION}/bin/hub ~/bin/hub
+
+      rm -Rf /tmp/hub*
+    fi
+  else
+    echo "Hub exists."
+  fi
+
+  # Download fd
+  if hash fd; then
+    echo "fd exists."
+  else
+    fdversion=7.2.0
+    wget https://github.com/sharkdp/fd/releases/download/v${fdversion}/fd_${fdversion}_amd64.deb && \
+      sudo dpkg -i fd_${fdversion}_amd64.deb
+
+    rm -Rf fd_${fdversion}_amd64.deb
+  fi
+
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 fi
 
+sudo gem install homesick --no-ri --no-rdoc
+
+# Have ensured that homesick is available
+hash homesick 2>/dev/null || (echo "homesick install failed" && exit 1)
+
 ## Clone dotfiles
+info "Cloning the dotfiles"
 homesick clone seefood/dotfiles dotfiles
 
 for dir in `cat ~/.homesick/repos/dotfiles/.homesick_subdir` ; do
-    mkdir -p "~/${dir}"
+  mkdir -p "~/${dir}"
 done
 
 yes | homesick symlink dotfiles
-
-mkdir -p ~/bin
-
-# Download Hub
-if [ ! -e "$HOME/bin/hub" ] && [ ! -e /usr/local/bin/hub ] ; then
-  HUB_VERSION=2.6.0
-  HUB_DOWNLOAD_URL=https://github.com/github/hub/releases/download
-  HUB_OS=hub-linux-amd64
-
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    brew install hub
-  else
-
-    FULL_URL=${HUB_DOWNLOAD_URL}/v${HUB_VERSION}/${HUB_OS}-${HUB_VERSION}.tgz
-
-    echo "Downloading Hub ${HUB_VERSION}"
-
-    curl -fL ${FULL_URL} > /tmp/hub.tgz && \
-      tar zxf /tmp/hub.tgz -C /tmp && \
-      mv /tmp/${HUB_OS}-${HUB_VERSION}/bin/hub ~/bin/hub
-
-    rm -Rf /tmp/hub*
-  fi
-else
-  echo "Hub exists."
-fi
-
-# Download fd
-if hash fd; then
-  echo "fd exists."
-else
-  fdversion=7.2.0
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    brew install fd
-  elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
-    wget https://github.com/sharkdp/fd/releases/download/v${fdversion}/fd_${fdversion}_amd64.deb && \
-        sudo dpkg -i fd_${fdversion}_amd64.deb
-  fi
-
-  rm -Rf fd_${fdversion}_amd64.deb
-fi
 
 # Install pathogen for vim/neovim
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
@@ -125,12 +131,31 @@ mkdir -p ~/.vim/autoload ~/.vim/bundle && \
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > /tmp/dein-installer.sh && \
     sh /tmp/dein-installer.sh ~/.vim/bundle
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  brew install fzf
-else
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
-fi
+# Vim color scheme install
+echo ''
+echo "Now installing vim wombat color scheme..."
+echo ''
+git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat 
+mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
 
-~/.homesick/repos/dotfiles/install_bash_it.sh
-~/.homesick/repos/dotfiles/install_general.sh
-~/.homesick/repos/dotfiles/install_dev.sh
+# Speedtest-cli, pip and jq install
+echo ''
+echo "Now installing Speedtest-cli, pip, tmux and jq..."
+echo ''
+sudo apt-get install jq tmux python-pip -y
+sudo pip install --upgrade pip
+sudo pip install speedtest-cli
+
+# Bash color scheme
+echo ''
+echo "Now installing solarized dark WSL color scheme..."
+echo ''
+wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
+mv dircolors.256dark .dircolors
+
+success "More easter eggs await.,, Check these out:"
+
+info "~/.homesick/repos/dotfiles/install_bash_it.sh"
+info "~/.homesick/repos/dotfiles/install_general.sh"
+info "~/.homesick/repos/dotfiles/install_dev.sh"
+info "~/.homesick/repos/dotfiles/install_zsh.sh"
