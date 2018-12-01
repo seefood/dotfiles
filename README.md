@@ -81,6 +81,7 @@ Thanks
 * [dotfiles by Nils Winkler](https://github.com/nwinkler/dotfiles).
 * [dotfiles by Lital Natan](https://github.com/smackware/bashprofile).
 * [dotfiles by Adir Gabay](https://github.com/adirg/dotfiles).
+* [dotfiles by Jessica Deen](https://github.com/jldeen/dotfiles), mainly for the zsh trickeries.
 
 License
 -------
