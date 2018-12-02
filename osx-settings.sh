@@ -2,6 +2,9 @@
 
 # Inspired by https://github.com/mathiasbynens/dotfiles/blob/master/.osx
 
+echo "Don't run yet, this seems to be buggy."
+return
+
 # Ask for the administrator password upfront
 sudo -v
 
