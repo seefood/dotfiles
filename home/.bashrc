@@ -7,12 +7,15 @@ function path_prepend () { local res="$(path_remove "$1" "$2")" ; echo "$1:$res"
 function path_remove ()  { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//' ; }
 
 for newpath in ${HOME}/.iterm2 ~/bin /opt/nginx/sbin \
-      /usr/local/opt/coreutils/libexec/gnubin ; do
-  [[ -d $newpath ]] && export PATH="$(path_append "${newpath}" "${PATH}")"
+      /usr/local/opt/coreutils/libexec/gnubin \
+      /usr/local/opt/gnu-sed/libexec/gnubin \
+      ~/.rvm/gems/ruby-2.4.1/bin ; do
+  [[ -d $newpath ]] && export PATH="$(path_prepend "${newpath}" "${PATH}")"
 done
 
-for newpath in /usr/local/opt/coreutils/libexec/gnuman ; do
-  [[ -d $newpath ]] && export MANPATH="$(path_append "${newpath}" "${MANPATH}")"
+for newpath in /usr/local/opt/coreutils/libexec/gnuman \
+  /usr/local/opt/gnu-sed/libexec/gnuman ; do
+  [[ -d $newpath ]] && export MANPATH="$(path_prepend "${newpath}" "${MANPATH}")"
 done
 
 unset newpath

@@ -43,6 +43,6 @@ indent_style = space
 indent_size = 2
 
 # Standards I like
-[{*.sh,.bash*,*.yaml,*.yml}]
+[{*.rb,*.sh,.bash*,*.yaml,*.yml}]
 indent_style = space
 indent_size = 2

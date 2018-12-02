@@ -66,7 +66,7 @@ if hash fzf 2> /dev/null && hash fd 2> /dev/null ; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
   ## These are now handled in bash-it
-  if ! hash bash-it > /dev/null ; then
+  if [[ -z "$BASH_IT" ]] ; then
     # Auto-completion
     # IC_AWS_ENVIRONMENT
     [[ $- == *i* ]] && source $(brew --prefix fzf)/shell/completion.bash 2> /dev/null

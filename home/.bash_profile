@@ -9,13 +9,6 @@
 # Set a default locale or the system will pick out something unusable.
 export LANG=en_US.UTF-8
 
-# Path to the bash it configuration
-export BASH_IT=$HOME/.bash_it
-
-# Lock and Load a custom theme file
-# location /.bash_it/themes/
-export BASH_IT_THEME="envy"
-
 # Your place for hosting Git repos. I use this for private repos.
 export GIT_HOSTING='git@git.github.com'
 
@@ -55,8 +48,15 @@ export USER_INFO_THEME_PROMPT_COLOR_SUDO=63
 #export POWERLINE_PROMPT_CHAR="➤"
 export POWERLINE_PROMPT_CHAR="↳"
 
+# Path to the bash it configuration
+export BASH_IT=$HOME/.bash_it
+
+# Lock and Load a custom theme file
+# location /.bash_it/themes/
+export BASH_IT_THEME="envy"
+
 # Load Bash It
-source $BASH_IT/bash_it.sh
+[[ -d $BASH_IT ]] && source $BASH_IT/bash_it.sh
 
 # Refresh iTerm2 integration after bash-it as necessary.
 
