@@ -1,6 +1,6 @@
 #!/bin/bash
 
-brew install ctop shellcheck diff-so-fancy
+brew install ansible
 
 if [[ "$OSTYPE" == "darwin"* ]] ; then
   export HOMEBREW_CASK_OPTS=--appdir=/Applications

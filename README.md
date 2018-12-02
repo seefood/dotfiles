@@ -42,27 +42,6 @@ Then symlink the dotfiles to your home directory
 
     homesick symlink dotfiles
 
-#### Optional tools installed by my bootstrap.sh
-To install additional tools, run the following scripts (in this order):
-
-Install [TheFuck](https://github.com/nvbn/thefuck) by `sudo apt install thefuck` or `brew install thefuck`
-
-Install [FZF](https://github.com/junegunn/fzf):
-
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
-or
-    brew install thefuck
-
-Hub from https://github.com/github/hub/ (see code snippet in my bootstrap.sh for a quick setup)
-
-[fd](https://github.com/sharkdp/fd) (smart, fast alternative to find, also available from homebrew).
-
-Download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
-
-    ~/.homesick/repos/dotfiles/install_bash_it.sh
-
-Other nice to have (not auto installed) is [progress](https://github.com/Xfennec/progress).
-
 MacOS Users:
 * `~/.homesick/repos/dotfiles/install_general.sh`: This will install a standard set of tools (command line and UI).
 * `~/.homesick/repos/dotfiles/install_dev.sh`: Optional file, will install a set of development tools - only run if you plan to use the machine for software development.
@@ -82,6 +61,7 @@ Thanks
 * [dotfiles by Nils Winkler](https://github.com/nwinkler/dotfiles).
 * [dotfiles by Lital Natan](https://github.com/smackware/bashprofile).
 * [dotfiles by Adir Gabay](https://github.com/adirg/dotfiles).
+* [dotfiles by Jessica Deen](https://github.com/jldeen/dotfiles), mainly for the zsh trickeries.
 
 License
 -------

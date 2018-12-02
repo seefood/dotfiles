@@ -33,7 +33,7 @@ export SHORT_HOSTNAME=$(hostname -s)
 
 #export POWERLINE_LEFT_PROMPT="clock user_info scm python_venv ruby cwd in_vim"
 export POWERLINE_LEFT_PROMPT="scm python_venv ruby cwd"
-export POWERLINE_RIGHT_PROMPT="in_vim clock user_info"
+#export POWERLINE_RIGHT_PROMPT="in_vim clock user_info"
 # Most people don't like that right side, so I'm turning it off. comment the 
 # next line if you want to try it:
 export POWERLINE_RIGHT_PROMPT=" "

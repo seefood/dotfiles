@@ -141,6 +141,5 @@
 [rerere]
   enabled = true
 [pull]
-	rebase = true
   # Change as appropriate (or per repo)
-  # rebase = true
+  rebase = true

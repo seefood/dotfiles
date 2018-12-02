@@ -58,7 +58,6 @@ complete -o default -C 'theme_change --complete $@' theme_change
 
 function nd() { mkdir "$1" && cd "$1"; }
 
-
 # Setup fzf
 if hash fzf 2> /dev/null && hash fd 2> /dev/null ; then
   # If FD is installed, let FZF use it.
