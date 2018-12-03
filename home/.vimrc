@@ -16,7 +16,7 @@ Plugin 'tpope/vim-fugitive'
 "Plugin 'dracula/vim'
 "Plugin 'nightsense/seabird'
 "Plugin 'tomasiser/vim-code-dark'
-"Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'christoomey/vim-tmux-navigator'
 " Ira Original:
 Plugin 'tpope/vim-pathogen'
@@ -31,7 +31,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
   " Plugin 'vim-scripts/Gundo'
 Plugin 'tmhedberg/matchit'
   " Plugin 'scrooloose/nerdcommenter'
-  " Plugin 'scrooloose/nerdtree'
+  Plugin 'scrooloose/nerdtree'
   " Support .editorconfig files.
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'vim-syntastic/syntastic'
@@ -160,7 +160,7 @@ map <leader>mbt :MBEToggle<cr>
 map <leader>mbf :MBEFocus<cr>
 
 " syntastic
-let g:syntastic_python_pep8_args = "--max-line-size=180" 
+let g:syntastic_python_pep8_args = "--max-line-size=180"
 let g:syntastic_python_flake8_args = "--max-line-size=180" 
 
 if has("unix")
@@ -371,14 +371,14 @@ endif
 "set mouse=a
 " Nerdtree Settings
 "autocmd VimEnter * NERDTree | wincmd p
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"map <C-n> :NERDTreeToggle<CR>
-"let g:NERDTreeDirArrowExpandable = '▸'
-"let g:NERDTreeDirArrowCollapsible = '▾'
-"let NERDTreeQuitOnOpen = 1
-"let NERDTreeAutoDeleteBuffer = 1
-"let NERDTreeMinimalUI = 1
-"let NERDTreeDirArrows = 1
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 set ttyfast
 set lazyredraw
 "map tt :NERDTreeToggle<CR> "double click t button to toggle NerdTree

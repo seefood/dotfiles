@@ -40,13 +40,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew install thefuck screen neovim the_silver_searcher git curl hub fd fzf
   pip3 install neovim powerline-status
 
-  cd ~/Downloads/
+  (cd ~/Downloads/
   wget -c https://www.python.org/ftp/python/3.6.4/python-3.6.4-macosx10.6.pkg \
     https://tunnelblick.net/release/Latest_Tunnelblick_Stable.dmg
   sudo installer -pkg python-3.6.4-macosx10.6.pkg -target /
-  cd -
+  )
 
-  python3 --version | grep "3\.6" || (echo "Python version is not 3.6.X, please install https://www.python.org/ftp/python/3.6.4/python-3.6.4-macosx10.6.pkg" && exit 1)
+  python3 --version | grep '3\.6' || (echo "Python version is not 3.6.X, please install https://www.python.org/ftp/python/3.6.4/python-3.6.4-macosx10.6.pkg" && exit 1)
 
 elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
 
@@ -129,9 +129,9 @@ pip3 install --upgrade powerline-status neovim
 info "Cloning the dotfiles"
 homesick clone bluevine-dev/dotfiles dotfiles
 
-for dir in $(cat ~/.homesick/repos/dotfiles/.homesick_subdir) ; do
-  mkdir -p "~/${dir}"
-done
+while read -r dir ; do
+  mkdir -p ~/"${dir}"
+done < ~/.homesick/repos/dotfiles/.homesick_subdir
 
 homesick symlink dotfiles
 
@@ -143,13 +143,13 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Install pathogen for vim/neovim
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-	# Vim color scheme install
+# Vim color scheme install
 echo ''
 echo "Now installing vim wombat color scheme..."
 echo ''
-git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat 
+git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat
 mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
 
 # Bash color scheme
@@ -161,7 +161,7 @@ mv dircolors.256dark .dircolors
 
 success "More easter eggs await.,, Check these out:"
 
-info "~/.homesick/repos/dotfiles/install_bash_it.sh"
-info "~/.homesick/repos/dotfiles/install_general.sh"
-info "~/.homesick/repos/dotfiles/install_dev.sh"
-info "~/.homesick/repos/dotfiles/install_zsh.sh"
+info ~/.homesick/repos/dotfiles/install_bash_it.sh
+info ~/.homesick/repos/dotfiles/install_general.sh
+info ~/.homesick/repos/dotfiles/install_dev.sh
+info ~/.homesick/repos/dotfiles/install_zsh.sh
