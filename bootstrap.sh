@@ -23,6 +23,10 @@ function fail () {
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
+#####################################
+##################### MacOS env setup
+#####################################
+
   info "Installing Brew"
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   hash brew 2>/dev/null || fail "install brew first"
@@ -45,6 +49,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   python3 --version | grep "3\.6" || (echo "Python version is not 3.6.X, please install https://www.python.org/ftp/python/3.6.4/python-3.6.4-macosx10.6.pkg" && exit 1)
 
 elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
+
+#####################################
+#################### Ubuntu env setup
+#####################################
 
   info "installing some essential packages"
   sudo apt-get install -y screen silversearcher-ag curl thefuck git \
@@ -106,6 +114,10 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 fi
 
+###########################
+#################### Common
+###########################
+
 sudo gem install homesick --no-ri --no-rdoc
 
 # Have ensured that homesick is available
@@ -123,6 +135,12 @@ done
 
 homesick symlink dotfiles
 
+# vimrc vundle install
+echo ''
+echo "Now installing vundle..."
+echo ''
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 # Install pathogen for vim/neovim
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
@@ -133,14 +151,6 @@ echo "Now installing vim wombat color scheme..."
 echo ''
 git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat 
 mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
-
-# Speedtest-cli, pip and jq install
-echo ''
-echo "Now installing Speedtest-cli, pip, tmux and jq..."
-echo ''
-sudo apt-get install jq tmux python-pip -y
-sudo pip install --upgrade pip
-sudo pip install speedtest-cli
 
 # Bash color scheme
 echo ''
