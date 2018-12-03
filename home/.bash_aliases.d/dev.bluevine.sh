@@ -27,3 +27,36 @@ function _pipenv_completion() {
 
 complete -F _pipenv_completion -o default pipenv
 eval "$(register-python-argcomplete r2d2)"
+
+# Default location of the workspace env, feel free to override:
+export WS=${WS:-~/bluevine}
+
+### Some wrappers for changing environments
+
+function dev () {
+    if [[ "$@" ]] ; then
+        ${WS}/development/env-development.sh $@
+        return $?
+    else
+        source ${WS}/development/env-development.sh
+    fi
+}
+
+function stg () {
+    if [[ "$@" ]] ; then
+        ${WS}/staging/env-staging.sh $@
+        return $?
+    else
+        source ${WS}/staging/env-staging.sh
+    fi
+}
+
+function prd () {
+    if [[ "$@" ]] ; then
+        ${WS}/production/env-production.sh $@
+        return $?
+    else
+        source ${WS}/production/env-production.sh
+    fi
+}
+
