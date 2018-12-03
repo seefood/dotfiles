@@ -1,3 +1,8 @@
+# Local/private config goes in the include
+[include]
+        path = ~/.gitconfig.local
+[hub]
+        protocol = https
 [user]
   #signingkey = 360171CD018E78F
   name = Ira Abramov
@@ -64,6 +69,10 @@
   type = cat-file -t
   unstash = stash apply
   wdiff = diff --word-diff=color --ignore-all-space
+  promote = !$ZSH/bin/git-promote
+  wtf     = !$ZSH/bin/git-wtf
+  rank-contributors = !$ZSH/bin/git-rank-contributors
+  count   = !git shortlog -sn
 
 [push]
   default = simple
@@ -105,6 +114,15 @@
   # tool = diffmerge
   log = true
   renamelimit = 2000
+
+[mergetool]
+  keepBackup = false
+
+[difftool]
+  prompt = false
+
+[apply]
+        whitespace = nowarn
 
 [commit]
 #  template = /home/ira/.stCommitMsg
