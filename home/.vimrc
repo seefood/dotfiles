@@ -1,97 +1,104 @@
-"dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
-execute pathogen#infect()
+filetype off                  " required
 
-" Required:
-set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state(expand('~/.vim/bundle/'))
-  call dein#begin(expand('~/.vim/bundle/'))
-
-" Let dein manage dein
-" Required:
-  "call dein#add(expand('~/.vim/bundle/repos/github.com/Shougo/dein.vim'))
-  call dein#add('Shougo/dein.vim')
-
-  " Let dein manage dein
-  " Required:
-  call dein#add('~/.vim/bundle/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here:
-  call dein#add('tpope/vim-pathogen')
-  call dein#add('junegunn/fzf.vim')
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" from jldeen:
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-fugitive'
+Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'dracula/vim'
+Plugin 'nightsense/seabird'
+Plugin 'tomasiser/vim-code-dark'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'christoomey/vim-tmux-navigator'
+" Ira Original:
+Plugin 'tpope/vim-pathogen'
+Plugin 'junegunn/fzf.vim'
   " Git diff symbols in the gutter
-  call dein#add('airblade/vim-gitgutter')
-  " call dein#add('Shougo/neosnippet.vim')
-  " call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('Shougo/vimshell')
-  call dein#add('ctrlpvim/ctrlp.vim')
-  call dein#add('MarcWeber/vim-addon-mw-utils')
-  " call dein#add('vim-scripts/Gundo')
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('tmhedberg/matchit')
-  " call dein#add('scrooloose/nerdcommenter')
-  " call dein#add('scrooloose/nerdtree')
+Plugin 'airblade/vim-gitgutter'
+  " Plugin 'Shougo/neosnippet.vim'
+  " Plugin 'Shougo/neosnippet-snippets'
+Plugin 'Shougo/vimshell'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+  " Plugin 'vim-scripts/Gundo'
+" Plugin 'tpope/vim-fugitive'
+Plugin 'tmhedberg/matchit'
+  " Plugin 'scrooloose/nerdcommenter'
+  " Plugin 'scrooloose/nerdtree'
   " Support .editorconfig files.
-  call dein#add('editorconfig/editorconfig-vim')
-  " call dein#add('vim-syntastic/syntastic')
-  call dein#add('mileszs/ack.vim')
-  " call dein#add('eikenb/acp')
-  " call dein#add('duythinht/vim-coffee')
-  call dein#add('godlygeek/tabular')
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'mileszs/ack.vim'
+  " Plugin 'eikenb/acp')
+  " Plugin 'duythinht/vim-coffee'
+Plugin 'godlygeek/tabular'
   " Interpret Markdown
-  call dein#add('plasticboy/vim-markdown')
+Plugin 'plasticboy/vim-markdown'
   " Run pep8 and other checkers (McCabe, Frosted) on python code.
-  call dein#add('andviro/flake8-vim')
-  call dein#add('klen/python-mode')
-  call dein#add('MarcWeber/vim-addon-mw-utils')
+Plugin 'andviro/flake8-vim'
+Plugin 'klen/python-mode'
+  " Plugin 'MarcWeber/vim-addon-mw-utils'
   " Add a nice dark theme.
-  " call dein#add('joshdick/onedark.vim')
+  " Plugin 'joshdick/onedark.vim'
   " Oceanic/Next theme immitates Sublime's
-  " call dein#add('mhartington/oceanic-next')
-  call dein#add('stephpy/vim-yaml')
-  if !has('nvim')
+  " Plugin 'mhartington/oceanic-next'
+Plugin 'stephpy/vim-yaml'
+if !has('nvim')
     " Dynamic Autocomplete - needs a newer neovim
-    call dein#add('Shougo/deoplete.nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-    " call dein#add('zchee/deoplete-clang')
-    " call dein#add('zchee/deoplete-jedi')
-  endif
-  " From Adir:
-  " call dein#add('davidhalter/jedi-vim')
-  " call dein#add('fatih/vim-go')
-  " call dein#add('kien/ctrlp.vim')
-  " call dein#add('mileszs/ack.vim')
-  " call dein#add('morhetz/gruvbox')
-  " call dein#add('tpope/vim-surround')
-  " call dein#add('christoomey/vim-tmux-navigator')
-  " call dein#add('ekalinin/Dockerfile.vim')
-  " call dein#add('majutsushi/tagbar')
-  " call dein#add('skywind3000/asyncrun.vim')
-  " call dein#add('w0rp/ale')
-
-  " You can specify revision/branch/tag.
-  " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-
-  " Required:
-  call dein#end()
-  if dein#check_install()
-    call dein#install()
-  endif
-  call dein#save_state()
+    Plugin 'Shougo/deoplete.nvim'
+    Plugin 'roxma/nvim-yarp'
+    Plugin 'roxma/vim-hug-neovim-rpc'
+    " Plugin 'zchee/deoplete-clang'
+    " Plugin 'zchee/deoplete-jedi'
 endif
 
-filetype plugin indent on
-syntax enable
+" From Adir:
+" Plugin 'davidhalter/jedi-vim'
+" Plugin fatih/vim-go'
+" Plugin 'kien/ctrlp.vim'
+" Plugin 'mileszs/ack.vim'
+" Plugin 'morhetz/gruvbox'
+" Plugin 'tpope/vim-surround'
+" Plugin 'christoomey/vim-tmux-navigator'
+" Plugin 'ekalinin/Dockerfile.vim'
+" Plugin 'majutsushi/tagbar'
+" Plugin 'skywind3000/asyncrun.vim'
+" Plugin 'w0rp/ale'
+call vundle#end()            " required
 
-"End dein Scripts-------------------------
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
 
+" Put your non-Plugin stuff after this line
+
+execute pathogen#infect()
+
+" Airline
+let g:airline_theme='bubblegum'
+"let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_extensions = []       " disable all extensions
+let g:airline_section_x = ""        " hide file type
+let g:airline_section_y = ""        " hide file encoding
+
+" Always show statusline
+" ------
+set laststatus=2
+" ------
+
+" Set line number
+set number
+
+" colorscheme wombat
 
 " If installed using Homebrew
 " set rtp+=/usr/local/opt/fzf
@@ -100,19 +107,19 @@ set rtp+=~/.fzf
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 " try loading powerline
 "python3 from powerline.vim import setup as powerline_setup
 "python3 powerline_setup()
 "python3 del powerline_setup
 
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 let g:PyFlakeDisabledMessages = 'E501'
 let g:PyFlakeOnWrite = 0
@@ -135,10 +142,6 @@ let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.
 let g:deoplete#sources#clang#clang_header = '/usr/include/clang/6.0/include/'
 let g:deoplete#sources#clang#clang_complete_database = '.'
 
-" airline
-let g:airline_extensions = []       " disable all extensions
-let g:airline_section_x = ""        " hide file type
-let g:airline_section_y = ""        " hide file encoding
 
 " cscope
 if has("cscope")
@@ -151,10 +154,6 @@ if has("cscope")
     endif
 endif
 
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
 
 " plugins
 " minibufferexplorer
@@ -164,8 +163,6 @@ map <leader>mbf :MBEFocus<cr>
 " syntastic
 let g:syntastic_python_pep8_args = "--max-line-size=180" 
 let g:syntastic_python_flake8_args = "--max-line-size=180" 
-
-"End dein Scripts-------------------------
 
 if has("unix")
   " Source the setup file for all users:
@@ -348,8 +345,6 @@ au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\
 " Don't let pyflakes use the quickfix window
 let g:pyflakes_use_quickfix = 0
 
-
-
 " Add the virtualenv's site-packages to vim path
 if has('python')
 py << EOF
@@ -369,6 +364,23 @@ if filereadable($VIRTUAL_ENV . '/.vimrc')
     source $VIRTUAL_ENV/.vimrc
 endif
 
-if exists("&colorcolumn")
-   set colorcolumn=79
-endif
+" Uncomment if you like a red line marking the place to wrap
+"if exists("&colorcolumn")
+"   set colorcolumn=79
+"endif
+
+" Nerdtree Settings
+set mouse=a
+autocmd VimEnter * NERDTree | wincmd p
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+set ttyfast
+set lazyredraw
+map tt :NERDTreeToggle<CR> "double click t button to toggle NerdTree
+map [] :TagbarToggle<CR> "click [] to toggle Tagbar

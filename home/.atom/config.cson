@@ -58,11 +58,8 @@
     themes: [
       "atom-dark-ui"
       "atom-dark-syntax"
-<<<<<<< HEAD
-=======
       "one-light-ui"
       "one-light-syntax"
->>>>>>> ira/master
     ]
   editor:
     fontFamily: "Menlo"
@@ -74,8 +71,6 @@
     userId: "3d27f752-690f-4559-8307-76b2f9cd9bb1"
   "force-text-direction":
     enabled: true
-<<<<<<< HEAD
-=======
   "go-plus":
     panel:
       currentHeight: "24.11111111111111vh"
@@ -104,7 +99,6 @@
     ]
   stylefmt:
     formatOnSave: true
->>>>>>> ira/master
   welcome:
     showOnStartup: false
 ".js.jsx.react.source":

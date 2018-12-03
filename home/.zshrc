@@ -25,13 +25,52 @@ compinit
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="amuse"
+#ZSH_THEME="amuse"
+# POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_MODE="nerdfont-complete"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# POWERLEVEL9K_IP_INTERFACE='en0'
+# POWERLEVEL9K_PUBLIC_IP_HOST='http://ident.me'
+
+# zsh tmux settings
+ZSH_TMUX_AUTOSTART='true'
+
+## Powerlevel9k Settings
+POWERLEVEL9K_HISTORY_BACKGROUND='green'
+
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{red} \Uf1d0 %f %F{yellow
+}❯ "
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history)
+
+# # Refresh Function - https://babushk.in/posts/renew-environment-tmux.html
+# if [ -n "$TMUX" ]; then                                                                               
+#   function refresh {                                                                                
+#     export $(tmux show-environment | grep "^SSH_AUTH_SOCK")                                       
+#     export $(tmux show-environment | grep "^DISPLAY")                                               
+#   }                                                                                                 
+# else                                                                                                  
+#   function refresh { }                                                                              
+# fi
+
+# # Then, I define a preexec hook that calls refresh before each new command that gets executed:
+# function preexec {                                                                                    
+#     refresh                                                                                           
+# }
+
+# POWERLEVEL9K_TIME_FORMAT="%D{%T | %m.%d.%y}"
+## 
+
+# Default username to hide "user@hostname" info
+#DEFAULT_USER="ira"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -79,11 +118,11 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-)
+plugins=(sudo git history taskwarrior tmux tmuxinator zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # User configuration
 
@@ -110,8 +149,11 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+alias zshconfig="code ~/.zshrc"
+alias ohmyzsh="code ~/.oh-my-zsh"
+
+export PATH=$PATH:~/bin
+
+# autoload bashcompinit && bashcompinit
