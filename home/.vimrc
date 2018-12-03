@@ -11,12 +11,12 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'dracula/vim'
-Plugin 'nightsense/seabird'
-Plugin 'tomasiser/vim-code-dark'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+"Plugin 'git://git.wincent.com/command-t.git'
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Plugin 'dracula/vim'
+"Plugin 'nightsense/seabird'
+"Plugin 'tomasiser/vim-code-dark'
+"Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'christoomey/vim-tmux-navigator'
 " Ira Original:
 Plugin 'tpope/vim-pathogen'
@@ -29,7 +29,6 @@ Plugin 'Shougo/vimshell'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
   " Plugin 'vim-scripts/Gundo'
-" Plugin 'tpope/vim-fugitive'
 Plugin 'tmhedberg/matchit'
   " Plugin 'scrooloose/nerdcommenter'
   " Plugin 'scrooloose/nerdtree'
@@ -369,18 +368,18 @@ endif
 "   set colorcolumn=79
 "endif
 
+"set mouse=a
 " Nerdtree Settings
-set mouse=a
-autocmd VimEnter * NERDTree | wincmd p
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-map <C-n> :NERDTreeToggle<CR>
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-let NERDTreeQuitOnOpen = 1
-let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
+"autocmd VimEnter * NERDTree | wincmd p
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"map <C-n> :NERDTreeToggle<CR>
+"let g:NERDTreeDirArrowExpandable = '▸'
+"let g:NERDTreeDirArrowCollapsible = '▾'
+"let NERDTreeQuitOnOpen = 1
+"let NERDTreeAutoDeleteBuffer = 1
+"let NERDTreeMinimalUI = 1
+"let NERDTreeDirArrows = 1
 set ttyfast
 set lazyredraw
-map tt :NERDTreeToggle<CR> "double click t button to toggle NerdTree
+"map tt :NERDTreeToggle<CR> "double click t button to toggle NerdTree
 map [] :TagbarToggle<CR> "click [] to toggle Tagbar
