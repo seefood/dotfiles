@@ -32,6 +32,7 @@ for envi in $environments ; do
   ln -sf ${WS}/chef-repo ${envi}/
   ln -sf ${WS}/system/common/env ${envi}/.env
   ln -sf ${WS}/system/common/env ${envi}/env-${envi}.sh
+  ln -sf chef-repo/fabfile ${envi}/fabfile
 done
 
 bash ${WS}/chef-repo/cookbooks/bluevine-dev/clone-repos.sh
