@@ -13,13 +13,13 @@ cache_type             'BasicFile'
 cookbook_path          ["#{ENV['CHEF_REPOSITORY']}/cookbooks"]
 cache_options(:path => "#{c_folder}/checksums")
 case ENV['FABRIC_AWS_ENVIRONMENT']
-    when "staging"
-        chef_server_url "https://staging-chef-server.bluevine.com/organizations/bluevine/"
-    when "production"
-        chef_server_url "https://prod-chef-server.bluevine.com/organizations/bluevine/"
-    else
-        chef_server_url "https://54.235.118.249/organizations/bluevine/"
-    end
+when "staging"
+  chef_server_url "https://staging-chef-server.bluevine.com/organizations/bluevine/"
+when "production"
+  chef_server_url "https://prod-chef-server.bluevine.com/organizations/bluevine/"
+else
+  chef_server_url "https://54.235.118.249/organizations/bluevine/"
+end
 
 # START comment in after ssl
 #if ENV['environment'] != 'development'
