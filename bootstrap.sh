@@ -134,6 +134,9 @@ while read -r dir ; do
 done < ~/.homesick/repos/dotfiles/.homesick_subdir
 
 homesick symlink dotfiles
+[[ -r ~/.gitconfig.local ]] || cp ~/.gitconfig.local.example ~/.gitconfig.local
+
+user "Make sure you have your correct settings in ~/.gitconfig.local"
 
 # vimrc vundle install
 info ''
