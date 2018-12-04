@@ -136,26 +136,29 @@ done < ~/.homesick/repos/dotfiles/.homesick_subdir
 homesick symlink dotfiles
 
 # vimrc vundle install
-echo ''
-echo "Now installing vundle..."
-echo ''
+info ''
+info "Now installing vundle..."
+info ''
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+info 'fire up vundle installation'
+nvim +PluginInstall +qall && success 'vim plugins installed!'
 
 # Install pathogen for vim/neovim
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
   curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 # Vim color scheme install
-echo ''
-echo "Now installing vim wombat color scheme..."
-echo ''
+info ''
+info "Now installing vim wombat color scheme..."
+info ''
 git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat
 mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
 
 # Bash color scheme
-echo ''
-echo "Now installing solarized dark WSL color scheme..."
-echo ''
+info ''
+info "Now installing solarized dark WSL color scheme..."
+info ''
 wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
 mv dircolors.256dark .dircolors
 
