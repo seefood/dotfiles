@@ -21,13 +21,14 @@ WS=${WS:=~/bluevine}
 
 # Basic infrastructure:
 mkdir -p ${WS} && cd ${WS}
-git clone git@github.com:bluevine-dev/system.git
-git clone git@github.com:bluevine-dev/chef-repo.git
+for repo in system chef-repo ; do
+  git clone git@github.com:bluevine-dev/${repo}.git
+  git -C ${repo}/ config pull.rebase false
+done
 
 environments="$(cd system/misc/dev-kit/ ; echo [a-z]*)"
 
 for envi in $environments ; do
-  # This is an ugly hack till I get rid of the symlinks in system.
   [[ -d ${WS}/${envi} ]] || cp -r system/misc/dev-kit/${envi} . > /dev/null || true
   ln -sf ${WS}/chef-repo ${envi}/
   ln -sf ${WS}/system/common/env ${envi}/.env
