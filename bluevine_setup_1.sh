@@ -40,8 +40,8 @@ bash ${WS}/chef-repo/cookbooks/bluevine-dev/clone-repos.sh
 
 # Development environment: (~/bluevine/development):
 ln -sf ${WS}/chef-repo/cookbooks/bluevine-dev ${WS}/development/src
-cp ${WS}/chef-repo/cookbooks/bluevine-dev/VagrantfileUbuntu16Py3D20180514.sample \
-    ${WS}/development/src/Vagrantfile
+cp ${WS}/chef-repo/cookbooks/bluevine-dev/VagrantfileUbuntu16Py36R2D20180514.sample \
+  ${WS}/development/src/Vagrantfile
 
 sh ${WS}/chef-repo/cookbooks/bluevine-dev/install-git-hooks.sh
 
