@@ -61,3 +61,13 @@ function prd () {
   fi
 }
 
+_envir()
+{
+  _command
+  return 0
+} &&
+complete -F _envir prd stg dev
+
+#alias sknife="stg knife"
+#alias pknife="prd knife"
+#alias dknife="dev knife"
