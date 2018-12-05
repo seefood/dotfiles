@@ -1,17 +1,20 @@
 # Setting PATH for Python 3.6
 # The original version is saved in .bash_profie.pysave
 
-pypath=/Library/Frameworks/Python.framework/Versions/3.6/bin
-
-export PATH="$(path_prepend "${pypath}" "${PATH}")"
 export VAGRANT_USE_VAGRANT_TRIGGERS=" "
-alias con="ruby ~/bluevine/system/misc/scripts/aws/aws_helper.rb"
 
 # Python virtualenv
-export VIRTUALENVWRAPPER_PYTHON=${pypath}/python3
 export WORKON_HOME=~/.virtualenvs
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  pypath=/Library/Frameworks/Python.framework/Versions/3.6/bin
+  export PATH="$(path_prepend "${pypath}" "${PATH}")"
+  export VIRTUALENVWRAPPER_PYTHON=${pypath}/python3
+  source ${pypath}/virtualenvwrapper.sh
+else
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+  source ~/.local/bin/virtualenvwrapper.sh
+fi
 
-source ${pypath}/virtualenvwrapper.sh
 [[ -d ${WORKON_HOME}/bluevine ]] || mkvirtualenv bluevine
 workon bluevine
 
