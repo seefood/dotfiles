@@ -1,6 +1,6 @@
 #!/bin/bash
 
-brew install ack cv editorconfig fasd multitail rsync tree thefuck
+brew install cv editorconfig fasd multitail rsync tree thefuck
 brew install --HEAD git-extras
 
 # https://bitbucket.org/WAHa_06x36/theunarchiver
@@ -8,7 +8,7 @@ brew install unar
 
 if [[ "$OSTYPE" == "darwin"* ]] ; then
   brew install coreutils freetype gawk gnu-sed bat gpg htop-osx osxutils \
-    pkgdiff proctools psgrep neovim wdiff
+    pkgdiff proctools psgrep neovim wdiff up
 
   # http://apple.stackexchange.com/questions/135565/how-do-i-get-detailed-smart-disk-information-on-os-x-mavericks-or-later
   brew install smartmontools
