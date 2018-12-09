@@ -25,5 +25,5 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   brew cask install font-source-code-pro-for-powerline font-inconsolata-dz-for-powerline
 
 else
-  sudo apt install fasd rsync tree thefuck git-extras unar neovim gpg
+  sudo apt install -y fasd rsync tree thefuck git-extras unar neovim gpg
 fi

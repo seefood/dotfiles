@@ -14,8 +14,8 @@ else
   wget https://packages.chef.io/files/stable/chef-workstation/0.2.41/ubuntu/18.04/chef-workstation_0.2.41-1_amd64.deb && \
     sudo dpkg -i chef-workstation_0.2.41-1_amd64.deb || sudo apt install -f
 fi
-vagrant plugin install vagrant-omnibus vagrant-triggers \
-                       vagrant-cachier vagrant-share
+
+vagrant plugin install vagrant-triggers vagrant-cachier vagrant-share
 
 # Install the required pip3 packages on your new virtual environment:
 pip3 install pylint pylint-django fabric3 boto3 requests awscli virtualenv\

@@ -9,5 +9,5 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
 
   brew cask install virtualbox vagrant vagrant-manager
 else
-  sudo apt install vagrant meld
+  sudo apt install -y vagrant meld
 fi
