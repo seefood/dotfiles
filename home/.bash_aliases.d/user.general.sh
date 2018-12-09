@@ -49,8 +49,9 @@ function theme_change () {
     done
     exit
   fi
-  sed -i '' 's/\(.*BASH_IT_THEME=\).*/\1"'$1'"/'  ~/.bash_profile
-  unset PS1 PROMPT_COMMAND
+  sed 's/\(.*BASH_IT_THEME=\).*/\1"'$1'"/' ~/.bash_profile > ~/.bash_profile.NEW && \
+    cat ~/.bash_profile.NEW > ~/.bash_profile && rm ~/.bash_profile.NEW
+  unset PS1 # PROMPT_COMMAND
   export BASH_IT_THEME=$1
   source ~/.bash_profile
 }
