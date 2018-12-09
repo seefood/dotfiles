@@ -1,12 +1,12 @@
 #!/bin/bash
 
-brew install cv editorconfig fasd multitail rsync tree thefuck
-brew install --HEAD git-extras
-
-# https://bitbucket.org/WAHa_06x36/theunarchiver
-brew install unar
-
 if [[ "$OSTYPE" == "darwin"* ]] ; then
+  brew install cv editorconfig fasd multitail rsync tree thefuck
+  brew install --HEAD git-extras
+
+  # https://bitbucket.org/WAHa_06x36/theunarchiver
+  brew install unar
+
   brew install coreutils freetype gawk gnu-sed bat gpg htop-osx osxutils \
     pkgdiff proctools psgrep neovim wdiff up
 
@@ -24,4 +24,6 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
 
   brew cask install font-source-code-pro-for-powerline font-inconsolata-dz-for-powerline
 
+else
+  sudo apt install fasd rsync tree thefuck git-extras unar neovim gpg
 fi

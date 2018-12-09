@@ -86,24 +86,6 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
   echo "installing some essential packages"
   sudo apt-get install -y tmux neovim
 
-  # Download Hub
-  if [ ! -e "$HOME/bin/hub" ] && [ ! -e /usr/local/bin/hub ] ; then
-    HUB_VERSION=2.6.0
-    HUB_DOWNLOAD_URL=https://github.com/github/hub/releases/download
-    HUB_OS=hub-linux-amd64
-
-    FULL_URL=${HUB_DOWNLOAD_URL}/v${HUB_VERSION}/${HUB_OS}-${HUB_VERSION}.tgz
-
-    echo "Downloading Hub ${HUB_VERSION}"
-
-    curl -fL ${FULL_URL} > /tmp/hub.tgz && \
-      tar zxf /tmp/hub.tgz -C /tmp && \
-      mv /tmp/${HUB_OS}-${HUB_VERSION}/bin/hub ~/bin/hub
-      rm -Rf /tmp/hub*
-  else
-    echo "Hub exists."
-  fi
-
   # Download fd
   if hash fd; then
     echo "fd exists."
@@ -130,7 +112,7 @@ pip3 install --upgrade powerline-status neovim
 
 ## Clone dotfiles
 info "Cloning the dotfiles"
-homesick clone bluevine-dev/dotfiles dotfiles
+homesick clone git@github.com:bluevine-dev/dotfiles.git dotfiles
 
 while read -r dir ; do
   mkdir -p ~/"${dir}"
@@ -166,11 +148,10 @@ info ''
 info "Now installing solarized dark WSL color scheme..."
 info ''
 wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-mv dircolors.256dark .dircolors
+mv dircolors.256dark ~/.dircolors
 
-success "More easter eggs await.,, Check these out:"
+success "More easter eggs await... Check these out:"
 
 info ~/.homesick/repos/dotfiles/install_bash_it.sh
 info ~/.homesick/repos/dotfiles/install_general.sh
 info ~/.homesick/repos/dotfiles/install_dev.sh
-info ~/.homesick/repos/dotfiles/install_zsh.sh

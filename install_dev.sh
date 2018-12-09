@@ -1,7 +1,5 @@
 #!/bin/bash
 
-brew install ansible
-
 if [[ "$OSTYPE" == "darwin"* ]] ; then
   export HOMEBREW_CASK_OPTS=--appdir=/Applications
 
@@ -10,4 +8,6 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   ln -s /Applications/DiffMerge.app/Contents/Resources/diffmerge.sh /usr/local/bin/diffmerge
 
   brew cask install virtualbox vagrant vagrant-manager
+else
+  sudo apt install vagrant meld
 fi

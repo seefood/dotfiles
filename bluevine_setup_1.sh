@@ -6,9 +6,14 @@
 
 set -e
 
-# Basic brew stuff (some may already be installed?)
-brew install bash-completion vagrant-completion
-brew cask install chef-workstation
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # Basic brew stuff (some may already be installed?)
+  brew install vagrant-completion
+  brew cask install chef-workstation
+else
+  wget https://packages.chef.io/files/stable/chef-workstation/0.2.41/ubuntu/18.04/chef-workstation_0.2.41-1_amd64.deb && \
+    sudo dpkg -i chef-workstation_0.2.41-1_amd64.deb || sudo apt install -f
+fi
 vagrant plugin install vagrant-omnibus vagrant-triggers \
                        vagrant-cachier vagrant-share
 
