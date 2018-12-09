@@ -29,8 +29,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 ##################### MacOS env setup
 #####################################
 
-  echo "Installing Brew"
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  if ! hash brew 2>/dev/null ; then
+    echo "Installing Brew"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
   hash brew 2>/dev/null || fail "install brew first"
 
   brew doctor
