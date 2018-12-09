@@ -1,5 +1,11 @@
 [user]
-        name = AUTHORNAME
-        email = AUTHOREMAIL
+  #signingkey = 360171CD018E78F
+  name = AUTHORNAME
+  email = AUTHOREMAIL
+
 [credential]
-        helper = GIT_CREDENTIAL_HELPER
+  helper = GIT_CREDENTIAL_HELPER
+
+[github]
+  #Edit to your own credentials:
+  user = seefood

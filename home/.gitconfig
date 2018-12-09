@@ -1,14 +1,9 @@
 # Local/private config goes in the include
 [include]
-        path = ~/.gitconfig.local
-[hub]
-        protocol = https
-[user]
-  #signingkey = 360171CD018E78F
-  name = Ira Abramov
+  path = ~/.gitconfig.local
 
-[github]
-  user = seefood
+[hub]
+  protocol = https
 
 [alias]
   aliases = config --get-regexp alias
@@ -108,7 +103,7 @@
   insteadOf = git://
 
 [merge]
-  # If Linux:
+  # Mac or Linux:
   tool = meld
   # If Mac:
   # tool = diffmerge
@@ -122,7 +117,7 @@
   prompt = false
 
 [apply]
-        whitespace = nowarn
+  whitespace = nowarn
 
 [commit]
 #  template = /home/ira/.stCommitMsg
@@ -133,7 +128,7 @@
 [core]
   editor = nvim
   pager = less -R
-  abbrev = 12
+  abbrev = 10
   #whitespace = nowarn
   #pager = diff-so-fancy | less --tabs=4 -RFX
   excludesfile = $HOME/.gitignore_global
@@ -156,6 +151,7 @@
 
 [rerere]
   enabled = true
+
 [pull]
   # Change as appropriate (or per repo)
   # rebase = true

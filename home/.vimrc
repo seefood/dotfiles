@@ -1,4 +1,3 @@
-"dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
@@ -12,11 +11,11 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'dracula/vim'
-Plugin 'nightsense/seabird'
-Plugin 'tomasiser/vim-code-dark'
+"Plugin 'git://git.wincent.com/command-t.git'
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Plugin 'dracula/vim'
+"Plugin 'nightsense/seabird'
+"Plugin 'tomasiser/vim-code-dark'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'christoomey/vim-tmux-navigator'
 " Ira Original:
@@ -30,10 +29,9 @@ Plugin 'Shougo/vimshell'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
   " Plugin 'vim-scripts/Gundo'
-" Plugin 'tpope/vim-fugitive'
 Plugin 'tmhedberg/matchit'
   " Plugin 'scrooloose/nerdcommenter'
-  " Plugin 'scrooloose/nerdtree'
+  Plugin 'scrooloose/nerdtree'
   " Support .editorconfig files.
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'vim-syntastic/syntastic'
@@ -85,9 +83,9 @@ execute pathogen#infect()
 
 " Airline
 let g:airline_theme='bubblegum'
-"let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_extensions = []       " disable all extensions
+"let g:airline_extensions = []       " disable all extensions
 let g:airline_section_x = ""        " hide file type
 let g:airline_section_y = ""        " hide file encoding
 
@@ -162,7 +160,7 @@ map <leader>mbt :MBEToggle<cr>
 map <leader>mbf :MBEFocus<cr>
 
 " syntastic
-let g:syntastic_python_pep8_args = "--max-line-size=180" 
+let g:syntastic_python_pep8_args = "--max-line-size=180"
 let g:syntastic_python_flake8_args = "--max-line-size=180" 
 
 if has("unix")
@@ -370,9 +368,9 @@ endif
 "   set colorcolumn=79
 "endif
 
+"set mouse=a
 " Nerdtree Settings
-set mouse=a
-autocmd VimEnter * NERDTree | wincmd p
+"autocmd VimEnter * NERDTree | wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
@@ -383,5 +381,5 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 set ttyfast
 set lazyredraw
-map tt :NERDTreeToggle<CR> "double click t button to toggle NerdTree
+"map tt :NERDTreeToggle<CR> "double click t button to toggle NerdTree
 map [] :TagbarToggle<CR> "click [] to toggle Tagbar

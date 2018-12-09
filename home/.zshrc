@@ -34,7 +34,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # POWERLEVEL9K_PUBLIC_IP_HOST='http://ident.me'
 
 # zsh tmux settings
-ZSH_TMUX_AUTOSTART='true'
+#ZSH_TMUX_AUTOSTART='true'
 
 ## Powerlevel9k Settings
 POWERLEVEL9K_HISTORY_BACKGROUND='green'
@@ -52,25 +52,25 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history)
 
 # # Refresh Function - https://babushk.in/posts/renew-environment-tmux.html
-# if [ -n "$TMUX" ]; then                                                                               
-#   function refresh {                                                                                
-#     export $(tmux show-environment | grep "^SSH_AUTH_SOCK")                                       
-#     export $(tmux show-environment | grep "^DISPLAY")                                               
-#   }                                                                                                 
-# else                                                                                                  
-#   function refresh { }                                                                              
+# if [ -n "$TMUX" ]; then
+#   function refresh {
+#     export $(tmux show-environment | grep "^SSH_AUTH_SOCK")
+#     export $(tmux show-environment | grep "^DISPLAY")
+#   }
+# else
+#   function refresh { }
 # fi
 
 # # Then, I define a preexec hook that calls refresh before each new command that gets executed:
-# function preexec {                                                                                    
-#     refresh                                                                                           
+# function preexec {
+#     refresh
 # }
 
 # POWERLEVEL9K_TIME_FORMAT="%D{%T | %m.%d.%y}"
-## 
+##
 
 # Default username to hide "user@hostname" info
-DEFAULT_USER="jldeen"
+DEFAULT_USER="ira"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
