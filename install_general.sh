@@ -19,7 +19,7 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   brew cask install sourcetree
 
   brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json \
-    qlprettypatch quicklook-csv betterzipql qlimagesize webpquicklook \
+    qlprettypatch quicklook-csv qlimagesize webpquicklook \
     suspicious-package
 
   brew cask install font-source-code-pro-for-powerline font-inconsolata-dz-for-powerline
