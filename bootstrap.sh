@@ -53,7 +53,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   python3 --version | grep '3\.6' || (echo "Python version is not 3.6.X, please install https://www.python.org/ftp/python/3.6.4/python-3.6.4-macosx10.6.pkg" && exit 1)
 
   # This little joke kills some of our nicest code.
-  sudo mv /etc/bashrc_Apple_Terminal /etc/bashrc_Apple_Terminal.disabled
+  test -r /etc/bashrc_Apple_Terminal && \
+    sudo mv /etc/bashrc_Apple_Terminal /etc/bashrc_Apple_Terminal.disabled
 
 elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
 
