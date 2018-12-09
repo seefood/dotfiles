@@ -2,6 +2,12 @@
 
 set -e
 
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until this script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 function user () {
   printf "\r  [ \033[0;33m??\033[0m ] $1\n"
 }
@@ -33,7 +39,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew tap chef/chef
 
   echo "getting some important extra brew packages"
-  brew install thefuck screen neovim the_silver_searcher git curl hub fd fzf
+  brew install thefuck screen neovim the_silver_searcher git curl hub fd fzf wget
   pip3 install neovim powerline-status
 
   (cd ~/Downloads/
