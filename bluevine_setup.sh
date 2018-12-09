@@ -8,13 +8,28 @@ set -e
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # Basic brew stuff (some may already be installed?)
-  brew install vagrant-completion
+  brew install rvm vagrant-completion
   brew cask install chef-workstation
 else
-  wget https://packages.chef.io/files/stable/chef-workstation/0.2.41/ubuntu/18.04/chef-workstation_0.2.41-1_amd64.deb && \
-    sudo dpkg -i chef-workstation_0.2.41-1_amd64.deb || sudo apt install -f
+  if ! hash vagrant ; then
+    wget https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.deb && \
+      sudo dpkg -i vagrant_2.2.2_x86_64.deb && \
+      rm vagrant_2.2.2_x86_64.deb
+  fi
+
+  if ! hash rvm ; then
+    sudo apt-add-repository -y ppa:rael-gc/rvm
+    sudo apt-get update
+    sudo apt-get install -y rvm
+  fi
+
+  if ! hash knife ; then
+    wget https://packages.chef.io/files/stable/chef-workstation/0.2.41/ubuntu/18.04/chef-workstation_0.2.41-1_amd64.deb && \
+      sudo dpkg -i chef-workstation_0.2.41-1_amd64.deb
 fi
 
+rvm install 2.4.1
+rvm use 2.4.1
 vagrant plugin install vagrant-triggers vagrant-cachier vagrant-share
 
 # Install the required pip3 packages on your new virtual environment:
@@ -26,12 +41,12 @@ WS=${WS:=~/bluevine}
 
 # Basic infrastructure:
 mkdir -p ${WS} && cd ${WS}
-for repo in system chef-repo ; do
-  git clone git@github.com:bluevine-dev/${repo}.git
-  git -C ${repo}/ config pull.rebase false
+for repo in system chef-repo r2d2 ; do
+  [[ -d ${repo}/.git ]] || git clone git@github.com:bluevine-dev/${repo}.git
+  [[ "$repo" = "r2d2" ]] || git -C ${repo}/ config pull.rebase false
 done
 
-environments="$(cd system/misc/dev-kit/ ; echo [a-z]*)"
+environments="development staging production"
 
 for envi in $environments ; do
   [[ -d ${WS}/${envi} ]] || cp -r system/misc/dev-kit/${envi} . > /dev/null || true
@@ -42,6 +57,12 @@ for envi in $environments ; do
 done
 
 bash ${WS}/chef-repo/cookbooks/bluevine-dev/clone-repos.sh
+
+# Future addition, when it stabilizes.
+#cd r2d2/
+#make install_cli
+#. ~/.bash_aliases.d/dev.bluevine.sh
+#r2d2 projects init
 
 # Development environment: (~/bluevine/development):
 ln -sf ${WS}/chef-repo/cookbooks/bluevine-dev ${WS}/development/src

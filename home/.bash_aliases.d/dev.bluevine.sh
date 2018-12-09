@@ -3,6 +3,12 @@
 
 export VAGRANT_USE_VAGRANT_TRIGGERS=" "
 
+if [[ -r /etc/profile.d/rvm.sh ]] ; then
+  source /etc/profile.d/rvm.sh
+  rvm use 2.4.1
+  rvm gemset use vagrant
+fi
+
 # Python virtualenv
 export WORKON_HOME=~/.virtualenvs
 if [[ "$OSTYPE" == "darwin"* ]]; then
