@@ -53,11 +53,11 @@ done
 environments="development staging production"
 
 for envi in $environments ; do
-  [[ -d ${WS}/${envi} ]] || cp -r system/misc/dev-kit/${envi} . > /dev/null || true
-  ln -sf ${WS}/chef-repo ${envi}/
-  ln -sf ${WS}/system/common/env ${envi}/.env
-  ln -sf ${WS}/system/common/env ${envi}/env-${envi}.sh
-  ln -sf chef-repo/fabfile ${envi}/fabfile
+  [[ -d ${WS}/${envi} ]] || cp -r "system/misc/dev-kit/${envi}" . > /dev/null || true
+  ln -sf ${WS}/chef-repo "${envi}/"
+  ln -sf ${WS}/system/common/env "${envi}/.env"
+  ln -sf ${WS}/system/common/env "${envi}/env-${envi}.sh"
+  ln -sf chef-repo/fabfile "${envi}/fabfile"
 done
 
 bash ${WS}/chef-repo/cookbooks/bluevine-dev/clone-repos.sh
