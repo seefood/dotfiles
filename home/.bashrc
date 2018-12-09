@@ -1,9 +1,23 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-for newpath in ${HOME}/workspace/devops/tools ${HOME}/bin ~/.gem/ruby/1.9.1/bin /opt/nginx/sbin; do
-  [[ -d $newpath ]] && export PATH=${PATH}:${newpath}
+
+function path_append ()  { local res="$(path_remove "$1" "$2")" ; echo "$res:$1" ; }
+function path_prepend () { local res="$(path_remove "$1" "$2")" ; echo "$1:$res" ; }
+function path_remove ()  { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//' ; }
+
+for newpath in ~/.iterm2 ~/bin ~/.local/bin /opt/nginx/sbin \
+      /usr/local/opt/coreutils/libexec/gnubin \
+      /usr/local/opt/gnu-sed/libexec/gnubin ~/.rbenv/bin \
+      ~/.rvm/gems/ruby-2.4.1/bin ; do
+  [[ -d $newpath ]] && export PATH="$(path_prepend "${newpath}" "${PATH}")"
 done
+
+for newpath in /usr/local/opt/coreutils/libexec/gnuman \
+  /usr/local/opt/gnu-sed/libexec/gnuman ; do
+  [[ -d $newpath ]] && export MANPATH="$(path_prepend "${newpath}" "${MANPATH}")"
+done
+
 unset newpath
 
 [[ "$PS1" ]] || return
@@ -83,8 +97,7 @@ complete -C /usr/bin/command_completion_for_rake -o default rake
 umask 022
 UBUNTU_MENUPROXY=0
 
-if [[ -d $HOME/.rbenv/bin ]] ; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
+if [[ -d ${HOME}/.rbenv/bin ]] ; then
   eval "$(rbenv init -)"
 fi
 
@@ -119,27 +132,7 @@ ulimit -v unlimited
 
 # (Advanced): Uncomment this to make Bash-it reload itself automatically
 # after enabling or disabling aliases, plugins, and completions.
-export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
-
-# Setup fzf
-if [[ -x ~/.fzf/bin/fzf ]] ; then
-  # If FD is installed, let FZF use it.
-  if [[ -x /usr/bin/fd ]] ; then
-    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  fi
-  if [[ ! "$PATH" == */.fzf/bin* ]]; then
-    export PATH="$PATH:$HOME/.fzf/bin"
-  fi
-
-  # Auto-completion
-  # ---------------
-  source ~/.fzf/shell/completion.bash 2> /dev/null
-
-  # Key bindings
-  # ------------
-  source "$HOME/.fzf/shell/key-bindings.bash"
-fi
+#export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
 export GPG_TTY=$(tty)
 

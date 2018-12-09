@@ -1,9 +1,3 @@
-# alias fixmtu="sudo ip link change eth0 mtu 1350; sudo ip link change wlan0 mtu 1350"
-alias gdsync='for i in ~/google-drive/*; do grive -p $i & done'
-alias cformat='indent -kr -i8 --no-tabs --indent-label0'
-alias g='grep -n --color'
-alias h='history'
-
 function ewhich() {
   command which $*
   \type $*
@@ -20,6 +14,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 alias mc='mv'
 #alias mutt='xttitle mutt:$USER mutt:$USER; /usr/bin/mutt'
+
+export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ] ; then
@@ -56,8 +52,28 @@ function theme_change () {
   fi
   sed -i '' 's/\(.*BASH_IT_THEME=\).*/\1"'$1'"/'  ~/.bash_profile
   unset PS1 PROMPT_COMMAND
+  export BASH_IT_THEME=$1
   source ~/.bash_profile
 }
 complete -o default -C 'theme_change --complete $@' theme_change
 
 function nd() { mkdir "$1" && cd "$1"; }
+
+# Setup fzf
+if hash fzf 2> /dev/null && hash fd 2> /dev/null ; then
+  # If FD is installed, let FZF use it.
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+  ## These are now handled in bash-it
+  if [[ -z "$BASH_IT" ]] ; then
+    # Auto-completion
+    # IC_AWS_ENVIRONMENT
+    # TODO: fix fzf path to be ubuntu and Mac compat.
+    [[ $- == *i* ]] && source $(brew --prefix fzf)/shell/completion.bash 2> /dev/null
+
+    # Key bindings
+    # ------------
+    source "$(brew --prefix fzf)/shell/key-bindings.bash"
+  fi
+fi

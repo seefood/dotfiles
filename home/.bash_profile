@@ -9,13 +9,6 @@
 # Set a default locale or the system will pick out something unusable.
 export LANG=en_US.UTF-8
 
-# Path to the bash it configuration
-export BASH_IT=$HOME/.bash_it
-
-# Lock and Load a custom theme file
-# location /.bash_it/themes/
-export BASH_IT_THEME="powerline-multiline"
-
 # Your place for hosting Git repos. I use this for private repos.
 export GIT_HOSTING='git@git.github.com'
 
@@ -40,7 +33,10 @@ export SHORT_HOSTNAME=$(hostname -s)
 
 #export POWERLINE_LEFT_PROMPT="clock user_info scm python_venv ruby cwd in_vim"
 export POWERLINE_LEFT_PROMPT="scm python_venv ruby cwd"
-export POWERLINE_RIGHT_PROMPT="in_vim clock user_info"
+#export POWERLINE_RIGHT_PROMPT="in_vim clock user_info"
+# Most people don't like that right side, so I'm turning it off. comment the
+# next line if you want to try it:
+export POWERLINE_RIGHT_PROMPT=" "
 [[ "$SSH_CONNECTION" ]] && export POWERLINE_RIGHT_PROMPT="$POWERLINE_RIGHT_PROMPT hostname"
 #export POWERLINE_LEFT_SEPARATOR=""
 #export POWERLINE_LEFT_END=""
@@ -53,8 +49,15 @@ export USER_INFO_THEME_PROMPT_COLOR_SUDO=63
 export POWERLINE_PROMPT_CHAR="↳" # Use this one instead if iTerm or another terminal gives you trouble
 export POWERLINE_PROMPT_CHAR="➡️ "
 
+# Path to the bash it configuration
+export BASH_IT=$HOME/.bash_it
+
+# Lock and Load a custom theme file
+# location /.bash_it/themes/
+export BASH_IT_THEME="powerline-multiline"
+
 # Load Bash It
-source $BASH_IT/bash_it.sh
+[[ -d $BASH_IT ]] && source $BASH_IT/bash_it.sh
 
 # Refresh iTerm2 integration after bash-it as necessary.
 

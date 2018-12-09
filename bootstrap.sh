@@ -23,12 +23,15 @@ function fail () {
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
+#####################################
+##################### MacOS env setup
+#####################################
+
   info "Installing Brew"
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   hash brew 2>/dev/null || fail "install brew first"
 
   brew doctor
-  brew tap homebrew/versions
   brew tap caskroom/versions
   brew tap caskroom/fonts
   brew tap chef/chef
@@ -37,10 +40,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew install thefuck screen neovim the_silver_searcher git curl hub fd fzf
   pip3 install neovim powerline-status
 
-  info "installing homesick"
+  # This little joke kills some code.
+  sudo mv /etc/bashrc_Apple_Terminal /etc/bashrc_Apple_Terminal.disabled
 
 elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
-  info "Doing Debian install of homesick"
+
+#####################################
+#################### Ubuntu env setup
+#####################################
 
   info "installing some essential packages"
   sudo apt-get install -y screen silversearcher-ag curl thefuck git \
@@ -68,7 +75,8 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
     fi
   fi
 
-  mkdir -p ~/bin
+  echo "installing some essential packages"
+  sudo apt-get install -y tmux neovim
 
   # Download Hub
   if [ ! -e "$HOME/bin/hub" ] && [ ! -e /usr/local/bin/hub ] ; then
@@ -76,20 +84,14 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
     HUB_DOWNLOAD_URL=https://github.com/github/hub/releases/download
     HUB_OS=hub-linux-amd64
 
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-      brew install hub
-    else
+    FULL_URL=${HUB_DOWNLOAD_URL}/v${HUB_VERSION}/${HUB_OS}-${HUB_VERSION}.tgz
 
-      FULL_URL=${HUB_DOWNLOAD_URL}/v${HUB_VERSION}/${HUB_OS}-${HUB_VERSION}.tgz
+    echo "Downloading Hub ${HUB_VERSION}"
 
-      echo "Downloading Hub ${HUB_VERSION}"
-
-      curl -fL ${FULL_URL} > /tmp/hub.tgz && \
-        tar zxf /tmp/hub.tgz -C /tmp && \
-        mv /tmp/${HUB_OS}-${HUB_VERSION}/bin/hub ~/bin/hub
-
+    curl -fL ${FULL_URL} > /tmp/hub.tgz && \
+      tar zxf /tmp/hub.tgz -C /tmp && \
+      mv /tmp/${HUB_OS}-${HUB_VERSION}/bin/hub ~/bin/hub
       rm -Rf /tmp/hub*
-    fi
   else
     echo "Hub exists."
   fi
@@ -108,54 +110,60 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 fi
 
+###########################
+#################### Common
+###########################
+
 sudo gem install homesick --no-ri --no-rdoc
 
 # Have ensured that homesick is available
 hash homesick 2>/dev/null || (echo "homesick install failed" && exit 1)
 
+pip3 install --upgrade powerline-status neovim
+
 ## Clone dotfiles
 info "Cloning the dotfiles"
 homesick clone seefood/dotfiles dotfiles
 
-for dir in `cat ~/.homesick/repos/dotfiles/.homesick_subdir` ; do
-  mkdir -p "~/${dir}"
-done
+while read -r dir ; do
+  mkdir -p ~/"${dir}"
+done < ~/.homesick/repos/dotfiles/.homesick_subdir
 
-yes | homesick symlink dotfiles
+homesick symlink dotfiles
+[[ -r ~/.gitconfig.local ]] || cp ~/.gitconfig.local.example ~/.gitconfig.local
+
+user "Make sure you have your correct settings in ~/.gitconfig.local"
+
+# vimrc vundle install
+info ''
+info "Now installing vundle..."
+info ''
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+info 'fire up vundle installation'
+nvim +PluginInstall +qall && success 'vim plugins installed!'
 
 # Install pathogen for vim/neovim
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-# Also install dein, the plugin-manager
-curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > /tmp/dein-installer.sh && \
-    sh /tmp/dein-installer.sh ~/.vim/bundle
+  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 # Vim color scheme install
-echo ''
-echo "Now installing vim wombat color scheme..."
-echo ''
-git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat 
+info ''
+info "Now installing vim wombat color scheme..."
+info ''
+git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat
 mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
 
-# Speedtest-cli, pip and jq install
-echo ''
-echo "Now installing Speedtest-cli, pip, tmux and jq..."
-echo ''
-sudo apt-get install jq tmux python-pip -y
-sudo pip install --upgrade pip
-sudo pip install speedtest-cli
-
 # Bash color scheme
-echo ''
-echo "Now installing solarized dark WSL color scheme..."
-echo ''
+info ''
+info "Now installing solarized dark WSL color scheme..."
+info ''
 wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
 mv dircolors.256dark .dircolors
 
-success "More easter eggs await.,, Check these out:"
+success "More easter eggs await... Check these out:"
 
-info "~/.homesick/repos/dotfiles/install_bash_it.sh"
-info "~/.homesick/repos/dotfiles/install_general.sh"
-info "~/.homesick/repos/dotfiles/install_dev.sh"
-info "~/.homesick/repos/dotfiles/install_zsh.sh"
+info ~/.homesick/repos/dotfiles/install_bash_it.sh
+info ~/.homesick/repos/dotfiles/install_general.sh
+info ~/.homesick/repos/dotfiles/install_dev.sh
+info ~/.homesick/repos/dotfiles/install_zsh.sh
