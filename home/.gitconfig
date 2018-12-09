@@ -154,4 +154,4 @@
 
 [pull]
   # Change as appropriate (or per repo)
-  rebase = true
+	rebase = true
