@@ -8,7 +8,7 @@ set -e
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # Basic brew stuff (some may already be installed?)
-  brew install rvm vagrant-completion
+  brew install vagrant-completion
   brew cask install chef-workstation
 else
   if ! hash vagrant ; then
@@ -21,18 +21,19 @@ else
     sudo apt-add-repository -y ppa:rael-gc/rvm
     sudo apt-get update
     sudo apt-get install -y rvm
+
+    # At this point, the Ubuntu people may need to logout and login again to get rvm group membership.
+
   fi
+  source /etc/profile.d/rvm.sh
+  rvm install 2.4.1
+  rvm use 2.4.1
 
   if ! hash knife ; then
     wget https://packages.chef.io/files/stable/chef-workstation/0.2.41/ubuntu/18.04/chef-workstation_0.2.41-1_amd64.deb && \
       sudo dpkg -i chef-workstation_0.2.41-1_amd64.deb
   fi
 fi
-
-# At this point, the Ubuntu people may need to logout and login again to get rvm group membership.
-
-rvm install 2.4.1
-rvm use 2.4.1
 vagrant plugin install vagrant-triggers vagrant-cachier vagrant-share
 
 # Install the required pip3 packages on your new virtual environment:
