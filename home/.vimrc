@@ -20,6 +20,7 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'christoomey/vim-tmux-navigator'
 " Ira Original:
 Plugin 'tpope/vim-pathogen'
+Plugin 'python-mode/python-mode'
 Plugin 'junegunn/fzf.vim'
   " Git diff symbols in the gutter
 Plugin 'airblade/vim-gitgutter'
@@ -43,7 +44,6 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
   " Run pep8 and other checkers (McCabe, Frosted) on python code.
 Plugin 'andviro/flake8-vim'
-Plugin 'klen/python-mode'
   " Plugin 'MarcWeber/vim-addon-mw-utils'
   " Add a nice dark theme.
   " Plugin 'joshdick/onedark.vim'
