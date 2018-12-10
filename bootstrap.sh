@@ -134,28 +134,34 @@ user "Make sure you have your correct settings in ~/.gitconfig.local"
 echo ''
 echo "Now installing vundle..."
 echo ''
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+[[ -d ~/.vim/bundle/Vundle.vim ]] || \
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Install pathogen for vim/neovim
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+  [[ -r ~/.vim/autoload/pathogen.vim ]] || \
   curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 echo 'fire up vundle installation'
 nvim +PluginInstall +qall && success 'vim plugins installed!'
 
 # Vim color scheme install
-echo ''
-echo "Now installing vim wombat color scheme..."
-echo ''
-git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat
-mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
+if ! [[ -d ~/.vim/colors/wombat/ ]] ; then
+  echo ''
+  echo "Now installing vim wombat color scheme..."
+  echo ''
+  git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat
+  mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
+fi
 
 # Bash color scheme
-echo ''
-echo "Now installing solarized dark WSL color scheme..."
-echo ''
-wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-mv dircolors.256dark ~/.dircolors
+if ~ [[ -r ~/.dircolors ]] ; then
+  echo ''
+  echo "Now installing solarized dark WSL color scheme..."
+  echo ''
+  wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
+  mv dircolors.256dark ~/.dircolors
+fi
 
 success "More easter eggs await... Check these out:"
 
