@@ -38,35 +38,35 @@ complete -F _pipenv_completion -o default pipenv
 eval "$(register-python-argcomplete r2d2)"
 
 # Default location of the workspace env, feel free to override:
-export WS=${WS:-~/bluevine}
-export CHEF_REPOSITORY=${WS}/chef-repo/
+export PROJECT_HOME=${PROJECT_HOME:-~/bluevine}
+export CHEF_REPOSITORY=${PROJECT_HOME}/chef-repo/
 
 ### Some wrappers for changing environments
 
 function dev () {
   if [[ "$@" ]] ; then
-    ${WS}/development/env-development.sh $@
+    ${PROJECT_HOME}/development/env-development.sh $@
     return $?
   else
-    source ${WS}/development/env-development.sh
+    source ${PROJECT_HOME}/development/env-development.sh
   fi
 }
 
 function stg () {
   if [[ "$@" ]] ; then
-    ${WS}/staging/env-staging.sh $@
+    ${PROJECT_HOME}/staging/env-staging.sh $@
     return $?
   else
-    source ${WS}/staging/env-staging.sh
+    source ${PROJECT_HOME}/staging/env-staging.sh
   fi
 }
 
 function prd () {
   if [[ "$@" ]] ; then
-    ${WS}/production/env-production.sh $@
+    ${PROJECT_HOME}/production/env-production.sh $@
     return $?
   else
-    source ${WS}/production/env-production.sh
+    source ${PROJECT_HOME}/production/env-production.sh
   fi
 }
 

@@ -41,10 +41,10 @@ pip3 install pylint pylint-django fabric3 boto3 requests awscli virtualenv\
     virtualenvwrapper cryptography sendgrid==3.6.0
 
 # Allow non-standard workspace locations.
-WS=${WS:=~/bluevine}
+PROJECT_HOME=${PROJECT_HOME:=~/bluevine}
 
 # Basic infrastructure:
-mkdir -p ${WS} && cd ${WS}
+mkdir -p ${PROJECT_HOME} && cd ${PROJECT_HOME}
 for repo in system chef-repo r2d2 ; do
   [[ -d ${repo}/.git ]] || git clone git@github.com:bluevine-dev/${repo}.git
   [[ "$repo" = "r2d2" ]] || git -C ${repo}/ config pull.rebase false
@@ -53,14 +53,14 @@ done
 environments="development staging production"
 
 for envi in $environments ; do
-  [[ -d ${WS}/${envi} ]] || cp -r "system/misc/dev-kit/${envi}" . > /dev/null || true
-  ln -sf ${WS}/chef-repo "${envi}/"
-  ln -sf ${WS}/system/common/env "${envi}/.env"
-  ln -sf ${WS}/system/common/env "${envi}/env-${envi}.sh"
+  [[ -d ${PROJECT_HOME}/${envi} ]] || cp -r "system/misc/dev-kit/${envi}" . > /dev/null || true
+  ln -sf ${PROJECT_HOME}/chef-repo "${envi}/"
+  ln -sf ${PROJECT_HOME}/system/common/env "${envi}/.env"
+  ln -sf ${PROJECT_HOME}/system/common/env "${envi}/env-${envi}.sh"
   ln -sf chef-repo/fabfile "${envi}/fabfile"
 done
 
-bash ${WS}/chef-repo/cookbooks/bluevine-dev/clone-repos.sh
+bash ${PROJECT_HOME}/chef-repo/cookbooks/bluevine-dev/clone-repos.sh
 
 # Future addition, when it stabilizes.
 #cd r2d2/
@@ -69,10 +69,10 @@ bash ${WS}/chef-repo/cookbooks/bluevine-dev/clone-repos.sh
 #r2d2 projects init
 
 # Development environment: (~/bluevine/development):
-ln -sf ${WS}/chef-repo/cookbooks/bluevine-dev ${WS}/development/src
-cp ${WS}/chef-repo/cookbooks/bluevine-dev/VagrantfileUbuntu16Py36R2D20180514.sample \
-  ${WS}/development/src/Vagrantfile
+ln -sf ${PROJECT_HOME}/chef-repo/cookbooks/bluevine-dev ${PROJECT_HOME}/development/src
+cp ${PROJECT_HOME}/chef-repo/cookbooks/bluevine-dev/VagrantfileUbuntu16Py36R2D20180514.sample \
+  ${PROJECT_HOME}/development/src/Vagrantfile
 
-sh ${WS}/chef-repo/cookbooks/bluevine-dev/install-git-hooks.sh
+sh ${PROJECT_HOME}/chef-repo/cookbooks/bluevine-dev/install-git-hooks.sh
 
 # At this point break for the user to put the .chef/user.pem in the right locations.
