@@ -51,12 +51,12 @@ Plugin 'andviro/flake8-vim'
   " Plugin 'mhartington/oceanic-next'
 Plugin 'stephpy/vim-yaml'
 if !has('nvim')
-    " Dynamic Autocomplete - needs a newer neovim
-    Plugin 'Shougo/deoplete.nvim'
-    Plugin 'roxma/nvim-yarp'
-    Plugin 'roxma/vim-hug-neovim-rpc'
-    " Plugin 'zchee/deoplete-clang'
-    " Plugin 'zchee/deoplete-jedi'
+  " Dynamic Autocomplete - needs a newer neovim
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'roxma/nvim-yarp'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+  " Plugin 'zchee/deoplete-clang'
+  " Plugin 'zchee/deoplete-jedi'
 endif
 
 " From Adir:
@@ -93,9 +93,6 @@ let g:airline_section_y = ""        " hide file encoding
 " ------
 set laststatus=2
 " ------
-
-" Set line number
-set number
 
 " colorscheme wombat
 
@@ -161,7 +158,7 @@ map <leader>mbf :MBEFocus<cr>
 
 " syntastic
 let g:syntastic_python_pep8_args = "--max-line-size=180"
-let g:syntastic_python_flake8_args = "--max-line-size=180" 
+let g:syntastic_python_flake8_args = "--max-line-size=180"
 
 if has("unix")
   " Source the setup file for all users:
@@ -264,8 +261,8 @@ set laststatus=2            " Always show statusline, even if only 1 window.
 "set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 
 " displays tabs with :set list & displays when a line runs off-screen
-set showbreak=↪\ 
-set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨,eol:↲
+set showbreak='↪\ '
+set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨ ",eol:↲
 set list
 
 """ Searching and Patterns
