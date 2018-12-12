@@ -15,6 +15,10 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
 
   export HOMEBREW_CASK_OPTS=--appdir=/Applications
   brew cask install iterm2
+  if [[ ! -r ~/.itermcfg/com.googlecode.iterm2.plist ]] ; then
+    cp ~/.homesick/repos/dotfile/.itermcfg/* ~/.itermcfg/
+    ## TODO get iterm2 to use this directory with applescripting megic.
+  fi
 
   brew cask install sourcetree
 
