@@ -13,7 +13,7 @@ fi
 export WORKON_HOME=~/.virtualenvs
 if [[ "$OSTYPE" == "darwin"* ]]; then
   pypath=/Library/Frameworks/Python.framework/Versions/3.6/bin
-  export PATH="$(path_prepend "${pypath}" "${PATH}")"
+  export PATH="$(path_append "${pypath}" "${PATH}")"
   export VIRTUALENVWRAPPER_PYTHON=${pypath}/python3
   source ${pypath}/virtualenvwrapper.sh
 else
@@ -21,8 +21,7 @@ else
   source ~/.local/bin/virtualenvwrapper.sh
 fi
 
-[[ -d ${WORKON_HOME}/bluevine ]] || mkvirtualenv bluevine
-workon bluevine
+[[ -d ${WORKON_HOME}/bluevine ]] && workon bluevine
 
 unset pypath
 
@@ -35,7 +34,8 @@ function _pipenv_completion() {
 }
 
 complete -F _pipenv_completion -o default pipenv
-eval "$(register-python-argcomplete r2d2)"
+hash register-python-argcomplete 2>/dev/null && \
+  eval "$(register-python-argcomplete r2d2)"
 
 # Default location of the workspace env, feel free to override:
 export PROJECT_HOME=${PROJECT_HOME:-~/bluevine}
