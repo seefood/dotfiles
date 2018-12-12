@@ -48,6 +48,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   wget -c https://www.python.org/ftp/python/3.6.4/python-3.6.4-macosx10.6.pkg \
     https://tunnelblick.net/release/Latest_Tunnelblick_Stable.dmg
   sudo installer -pkg python-3.6.4-macosx10.6.pkg -target /
+  # Python comes with its own openSSL and no top CA certs,
+  # so this downloads and installs them:
   /Applications/Python\ 3.6/Install\ Certificates.command
   )
 
