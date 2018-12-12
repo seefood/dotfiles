@@ -132,12 +132,13 @@ let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
 " ack
 let g:ackprg = "ag --vimgrep"
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/include/clang/6.0/include/'
-let g:deoplete#sources#clang#clang_complete_database = '.'
-
+if !has('nvim')
+  " deoplete
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
+  let g:deoplete#sources#clang#clang_header = '/usr/include/clang/6.0/include/'
+  let g:deoplete#sources#clang#clang_complete_database = '.'
+endif
 
 " cscope
 if has("cscope")
