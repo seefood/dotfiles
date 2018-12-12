@@ -3,10 +3,10 @@
 
 export VAGRANT_USE_VAGRANT_TRIGGERS=" "
 
-if [[ -r /etc/profile.d/rvm.sh ]] ; then
-  source /etc/profile.d/rvm.sh
-  rvm use 2.4.1
-  rvm gemset use vagrant
+# Ruby RVM
+if ! hash rvm 2>/dev/null ; then
+  [[ -r /etc/profile.d/rvm.sh ]] && source /etc/profile.d/rvm.sh
+  [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 fi
 
 # Python virtualenv
