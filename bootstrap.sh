@@ -42,7 +42,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
   echo "getting some important extra brew packages"
   brew install thefuck screen neovim the_silver_searcher git curl hub fd fzf wget
-  pip3 install neovim powerline-status
 
   (cd ~/Downloads/
   wget -c https://www.python.org/ftp/python/3.6.4/python-3.6.4-macosx10.6.pkg \
@@ -68,8 +67,6 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
   echo "installing some essential packages"
   sudo apt-get install -y screen silversearcher-ag curl thefuck git \
       software-properties-common python3-pip rubygems
-  pip3 install --upgrade powerline-status
-  pip3 install --upgrade neovim
 
   # Adding backports, neovim and other useful bits.
   sudo add-apt-repository -u "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-backports main restricted universe multiverse"
