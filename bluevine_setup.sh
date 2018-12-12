@@ -36,6 +36,11 @@ else
 fi
 vagrant plugin install vagrant-triggers vagrant-cachier vagrant-share
 
+# Creating the virtualenv
+pip3 install virtualenvwrapper
+mkvirtualenv bluevine
+workon bluevine
+
 # Install the required pip3 packages on your new virtual environment:
 pip3 install pylint pylint-django fabric3 boto3 requests awscli virtualenv\
     virtualenvwrapper cryptography sendgrid==3.6.0
