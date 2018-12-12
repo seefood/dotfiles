@@ -402,4 +402,14 @@ function! Smart_TabComplete()
     return "\<C-X>\<C-O>"                         " plugin matching
   endif
 endfunction
+
 inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+        \  if &omnifunc == "" |
+        \    setlocal omnifunc=syntaxcomplete#Complete |
+        \  endif
+endif
+
+set isfname-==
