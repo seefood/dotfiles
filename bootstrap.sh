@@ -71,7 +71,7 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
   # Adding backports, neovim and other useful bits.
   sudo add-apt-repository -u "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-backports main restricted universe multiverse"
 
-  if ! hash nvim ; then
+  if ! hash nvim 2>/dev/null ; then
     echo "install neovim, trying from default sources"
     sudo apt-get install -y neovim
     if [[ $? -eq 100 ]] ; then
@@ -92,22 +92,23 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
   sudo apt-get install -y tmux neovim
 
   # Download fd
-  if hash fd; then
+  if hash fd 2>/dev/null; then
     echo "fd exists."
   else
     fdversion=7.2.0
-    wget https://github.com/sharkdp/fd/releases/download/v${fdversion}/fd_${fdversion}_amd64.deb && \
+    wget -q https://github.com/sharkdp/fd/releases/download/v${fdversion}/fd_${fdversion}_amd64.deb && \
       sudo dpkg -i fd_${fdversion}_amd64.deb
 
     rm -Rf fd_${fdversion}_amd64.deb
   fi
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+  git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf > /dev/null && ~/.fzf/install
 fi
 
 ###########################
 #################### Common
 ###########################
 
+sudo gem fetch homesick
 sudo gem install homesick --no-ri --no-rdoc
 
 # Have ensured that homesick is available
@@ -117,8 +118,7 @@ pip3 install --upgrade powerline-status neovim
 
 ## Clone dotfiles
 echo "Cloning the dotfiles"
-homesick clone git@github.com:bluevine-dev/dotfiles.git dotfiles || \
-  homesick clone git@github.com:bluevine-dev/dotfiles.
+homesick clone git@github.com:bluevine-dev/dotfiles.git
 
 while read -r dir ; do
   mkdir -p ~/"${dir}"
@@ -134,7 +134,7 @@ echo ''
 echo "Now installing vundle..."
 echo ''
 [[ -d ~/.vim/bundle/Vundle.vim ]] || \
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  git clone -q https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Install pathogen for vim/neovim
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
@@ -149,7 +149,7 @@ if ! [[ -d ~/.vim/colors/wombat/ ]] ; then
   echo ''
   echo "Now installing vim wombat color scheme..."
   echo ''
-  git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat
+  git clone -q https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat
   mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
 fi
 
@@ -158,7 +158,7 @@ if ~ [[ -r ~/.dircolors ]] ; then
   echo ''
   echo "Now installing solarized dark WSL color scheme..."
   echo ''
-  wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
+  wget -q https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
   mv dircolors.256dark ~/.dircolors
 fi
 
