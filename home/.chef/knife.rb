@@ -21,9 +21,9 @@ else
   chef_server_url "https://54.235.118.249/organizations/bluevine/"
 end
 
-# START comment in after ssl
-#if ENV['environment'] != 'development'
-#    knife[:vault_mode] = 'client'
-#    knife[:vault_admins] = Chef::Knife.new.rest.get_rest("groups/vault-admins")["users"]
-#end
-# END comment in after ssl
+knife[:aws_region] = ENV['AWS_REGION']
+
+if ENV['environment'] != 'development'
+    knife[:vault_mode] = 'client'
+    knife[:vault_admins] = Chef::Knife.new.rest.get_rest("groups/vault-admins")["users"]
+end
