@@ -53,6 +53,7 @@ PROJECT_HOME=${PROJECT_HOME:=~/bluevine}
 
 # Basic infrastructure:
 mkdir -p ${PROJECT_HOME} && cd ${PROJECT_HOME}
+ssh-keyscan github.com >> ~/.ssh/known_hosts
 for repo in system chef-repo r2d2 ; do
   [[ -d ${repo}/.git ]] || git clone git@github.com:bluevine-dev/${repo}.git
   [[ "$repo" = "r2d2" ]] || git -C ${repo}/ config pull.rebase false

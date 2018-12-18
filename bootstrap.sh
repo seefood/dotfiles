@@ -101,7 +101,7 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
 
     rm -Rf fd_${fdversion}_amd64.deb
   fi
-  git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+  git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all --no-zsh --no-fish --no-update-rc
 fi
 
 ###########################
@@ -129,7 +129,7 @@ while read -r dir ; do
   mkdir -p ~/"${dir}"
 done < ~/.homesick/repos/dotfiles/.homesick_subdir
 
-homesick symlink dotfiles
+homesick symlink dotfiles -f
 [[ -r ~/.gitconfig.local ]] || cp ~/.gitconfig.local.example ~/.gitconfig.local
 
 user "Make sure you have your correct settings in ~/.gitconfig.local"
