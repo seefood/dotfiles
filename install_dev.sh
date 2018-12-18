@@ -8,7 +8,7 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
 
   brew cask install virtualbox vagrant vagrant-manager
 else
-  sudo apt install -y vagrant meld python-virtualenv
+  sudo apt install -y meld python-virtualenv
 fi
 
 if ! test -r ~/.netrc ; then
