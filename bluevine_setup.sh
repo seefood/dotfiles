@@ -33,7 +33,7 @@ else
   rvm install 2.4.1
   rvm use 2.4.1
 
-  if ! hash knife ; then
+  if ! hash knife 2>/dev/null ; then
     wget https://packages.chef.io/files/stable/chef-workstation/0.2.41/ubuntu/18.04/chef-workstation_0.2.41-1_amd64.deb && \
       sudo dpkg -i chef-workstation_0.2.41-1_amd64.deb
   fi
