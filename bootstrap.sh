@@ -123,6 +123,7 @@ if [[ -r ~/.netrc ]] ; then
 else
   homesick clone git@github.com:bluevine-dev/dotfiles.git
 fi
+git -C ~/.homesick/repos/dotfiles/ config pull.rebase false
 
 while read -r dir ; do
   mkdir -p ~/"${dir}"
