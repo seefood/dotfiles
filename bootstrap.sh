@@ -108,7 +108,6 @@ fi
 #################### Common
 ###########################
 
-sudo gem fetch homesick
 sudo gem install homesick --no-ri --no-rdoc
 
 # Have ensured that homesick is available
@@ -118,7 +117,12 @@ pip3 install --upgrade powerline-status neovim
 
 ## Clone dotfiles
 echo "Cloning the dotfiles"
-homesick clone git@github.com:bluevine-dev/dotfiles.git
+if [[ -r ~/.netrc ]] ; then
+  # Try to clone by https
+  homesick clone https://github.com/bluevine-dev/dotfiles.git
+else
+  homesick clone git@github.com:bluevine-dev/dotfiles.git
+fi
 
 while read -r dir ; do
   mkdir -p ~/"${dir}"
