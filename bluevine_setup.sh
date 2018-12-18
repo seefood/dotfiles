@@ -11,16 +11,20 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew install vagrant-completion
   brew cask install chef-workstation
 else
-  if ! hash vagrant ; then
+  if ! hash vagrant 2> /dev/null ; then
     wget https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.deb && \
       sudo dpkg -i vagrant_2.2.2_x86_64.deb && \
       rm vagrant_2.2.2_x86_64.deb
   fi
 
-  if ! hash rvm ; then
+  if ! hash rvm 2> /dev/null ; then
     sudo apt-add-repository -y ppa:rael-gc/rvm
     sudo apt-get update
     sudo apt-get install -y rvm
+    sudo usermod $USER -a -G rvm
+
+    echo "***** You now need to log out, log in, and run $0 again, so you can be in the rvm user group"
+    exit
 
     # At this point, the Ubuntu people may need to logout and login again to get rvm group membership.
 
