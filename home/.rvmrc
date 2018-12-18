@@ -6,3 +6,4 @@ export rvm_create_flag="1"
 export rvm_user_path="${HOME}/.rvm/user"
 export rvm_log_path="${HOME}/.rvm/log"
 export rvm_max_time_flag=20
+rvm_autoupdate_flag=0

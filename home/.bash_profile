@@ -53,7 +53,7 @@ export BASH_IT=$HOME/.bash_it
 
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
-export BASH_IT_THEME="envy"
+export BASH_IT_THEME="clean"
 
 # Load Bash It
 [[ -d $BASH_IT ]] && source $BASH_IT/bash_it.sh

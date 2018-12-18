@@ -92,7 +92,7 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
   sudo apt-get install -y tmux neovim
 
   # Download fd
-  if hash fd 2>/dev/null; then
+  if hash fd 2>/dev/null ; then
     echo "fd exists."
   else
     fdversion=7.2.0
@@ -101,7 +101,7 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
 
     rm -Rf fd_${fdversion}_amd64.deb
   fi
-  git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf > /dev/null && ~/.fzf/install
+  git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 fi
 
 ###########################
