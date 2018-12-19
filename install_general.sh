@@ -7,7 +7,7 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   # https://bitbucket.org/WAHa_06x36/theunarchiver
   brew install unar
 
-  brew install coreutils freetype gawk gnu-sed bat gpg htop-osx osxutils \
+  brew install coreutils freetype gawk gnu-sed bat htop-osx osxutils \
     pkgdiff proctools psgrep neovim wdiff up
 
   # http://apple.stackexchange.com/questions/135565/how-do-i-get-detailed-smart-disk-information-on-os-x-mavericks-or-later
@@ -29,5 +29,5 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   brew cask install font-source-code-pro-for-powerline font-inconsolata-dz-for-powerline
 
 else
-  sudo apt install -y fasd rsync tree git-extras unar neovim gpg
+  sudo apt install -y rsync tree git-extras unar
 fi
