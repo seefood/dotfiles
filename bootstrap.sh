@@ -116,6 +116,7 @@ pip3 install --upgrade powerline-status neovim
 
 ## Clone dotfiles
 echo "Cloning the dotfiles"
+ssh-keyscan github.com >> ~/.ssh/known_hosts
 if [[ -r ~/.netrc ]] ; then
   # Try to clone by https
   homesick clone https://github.com/bluevine-dev/dotfiles.git
