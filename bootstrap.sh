@@ -73,9 +73,8 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
 
   if ! hash nvim 2>/dev/null ; then
     echo "install neovim, trying from default sources"
-    sudo apt-get install -y neovim
-    if [[ $? -eq 100 ]] ; then
-      echo | sudo add-apt-repository -u ppa:neovim-ppa/stable
+    sudo apt-get install -y neovim || {
+      sudo add-apt-repository -u ppa:neovim-ppa/stable -y && sudo apt update
       sudo apt-get install -y neovim
       sudo update-alternatives --set editor /usr/bin/nvim
       sudo update-alternatives --set ex /usr/bin/ex.nvim
@@ -85,7 +84,7 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
       sudo update-alternatives --set view /usr/bin/view.nvim
       sudo update-alternatives --set vim /usr/bin/nvim
       sudo update-alternatives --set vimdiff /usr/bin/vimdiff.nvim
-    fi
+    }
   fi
 
   echo "installing some essential packages"
@@ -147,7 +146,7 @@ mkdir -p ~/.vim/autoload ~/.vim/bundle && \
   curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 echo 'fire up vundle installation'
-nvim +PluginInstall +qall && success 'vim plugins installed!'
+vim +PluginInstall +qall && success 'vim plugins installed!'
 
 # Vim color scheme install
 if ! [[ -d ~/.vim/colors/wombat/ ]] ; then
