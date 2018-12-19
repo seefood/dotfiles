@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "$OSTYPE" == "darwin"* ]] ; then
-  brew install cv editorconfig fasd multitail rsync tree
+  brew install cv editorconfig multitail rsync tree
   brew install --HEAD git-extras
 
   # https://bitbucket.org/WAHa_06x36/theunarchiver
@@ -23,7 +23,7 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   brew cask install sourcetree
 
   brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json \
-    qlprettypatch quicklook-csv qlimagesize webpquicklook \
+    qlprettypatch quicklook-csv webpquicklook \
     suspicious-package
 
   brew cask install font-source-code-pro-for-powerline font-inconsolata-dz-for-powerline

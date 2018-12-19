@@ -17,7 +17,7 @@ bash-it enable completion makefile pip ssh system \
 
 # Plugins
 bash-it enable plugin alias-completion base browser \
-  edit-mode-emacs git history fasd visual-studio-code \
+  edit-mode-emacs git history visual-studio-code \
   python ruby ssh virtualenv
 
 # Aliases
