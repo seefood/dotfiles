@@ -128,7 +128,7 @@ while read -r dir ; do
   mkdir -p ~/"${dir}"
 done < ~/.homesick/repos/dotfiles/.homesick_subdir
 
-homesick symlink dotfiles -f
+homesick symlink --force dotfiles
 [[ -r ~/.gitconfig.local ]] || cp ~/.gitconfig.local.example ~/.gitconfig.local
 
 user "Make sure you have your correct settings in ~/.gitconfig.local"
@@ -158,7 +158,7 @@ if ! [[ -d ~/.vim/colors/wombat/ ]] ; then
 fi
 
 # Bash color scheme
-if ~ [[ -r ~/.dircolors ]] ; then
+if [[ -r ~/.dircolors ]] ; then
   echo ''
   echo "Now installing solarized dark WSL color scheme..."
   echo ''
