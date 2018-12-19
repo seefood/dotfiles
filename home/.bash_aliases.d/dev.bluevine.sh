@@ -12,6 +12,8 @@ fi
 # Python virtualenv
 export WORKON_HOME=~/.virtualenvs
 if [[ "$OSTYPE" == "darwin"* ]]; then
+  function path_append ()  { local res="$(path_remove "$1" "$2")" ; echo "$res:$1" ; }
+  function path_remove ()  { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//' ; }
   pypath=/Library/Frameworks/Python.framework/Versions/3.6/bin
   export PATH="$(path_append "${pypath}" "${PATH}")"
   export VIRTUALENVWRAPPER_PYTHON=${pypath}/python3
