@@ -7,6 +7,7 @@ function path_prepend () { local res="$(path_remove "$1" "$2")" ; echo "$1:$res"
 function path_remove ()  { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//' ; }
 
 for newpath in ${HOME}/.iterm2 ~/bin ~/.local/bin /opt/nginx/sbin \
+      /usr/local/opt/go/libexec/bin \
       /usr/local/opt/coreutils/libexec/gnubin \
       /usr/local/opt/gnu-sed/libexec/gnubin \
       /usr/local/opt/binutils/bin \

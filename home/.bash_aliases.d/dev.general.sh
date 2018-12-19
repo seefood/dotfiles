@@ -1,5 +1,7 @@
 alias json='python -mjson.tool'
 
+export GOPATH=~/go
+
 function ps() {
   if [ $# -eq 0 ]; then
     command ps aux --sort rss
