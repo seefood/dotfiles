@@ -98,6 +98,7 @@ umask 022
 UBUNTU_MENUPROXY=0
 
 if [[ -d ${HOME}/.rbenv/bin ]] ; then
+  export PATH="$(path_prepend "${HOME}/.rbenv/bin" "${PATH}")"
   eval "$(rbenv init -)"
 fi
 

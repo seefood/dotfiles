@@ -173,7 +173,7 @@ if has("unix")
   if filereadable(FILE)
     exe "source " . FILE
   endif
-  let FILE=expand("~/.vim/rc.ira")
+  let FILE=expand("~/.vim/rc_rl")
   if filereadable(FILE)
     exe "source " . FILE
   endif

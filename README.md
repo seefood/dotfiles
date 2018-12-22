@@ -11,7 +11,7 @@ My collection of dotfiles, maintained through [homesick](https://github.com/tech
 * Mac users: Install the Xcode Developer Tools: xcode-select --install. This will prompt you to download the Xcode Developer Tools, which include required tools like git. Using this method prevents you from having to download the full 2+GB Xcode installer.
 
 ## Installation
----------------
+------------
 
 ### Fast and careless
 
@@ -62,6 +62,7 @@ Download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
 Other nice to have (not auto installed) is [progress](https://github.com/Xfennec/progress).
 
 MacOS Users:
+* `~/.homesick/repos/dotfiles/install_homebrew.sh`: This will download and install [Homebrew](https://brew.sh).
 * `~/.homesick/repos/dotfiles/install_general.sh`: This will install a standard set of tools (command line and UI).
 * `~/.homesick/repos/dotfiles/install_dev.sh`: Optional file, will install a set of development tools - only run if you plan to use the machine for software development.
 * `~/.homesick/repos/dotfiles/osx-settings.sh`: Based on [Mathias Bynens' Dotfiles](https://github.com/mathiasbynens/dotfiles), a common set of OS X settings.

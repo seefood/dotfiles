@@ -24,7 +24,7 @@ bash-it enable plugin alias-completion base browser \
 bash-it enable alias ag apt vim atom git general fuck tmux \
     vagrant homesick curl
 
-[[ "$OSTYPE" == "darwin"* ]]] && homebrew homebrew-cask
+[[ "$OSTYPE" == "darwin"* ]]] && bash-it enable completion homebrew homebrew-cask
 
 echo "*** More options I can recommend if relevant for you:"
 echo "bash-it enable completion tmux git_flow docker-compose dirs awscli \\\

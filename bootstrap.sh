@@ -2,10 +2,6 @@
 
 set -e
 
-function info () {
-  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
-}
-
 function user () {
   printf "\r  [ \033[0;33m??\033[0m ] $1\n"
 }
@@ -27,7 +23,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 ##################### MacOS env setup
 #####################################
 
-  info "Installing Brew"
+  echo "Installing Brew"
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   hash brew 2>/dev/null || fail "install brew first"
 
@@ -36,7 +32,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew tap caskroom/fonts
   brew tap chef/chef
 
-  info "getting some important extra brew packages"
+  echo "Getting some important extra brew packages"
   brew install thefuck screen neovim the_silver_searcher git curl hub fd fzf
   pip3 install neovim powerline-status
 
@@ -49,7 +45,7 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
 #################### Ubuntu env setup
 #####################################
 
-  info "installing some essential packages"
+  echo "Installing some essential packages"
   sudo apt-get install -y screen silversearcher-ag curl thefuck git \
       software-properties-common python3-pip
   pip3 install --upgrade powerline-status
@@ -59,7 +55,7 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
   sudo add-apt-repository -u "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-backports main restricted universe multiverse"
 
   if ! hash nvim ; then
-    info "install neovim, trying from default sources"
+    echo "install neovim, trying from default sources"
     sudo apt-get install -y neovim
     if [[ $? -eq 100 ]] ; then
       echo | sudo add-apt-repository -u ppa:neovim-ppa/stable
@@ -122,7 +118,7 @@ hash homesick 2>/dev/null || (echo "homesick install failed" && exit 1)
 pip3 install --upgrade powerline-status neovim
 
 ## Clone dotfiles
-info "Cloning the dotfiles"
+echo "Cloning the dotfiles"
 homesick clone seefood/dotfiles dotfiles
 
 while read -r dir ; do
@@ -135,12 +131,12 @@ homesick symlink dotfiles
 user "Make sure you have your correct settings in ~/.gitconfig.local"
 
 # vimrc vundle install
-info ''
-info "Now installing vundle..."
-info ''
+echo ''
+echo "Now installing vundle..."
+echo ''
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-info 'fire up vundle installation'
+echo 'Fire up vundle installation'
 nvim +PluginInstall +qall && success 'vim plugins installed!'
 
 # Install pathogen for vim/neovim
@@ -148,22 +144,22 @@ mkdir -p ~/.vim/autoload ~/.vim/bundle && \
   curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 # Vim color scheme install
-info ''
-info "Now installing vim wombat color scheme..."
-info ''
+echo ''
+echo "Now installing vim wombat color scheme..."
+echo ''
 git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat
 mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
 
 # Bash color scheme
-info ''
-info "Now installing solarized dark WSL color scheme..."
-info ''
+echo ''
+echo "Now installing solarized dark WSL color scheme..."
+echo ''
 wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
 mv dircolors.256dark .dircolors
 
 success "More easter eggs await... Check these out:"
 
-info ~/.homesick/repos/dotfiles/install_bash_it.sh
-info ~/.homesick/repos/dotfiles/install_general.sh
-info ~/.homesick/repos/dotfiles/install_dev.sh
-info ~/.homesick/repos/dotfiles/install_zsh.sh
+echo "~/.homesick/repos/dotfiles/install_bash_it.sh"
+echo "~/.homesick/repos/dotfiles/install_general.sh"
+echo "~/.homesick/repos/dotfiles/install_dev.sh"
+echo "~/.homesick/repos/dotfiles/install_zsh.sh"
