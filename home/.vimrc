@@ -20,6 +20,7 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'christoomey/vim-tmux-navigator'
 " Ira Original:
 Plugin 'tpope/vim-pathogen'
+Plugin 'python-mode/python-mode'
 Plugin 'junegunn/fzf.vim'
   " Git diff symbols in the gutter
 Plugin 'airblade/vim-gitgutter'
@@ -43,7 +44,6 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
   " Run pep8 and other checkers (McCabe, Frosted) on python code.
 Plugin 'andviro/flake8-vim'
-Plugin 'klen/python-mode'
   " Plugin 'MarcWeber/vim-addon-mw-utils'
   " Add a nice dark theme.
   " Plugin 'joshdick/onedark.vim'
@@ -51,12 +51,12 @@ Plugin 'klen/python-mode'
   " Plugin 'mhartington/oceanic-next'
 Plugin 'stephpy/vim-yaml'
 if !has('nvim')
-    " Dynamic Autocomplete - needs a newer neovim
-    Plugin 'Shougo/deoplete.nvim'
-    Plugin 'roxma/nvim-yarp'
-    Plugin 'roxma/vim-hug-neovim-rpc'
-    " Plugin 'zchee/deoplete-clang'
-    " Plugin 'zchee/deoplete-jedi'
+  " Dynamic Autocomplete - needs a newer neovim
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'roxma/nvim-yarp'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+  " Plugin 'zchee/deoplete-clang'
+  " Plugin 'zchee/deoplete-jedi'
 endif
 
 " From Adir:
@@ -93,9 +93,6 @@ let g:airline_section_y = ""        " hide file encoding
 " ------
 set laststatus=2
 " ------
-
-" Set line number
-set number
 
 " colorscheme wombat
 
@@ -135,12 +132,13 @@ let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
 " ack
 let g:ackprg = "ag --vimgrep"
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/include/clang/6.0/include/'
-let g:deoplete#sources#clang#clang_complete_database = '.'
-
+if !has('nvim')
+  " deoplete
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
+  let g:deoplete#sources#clang#clang_header = '/usr/include/clang/6.0/include/'
+  let g:deoplete#sources#clang#clang_complete_database = '.'
+endif
 
 " cscope
 if has("cscope")
@@ -161,7 +159,7 @@ map <leader>mbf :MBEFocus<cr>
 
 " syntastic
 let g:syntastic_python_pep8_args = "--max-line-size=180"
-let g:syntastic_python_flake8_args = "--max-line-size=180" 
+let g:syntastic_python_flake8_args = "--max-line-size=180"
 
 if has("unix")
   " Source the setup file for all users:
@@ -264,8 +262,8 @@ set laststatus=2            " Always show statusline, even if only 1 window.
 "set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 
 " displays tabs with :set list & displays when a line runs off-screen
-set showbreak=↪\ 
-set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨,eol:↲
+set showbreak='↪\ '
+set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨ ",eol:↲
 set list
 
 """ Searching and Patterns
@@ -383,3 +381,36 @@ set ttyfast
 set lazyredraw
 "map tt :NERDTreeToggle<CR> "double click t button to toggle NerdTree
 map [] :TagbarToggle<CR> "click [] to toggle Tagbar
+
+" Smart tab complete
+function! Smart_TabComplete()
+  let line = getline('.')                         " current line
+
+  let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+                                                  " line to one character right
+                                                  " of the cursor
+  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+  if (strlen(substr)==0)                          " nothing to match on empty string
+    return "\<tab>"
+  endif
+  let has_period = match(substr, '\.') != -1      " position of period, if any
+  let has_slash = match(substr, '\/') != -1       " position of slash, if any
+  if (!has_period && !has_slash)
+    return "\<C-X>\<C-P>"                         " existing text matching
+  elseif ( has_slash )
+    return "\<C-X>\<C-F>"                         " file matching
+  else
+    return "\<C-X>\<C-O>"                         " plugin matching
+  endif
+endfunction
+
+inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+        \  if &omnifunc == "" |
+        \    setlocal omnifunc=syntaxcomplete#Complete |
+        \  endif
+endif
+
+set isfname-==

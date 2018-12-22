@@ -2,6 +2,12 @@
 
 set -e
 
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until this script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 function user () {
   printf "\r  [ \033[0;33m??\033[0m ] $1\n"
 }
@@ -23,8 +29,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 ##################### MacOS env setup
 #####################################
 
-  echo "Installing Brew"
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  if ! hash brew 2>/dev/null ; then
+    echo "Installing Brew"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
   hash brew 2>/dev/null || fail "install brew first"
 
   brew doctor
@@ -32,9 +40,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew tap caskroom/fonts
   brew tap chef/chef
 
-  echo "Getting some important extra brew packages"
-  brew install thefuck screen neovim the_silver_searcher git curl hub fd fzf
-  pip3 install neovim powerline-status
+  echo "getting some important extra brew packages"
+  brew install thefuck screen neovim the_silver_searcher git curl hub fd fzf wget
 
   # This little joke kills some code.
   sudo mv /etc/bashrc_Apple_Terminal /etc/bashrc_Apple_Terminal.disabled
@@ -47,18 +54,15 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
 
   echo "Installing some essential packages"
   sudo apt-get install -y screen silversearcher-ag curl thefuck git \
-      software-properties-common python3-pip
-  pip3 install --upgrade powerline-status
-  pip3 install --upgrade neovim
+      software-properties-common python3-pip tmux
 
   # Adding backports, neovim and other useful bits.
   sudo add-apt-repository -u "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-backports main restricted universe multiverse"
 
-  if ! hash nvim ; then
+  if ! hash nvim 2>/dev/null ; then
     echo "install neovim, trying from default sources"
-    sudo apt-get install -y neovim
-    if [[ $? -eq 100 ]] ; then
-      echo | sudo add-apt-repository -u ppa:neovim-ppa/stable
+    sudo apt-get install -y neovim || {
+      sudo add-apt-repository -u ppa:neovim-ppa/stable -y && sudo apt update
       sudo apt-get install -y neovim
       sudo update-alternatives --set editor /usr/bin/nvim
       sudo update-alternatives --set ex /usr/bin/ex.nvim
@@ -68,11 +72,8 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
       sudo update-alternatives --set view /usr/bin/view.nvim
       sudo update-alternatives --set vim /usr/bin/nvim
       sudo update-alternatives --set vimdiff /usr/bin/vimdiff.nvim
-    fi
+    }
   fi
-
-  echo "installing some essential packages"
-  sudo apt-get install -y tmux neovim
 
   # Download Hub
   if [ ! -e "$HOME/bin/hub" ] && [ ! -e /usr/local/bin/hub ] ; then
@@ -93,17 +94,16 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
   fi
 
   # Download fd
-  if hash fd; then
+  if hash fd 2>/dev/null ; then
     echo "fd exists."
   else
     fdversion=7.2.0
-    wget https://github.com/sharkdp/fd/releases/download/v${fdversion}/fd_${fdversion}_amd64.deb && \
+    wget -q https://github.com/sharkdp/fd/releases/download/v${fdversion}/fd_${fdversion}_amd64.deb && \
       sudo dpkg -i fd_${fdversion}_amd64.deb
 
     rm -Rf fd_${fdversion}_amd64.deb
   fi
-
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+  git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all --no-zsh --no-fish --no-update-rc
 fi
 
 ###########################
@@ -131,35 +131,42 @@ homesick symlink dotfiles
 user "Make sure you have your correct settings in ~/.gitconfig.local"
 
 # vimrc vundle install
-echo ''
-echo "Now installing vundle..."
-echo ''
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-echo 'Fire up vundle installation'
-nvim +PluginInstall +qall && success 'vim plugins installed!'
+if ! [[ -d ~/.vim/bundle/Vundle.vim ]] ; then
+  echo ''
+  echo "Now installing vundle..."
+  echo ''
+  git clone -q https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
 
 # Install pathogen for vim/neovim
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+  [[ -r ~/.vim/autoload/pathogen.vim ]] || \
   curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
+echo 'fire up vundle installation'
+vim +PluginInstall +qall && success 'vim plugins installed!'
+
 # Vim color scheme install
-echo ''
-echo "Now installing vim wombat color scheme..."
-echo ''
-git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat
-mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
+if ! [[ -d ~/.vim/colors/wombat/ ]] ; then
+  echo ''
+  echo "Now installing vim wombat color scheme..."
+  echo ''
+  git clone -q https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat
+  mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
+fi
 
 # Bash color scheme
-echo ''
-echo "Now installing solarized dark WSL color scheme..."
-echo ''
-wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-mv dircolors.256dark .dircolors
+if [[ -r ~/.dircolors ]] ; then
+  echo ''
+  echo "Now installing solarized dark WSL color scheme..."
+  echo ''
+  wget -q https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
+  mv dircolors.256dark ~/.dircolors
+fi
 
 success "More easter eggs await... Check these out:"
 
-echo "~/.homesick/repos/dotfiles/install_bash_it.sh"
-echo "~/.homesick/repos/dotfiles/install_general.sh"
-echo "~/.homesick/repos/dotfiles/install_dev.sh"
-echo "~/.homesick/repos/dotfiles/install_zsh.sh"
+echo ~/.homesick/repos/dotfiles/install_bash_it.sh
+echo ~/.homesick/repos/dotfiles/install_general.sh
+echo ~/.homesick/repos/dotfiles/install_dev.sh
+echo ~/.homesick/repos/dotfiles/install_zsh.sh
