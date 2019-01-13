@@ -6,7 +6,7 @@ function path_append ()  { local res="$(path_remove "$1" "$2")" ; echo "$res:$1"
 function path_prepend () { local res="$(path_remove "$1" "$2")" ; echo "$1:$res" ; }
 function path_remove ()  { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//' ; }
 
-for newpath in ~/.iterm2 ~/bin ~/.local/bin /opt/nginx/sbin \
+for newpath in ~/bin ~/.local/bin /opt/nginx/sbin \
       /usr/local/opt/go/libexec/bin \
       /usr/local/opt/coreutils/libexec/gnubin \
       /usr/local/opt/gnu-sed/libexec/gnubin \
@@ -109,7 +109,7 @@ set -o emacs
 # Set my editor and git editor
 export EDITOR="vim"
 alias vi='vim'
-if hash nvim ; then
+if hash nvim 2>/dev/null ; then
   export EDITOR=nvim
   alias vi='nvim'
 fi

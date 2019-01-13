@@ -1,15 +1,25 @@
 #!/bin/bash
 
+set -e
+
 if [[ "$OSTYPE" == "darwin"* ]] ; then
   export HOMEBREW_CASK_OPTS=--appdir=/Applications
 
   brew cask install diffmerge
   #ln -sf /Applications/DiffMerge.app/Contents/Resources/diffmerge.sh /usr/local/bin/diffmerge
 
-  brew cask install virtualbox vagrant vagrant-manager
+  if ! brew cask install virtualbox ; then
+    echo
+    echo "Please open the 'Privacy and Security' control panel to allow this install and then run $0 again."
+  fi
+  brew cask install vagrant vagrant-manager visual-studio-code
 else
   sudo apt install -y meld python-virtualenv
+  wget "https://go.microsoft.com/fwlink/?LinkID=760868" -c -O /tmp/vscode.deb && \
+    sudo apt install -y /tmp/vscode.deb && rm /tmp/vscode.deb
 fi
+
+~/bin/imgcat ~/.homesick/repos/dotfiles/images/chuck-norris-approves.gif
 
 if ! test -r ~/.netrc ; then
   echo "**** Creating .netrc for you. Please add in the user and a github token"

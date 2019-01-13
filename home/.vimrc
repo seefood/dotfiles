@@ -1,8 +1,8 @@
 if &compatible
-  set nocompatible               " Be iMproved
+  set nocompatible       " Be iMproved
 endif
 
-filetype off                  " required
+filetype off             " required
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -20,7 +20,14 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'christoomey/vim-tmux-navigator'
 " Ira Original:
 Plugin 'tpope/vim-pathogen'
-Plugin 'python-mode/python-mode'
+
+" Python stuff:
+Plugin 'vim-scripts/indentpython.vim'
+"Plugin 'python-mode/python-mode'
+"Bundle 'Valloric/YouCompleteMe'
+Plugin 'nvie/vim-flake8'
+
+" others:
 Plugin 'junegunn/fzf.vim'
   " Git diff symbols in the gutter
 Plugin 'airblade/vim-gitgutter'
@@ -32,7 +39,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
   " Plugin 'vim-scripts/Gundo'
 Plugin 'tmhedberg/matchit'
   " Plugin 'scrooloose/nerdcommenter'
-  Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
   " Support .editorconfig files.
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'vim-syntastic/syntastic'
@@ -42,32 +49,31 @@ Plugin 'mileszs/ack.vim'
 Plugin 'godlygeek/tabular'
   " Interpret Markdown
 Plugin 'plasticboy/vim-markdown'
-  " Run pep8 and other checkers (McCabe, Frosted) on python code.
-Plugin 'andviro/flake8-vim'
   " Plugin 'MarcWeber/vim-addon-mw-utils'
   " Add a nice dark theme.
   " Plugin 'joshdick/onedark.vim'
   " Oceanic/Next theme immitates Sublime's
   " Plugin 'mhartington/oceanic-next'
 Plugin 'stephpy/vim-yaml'
-if !has('nvim')
-  " Dynamic Autocomplete - needs a newer neovim
-  Plugin 'Shougo/deoplete.nvim'
-  Plugin 'roxma/nvim-yarp'
-  Plugin 'roxma/vim-hug-neovim-rpc'
-  " Plugin 'zchee/deoplete-clang'
-  " Plugin 'zchee/deoplete-jedi'
-endif
+" if has('nvim')
+"   " Dynamic Autocomplete - needs a newer neovim
+"   Plugin 'Shougo/deoplete.nvim'
+" else
+"   Plugin 'Shougo/deoplete.nvim'
+"   Plugin 'roxma/nvim-yarp'
+"   Plugin 'roxma/vim-hug-neovim-rpc'
+"   " Plugin 'zchee/deoplete-clang'
+"   " Plugin 'zchee/deoplete-jedi'
+" endif
 
 " From Adir:
-" Plugin 'davidhalter/jedi-vim'
+Plugin 'davidhalter/jedi-vim'
 " Plugin fatih/vim-go'
-" Plugin 'kien/ctrlp.vim'
 " Plugin 'mileszs/ack.vim'
 " Plugin 'morhetz/gruvbox'
 " Plugin 'tpope/vim-surround'
 " Plugin 'christoomey/vim-tmux-navigator'
-" Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'ekalinin/Dockerfile.vim'
 " Plugin 'majutsushi/tagbar'
 " Plugin 'skywind3000/asyncrun.vim'
 " Plugin 'w0rp/ale'
@@ -89,12 +95,25 @@ let g:airline_powerline_fonts = 1
 let g:airline_section_x = ""        " hide file type
 let g:airline_section_y = ""        " hide file encoding
 
+"" Pythonmode
+" let g:pymode = 1
+" let g:pymode_python = 'python3'
+" let g:pymode_trim_whitespaces = 1
+" let g:pymode_options = 1
+" let g:pymode_options_max_line_length = 120
+" let g:pymode_quickfix_minheight = 3
+" let g:pymode_quickfix_maxheight = 6
+" let g:pymode_indent = 1
+" let g:pymode_doc = 1
+" let g:pymode_virtualenv = 1
+" let g:pymode_virtualenv_path = $VIRTUAL_ENV
+" let g:pymode_lint = 1
+" let g:pymode_lint_on_write = 0
+
 " Always show statusline
 " ------
 set laststatus=2
 " ------
-
-" colorscheme wombat
 
 " If installed using Homebrew
 " set rtp+=/usr/local/opt/fzf
@@ -102,6 +121,17 @@ set laststatus=2
 set rtp+=~/.fzf
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" YouCompleteME customizations
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_python_interpreter_path = ''
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+  \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+let g:ycm_global_ycm_extra_conf = '~/.vim/global_extra_conf.py'
 
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
@@ -115,30 +145,38 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_python_flake8_args = "--max-line-length=120 --ignore=E121,E123,E126,E226,E24,E704,W503,F401,W503,E501"
+let g:syntastic_python_pylint_args = "--max-line-length=120 --disable=E121,E123,E126,E226,E24,E704,W503,F401,W503,E501"
+let g:syntastic_python_pep8_args = "--max-line-size=120"
+let g:syntastic_aggregate_errors = 1
 
-let g:PyFlakeDisabledMessages = 'E501'
-let g:PyFlakeOnWrite = 0
-let g:PyFlakeDefaultComplexity=10
-let g:PyFlakeAggressive = 0
-let g:PyFlakeCWindow = 6
-let g:PyFlakeSigns = 1
-let g:PyFlakeSignStart = 1
-let g:PyFlakeMaxLineLength = 160
-let g:PyFlakeRangeCommand = 'Q'
-let g:PyFlakeForcePyVersion = 3
-let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
+" let g:PyFlakeDisabledMessages = 'E501,W503'
+" let g:PyFlakeOnWrite = 0
+" let g:PyFlakeDefaultComplexity=10
+" let g:PyFlakeAggressive = 0
+" let g:PyFlakeCWindow = 6
+" let g:PyFlakeSigns = 1
+" let g:PyFlakeSignStart = 1
+" let g:PyFlakeMaxLineLength = 160
+" let g:PyFlakeRangeCommand = 'Q'
+" let g:PyFlakeForcePyVersion = 3
+" let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
+" " Don't let pyflakes use the quickfix window
+" let g:pyflakes_use_quickfix = 0
+
+let python_highlight_all=1
 
 " ack
 let g:ackprg = "ag --vimgrep"
 
-if !has('nvim')
-  " deoplete
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
-  let g:deoplete#sources#clang#clang_header = '/usr/include/clang/6.0/include/'
-  let g:deoplete#sources#clang#clang_complete_database = '.'
-endif
+"if !has('nvim')
+"  " deoplete
+"  let g:deoplete#enable_at_startup = 1
+"  let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
+"  let g:deoplete#sources#clang#clang_header = '/usr/include/clang/6.0/include/'
+"  let g:deoplete#sources#clang#clang_complete_database = '.'
+"endif
 
 " cscope
 if has("cscope")
@@ -157,10 +195,7 @@ endif
 map <leader>mbt :MBEToggle<cr>
 map <leader>mbf :MBEFocus<cr>
 
-" syntastic
-let g:syntastic_python_pep8_args = "--max-line-size=180"
-let g:syntastic_python_flake8_args = "--max-line-size=180"
-
+" Other files
 if has("unix")
   " Source the setup file for all users:
   let FILE=expand("~/.vim/rc.pythonide")
@@ -200,6 +235,8 @@ set wildignore+=eggs/**
 set wildignore+=*.egg-info/**
 
 set grepprg=ack         " replace the default grep program with ack
+
+:highlight BadWhitespace ctermfg=16 ctermbg=253 guifg=#000000 guibg=#F8F8F0
 
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
@@ -287,11 +324,11 @@ if has("gui_running")
     " Remove toolbar
     set guioptions-=T
 else
-    colorscheme torte
+    "colorscheme torte
+    "colorscheme molokai
+    "colorscheme gruvbox
+    colorscheme wombat
 endif
-
-"colorscheme molokai
-"colorscheme gruvbox
 
 " Paste from clipboard
 "map <leader>p "+p
@@ -308,7 +345,8 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader><space> :nohlsearch<cr>
 
 " Remove trailing whitespace on <leader>S
-nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
+" nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
+nnoremap <leader>S :%s/\s\+$//<cr>
 
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -316,7 +354,11 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " ==========================================================
 " Javascript
 " ==========================================================
-au BufRead *.js set makeprg=jslint\ %
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+    \ set makeprg=jslint\ %
 
 " Don't allow snipmate to take over tab
 autocmd VimEnter * ino <c-j> <c-r>=TriggerSnippet()<cr>
@@ -338,9 +380,16 @@ autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 so
 au FileType python set omnifunc=pythoncomplete#Complete
 au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 au FileType coffee setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-" Don't let pyflakes use the quickfix window
-let g:pyflakes_use_quickfix = 0
+"au BufRead,BufNewFile *.py
+"    \ set tabstop=4
+"    \ set softtabstop=4
+"    \ set shiftwidth=4
+"    \ set textwidth=119
+"    \ set expandtab
+"    \ set autoindent
+"    \ set fileformat=unix
+"    \ set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " Add the virtualenv's site-packages to vim path
 if has('python')
@@ -377,6 +426,7 @@ let NERDTreeQuitOnOpen = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 set ttyfast
 set lazyredraw
 "map tt :NERDTreeToggle<CR> "double click t button to toggle NerdTree

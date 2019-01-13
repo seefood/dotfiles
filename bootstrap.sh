@@ -8,21 +8,6 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until this script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-function user () {
-  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
-}
-
-function success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-function fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit 1
-}
-
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
 #####################################
@@ -33,7 +18,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "Installing Brew"
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
-  hash brew 2>/dev/null || fail "install brew first"
+  hash brew 2>/dev/null || { echo "install brew first" ; exit 1 ; }
 
   brew doctor
   brew tap caskroom/versions
@@ -41,10 +26,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew tap chef/chef
 
   echo "getting some important extra brew packages"
-  brew install thefuck screen neovim the_silver_searcher git curl hub fd fzf wget
+  brew install thefuck screen the_silver_searcher git curl hub fd fzf wget cmake node
 
-  # This little joke kills some code.
-  sudo mv /etc/bashrc_Apple_Terminal /etc/bashrc_Apple_Terminal.disabled
+  # This little joke kills some of our nicest code.
+  test -r /etc/bashrc_Apple_Terminal && \
+    sudo mv /etc/bashrc_Apple_Terminal /etc/bashrc_Apple_Terminal.disabled
 
 elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
 
@@ -52,16 +38,18 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
 #################### Ubuntu env setup
 #####################################
 
-  echo "Installing some essential packages"
-  sudo apt-get install -y screen silversearcher-ag curl thefuck git \
-      software-properties-common python3-pip tmux
+  echo "installing some essential packages"
+  sudo apt update
+  sudo apt install -y screen silversearcher-ag curl thefuck git \
+      software-properties-common python3-pip rubygems tmux build-essential \
+      cmake python3-dev nodejs npm python-dev
 
   # Adding backports, neovim and other useful bits.
   sudo add-apt-repository -u "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-backports main restricted universe multiverse"
 
   if ! hash nvim 2>/dev/null ; then
     echo "install neovim, trying from default sources"
-    sudo apt-get install -y neovim || {
+    sudo apt install -y neovim || {
       sudo add-apt-repository -u ppa:neovim-ppa/stable -y && sudo apt update
       sudo apt-get install -y neovim
       sudo update-alternatives --set editor /usr/bin/nvim
@@ -73,24 +61,6 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
       sudo update-alternatives --set vim /usr/bin/nvim
       sudo update-alternatives --set vimdiff /usr/bin/vimdiff.nvim
     }
-  fi
-
-  # Download Hub
-  if [ ! -e "$HOME/bin/hub" ] && [ ! -e /usr/local/bin/hub ] ; then
-    HUB_VERSION=2.6.0
-    HUB_DOWNLOAD_URL=https://github.com/github/hub/releases/download
-    HUB_OS=hub-linux-amd64
-
-    FULL_URL=${HUB_DOWNLOAD_URL}/v${HUB_VERSION}/${HUB_OS}-${HUB_VERSION}.tgz
-
-    echo "Downloading Hub ${HUB_VERSION}"
-
-    curl -fL ${FULL_URL} > /tmp/hub.tgz && \
-      tar zxf /tmp/hub.tgz -C /tmp && \
-      mv /tmp/${HUB_OS}-${HUB_VERSION}/bin/hub ~/bin/hub
-      rm -Rf /tmp/hub*
-  else
-    echo "Hub exists."
   fi
 
   # Download fd
@@ -127,24 +97,21 @@ done < ~/.homesick/repos/dotfiles/.homesick_subdir
 
 homesick symlink dotfiles
 [[ -r ~/.gitconfig.local ]] || cp ~/.gitconfig.local.example ~/.gitconfig.local
+chmod 700 ~/.gnupg/
 
-user "Make sure you have your correct settings in ~/.gitconfig.local"
+echo "Make sure you have your correct settings in ~/.gitconfig.local"
 
 # vimrc vundle install
-if ! [[ -d ~/.vim/bundle/Vundle.vim ]] ; then
-  echo ''
-  echo "Now installing vundle..."
-  echo ''
+echo ''
+echo "Now installing vundle..."
+echo ''
+[[ -d ~/.vim/bundle/Vundle.vim ]] || \
   git clone -q https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
 
 # Install pathogen for vim/neovim
-mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-  [[ -r ~/.vim/autoload/pathogen.vim ]] || \
+mkdir -p ~/.vim/autoload ~/.vim/bundle
+[[ -r ~/.vim/autoload/pathogen.vim ]] || \
   curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-echo 'fire up vundle installation'
-vim +PluginInstall +qall && success 'vim plugins installed!'
 
 # Vim color scheme install
 if ! [[ -d ~/.vim/colors/wombat/ ]] ; then
@@ -155,6 +122,9 @@ if ! [[ -d ~/.vim/colors/wombat/ ]] ; then
   mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
 fi
 
+echo 'fire up vundle installation'
+vim +PluginInstall +qall && echo 'vim plugins installed!'
+
 # Bash color scheme
 if [[ -r ~/.dircolors ]] ; then
   echo ''
@@ -164,9 +134,9 @@ if [[ -r ~/.dircolors ]] ; then
   mv dircolors.256dark ~/.dircolors
 fi
 
-success "More easter eggs await... Check these out:"
+~/bin/imgcat ~/.homesick/repos/dotfiles/images/daft-punk-Approves.gif
 
-echo ~/.homesick/repos/dotfiles/install_bash_it.sh
+echo
+echo "More fun awaits... Now run this:"
+
 echo ~/.homesick/repos/dotfiles/install_general.sh
-echo ~/.homesick/repos/dotfiles/install_dev.sh
-echo ~/.homesick/repos/dotfiles/install_zsh.sh

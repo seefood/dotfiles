@@ -18,7 +18,7 @@ bash-it enable completion makefile pip ssh system \
 # Plugins
 bash-it enable plugin alias-completion base browser \
   edit-mode-emacs gif git history less-pretty-cat\
-  fasd python ruby ssh virtualenv fzf
+  fasd python ruby ssh virtualenv fzf visual-studio-code
 
 # Aliases
 bash-it enable alias ag apt vim atom git general fuck tmux \
@@ -34,3 +34,7 @@ echo "bash-it enable plugin dirs battery docker docker-compose gif less-pretty-c
       tmux z_autoenv hub fzf aws docker-machine osx-timemachine powerline"
 echo
 echo "bash-it enable alias docker emacs atom fuck tmux osx"
+
+~/bin/imgcat ~/.homesick/repos/dotfiles/images/MasterNods.gif
+echo
+echo "Done..."

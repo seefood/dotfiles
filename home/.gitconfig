@@ -49,6 +49,7 @@
   ls = ls-files
   new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
   p = !git checkout master && git pull origin master && git push origin master && git checkout -
+  patch = !git --no-pager diff --no-color
   plog = log --pretty=fixes
   pop = stash pop
   pp = !git checkout develop && git pull origin develop && git push origin develop && git checkout -
@@ -86,6 +87,8 @@
   frag = magenta bold
   old = red bold
   new = green bold
+  commit = yellow bold
+  whitespace = red reverse
 [color "status"]
   added = yellow
   changed = green
@@ -108,8 +111,8 @@
 [merge]
   # Mac or Linux:
   tool = meld
-  # If Mac:
-  # tool = diffmerge
+  # Optional, only on Mac:
+  #tool = diffmerge
   log = true
   renamelimit = 2000
 
@@ -129,11 +132,11 @@
 #  autosquash = true
 
 [core]
-  editor = nvim
+  editor = vim
   pager = less -R
   abbrev = 10
   #whitespace = nowarn
-  #pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = diff-so-fancy | less --tabs=4 -RFX
   excludesfile = $HOME/.gitignore_global
   autocrlf = input
 

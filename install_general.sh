@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [[ "$OSTYPE" == "darwin"* ]] ; then
   brew install cv editorconfig multitail rsync tree
   brew install --HEAD git-extras
@@ -8,7 +10,7 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   brew install unar
 
   brew install coreutils freetype gawk gnu-sed bat htop-osx osxutils \
-    pkgdiff proctools psgrep neovim wdiff up
+    proctools psgrep wdiff up
 
   # http://apple.stackexchange.com/questions/135565/how-do-i-get-detailed-smart-disk-information-on-os-x-mavericks-or-later
   brew install smartmontools
@@ -20,14 +22,18 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
     ## TODO get iterm2 to use this directory with applescripting megic.
   fi
 
-  brew cask install sourcetree
-
-  brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json \
-    qlprettypatch quicklook-csv webpquicklook \
-    suspicious-package
-
-  brew cask install font-source-code-pro-for-powerline font-inconsolata-dz-for-powerline
+  brew cask install sourcetree qlcolorcode qlstephen qlmarkdown quicklook-json \
+    qlprettypatch quicklook-csv webpquicklook suspicious-package \
+    font-firacode-nerd-font
 
 else
   sudo apt install -y rsync tree git-extras unar
 fi
+
+~/bin/imgcat ~/.homesick/repos/dotfiles/images/DanyThumbsUp.gif
+
+echo
+[[ "$OSTYPE" == "darwin"* ]] && echo "Iterm2 is set up, if you want to switch to it. Remember to set the font to Fura Code if you want beautiful powerline prompts"
+echo "Looks good! Now run this:"
+
+echo ~/.homesick/repos/dotfiles/install_dev.sh
