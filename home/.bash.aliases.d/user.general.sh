@@ -35,15 +35,11 @@ if [ "$TERM" != "dumb" ] ; then
   alias egrep='egrep --color=auto'
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# enable programmable completion features (only for brew,
+# the rest are already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  elif [ -f $(brew --prefix)/etc/bash_completion ]; then
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
   fi
 fi
@@ -63,23 +59,24 @@ alias beep="echo -e '\a'  ; sleep 1 ; echo -e '\a'  ; sleep 1 ;echo -e '\a' "
 function nd() { mkdir "$1" && cd "$1"; }
 
 if [[ "$0" =~ bash ]] ; then
-  function theme_change () {
-    if [ "$1" == '--complete' ]; then
-      for d in $(find "${BASH_IT}/themes" -maxdepth 1 -type d -name "$3*" ! -iname "*themes"); do
-        echo ${d##*/};
-      done
-      exit
-    fi
-    sed 's/\(.*BASH_IT_THEME=\).*/\1"'$1'"/' ~/.bashrc > ~/.bashrc.NEW && \
-      cat ~/.bashrc.NEW > ~/.bashrc && rm ~/.bashrc.NEW
-    unset PS1 # PROMPT_COMMAND
-    export BASH_IT_THEME=$1
-    source ~/.bashrc
-  }
-  complete -o default -C 'theme_change --complete $@' theme_change
+  if [[ "$BASH_IT" ]] ; then
+    function theme_change () {
+      if [ "$1" == '--complete' ]; then
+        for d in $(find "${BASH_IT}/themes" -maxdepth 1 -type d -name "$3*" ! -iname "*themes"); do
+          echo ${d##*/};
+        done
+        exit
+      fi
+      sed 's/\(.*BASH_IT_THEME=\).*/\1"'$1'"/' ~/.bashrc > ~/.bashrc.NEW && \
+        cat ~/.bashrc.NEW > ~/.bashrc && rm ~/.bashrc.NEW
+      unset PS1 # PROMPT_COMMAND
+      export BASH_IT_THEME=$1
+      source ~/.bashrc
+    }
+    complete -o default -C 'theme_change --complete $@' theme_change
 
-  ## These are now handled in bash-it
-  if [[ -z "$BASH_IT" ]] ; then
+  else
+    ## These are now handled in bash-it
     # Setup fzf
     if hash fzf 2> /dev/null && hash fd 2> /dev/null ; then
       # If FD is installed, let FZF use it.
