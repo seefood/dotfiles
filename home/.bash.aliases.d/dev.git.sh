@@ -13,7 +13,7 @@ alias gitff='git log --all -- '
 #git log --all -- '**/my_file.png'
 
 alias logit='git log --pretty=format:"%h %ad | %s%d [%an]" --graph --color --date=short'
-alias gs='git status '
+alias gst='git status '
 alias ga='git add '
 alias gb='git branch '
 alias gc='git commit'
