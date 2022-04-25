@@ -37,7 +37,7 @@ for newpath in \
     /opt/homebrew/opt/coreutils/libexec/gnuman \
     /usr/local/opt/gnu-sed/libexec/gnuman \
     /opt/homebrew/opt/gnu-sed/libexec/gnuman \
-    ${HOME}/bin ${HOME}/.fig/bin ; do
+    ; do
   [[ -d $newpath ]] && export MANPATH="$(path_prepend "${newpath}" "${MANPATH}")"
 done
 unset newpath
@@ -115,7 +115,7 @@ fi
 export GIT_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 
-export HISTIGNORE="&:[fb]g"
+#export HISTIGNORE="&:[fb]g"
 export DEBEMAIL="nospam-debmail@ira.abramov.org"
 export DEBFULLNAME="Ira Abramov"
 export PYTHONSTARTUP="$HOME/.pythonrc"
@@ -137,6 +137,9 @@ ulimit -v unlimited
 # (Advanced): Uncomment this to make Bash-it reload itself automatically
 # after enabling or disabling aliases, plugins, and completions.
 #export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
+
+# Choose log level for bash_it
+export BASH_IT_LOG_LEVEL=5
 
 export GPG_TTY=$(tty)
 
@@ -209,12 +212,7 @@ if [ "$BASH_IT_THEME" != "oh-my-posh " ] ; then
   fi
 fi
 
-# Path to the bash it configuration
-export BASH_IT="${HOME}/.bash_it"
-# Load Bash It
-[[ -d $BASH_IT ]] && source $BASH_IT/bash_it.sh
-
-complete -C /usr/bin/command_completion_for_rake -o default rake
+# complete -C /usr/bin/command_completion_for_rake -o default rake
 complete -C /usr/local/bin/bit bit
 
 # Load aliases and functions
@@ -226,6 +224,11 @@ if [ -d ~/.bash.aliases.d ]; then
     . $file
   done
 fi
+
+# Path to the bash it configuration
+export BASH_IT="${HOME}/.bash_it"
+# Load Bash It
+[[ -d $BASH_IT ]] && source $BASH_IT/bash_it.sh
 
 #### FIG ENV VARIABLES ####
 # Please make sure this block is at the end of this file.
