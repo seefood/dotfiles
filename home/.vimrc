@@ -25,6 +25,7 @@ Plugin 'tpope/vim-pathogen'
 Plugin 'vim-scripts/indentpython.vim'
 "Plugin 'python-mode/python-mode'
 "Bundle 'Valloric/YouCompleteMe'
+Bundle 'tabnine/YouCompleteMe'
 Plugin 'nvie/vim-flake8'
 
 " others:

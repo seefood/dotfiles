@@ -141,7 +141,7 @@ ulimit -v unlimited
 export GPG_TTY=$(tty)
 
 # Source the bash_it!
-[[ "$BASH_IT_THEME" ]] || source ~/.bash_profile
+source ~/.bash_profile
 
 # If an SSH connection and screen is available, attach to it.
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then

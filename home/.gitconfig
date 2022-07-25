@@ -2,9 +2,6 @@
 [include]
   path = ~/.gitconfig.local
 
-[credential]
-  helper = osxkeychain
-
 [hub]
   protocol = https
 
@@ -123,7 +120,7 @@
   prompt = false
 
 [apply]
-  whitespace = nowarn
+  # whitespace = nowarn
 
 [commit]
 #  template = /home/ira/.stCommitMsg
@@ -159,5 +156,6 @@
   enabled = true
 
 [pull]
+	rebase = false
   # Change as appropriate (or per repo)
   # rebase = true

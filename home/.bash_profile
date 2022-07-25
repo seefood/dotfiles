@@ -45,7 +45,8 @@ export BASH_IT=$HOME/.bash_it
 
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
-export BASH_IT_THEME="powerline-multiline"
+export BASH_IT_THEME="oh-my-posh"
+export POSH_THEME=/home/ira/.mytheme.omp.json
 
 # Load Bash It
 [[ -d $BASH_IT ]] && source $BASH_IT/bash_it.sh
@@ -56,7 +57,7 @@ export RUBY_THEME_PROMPT_COLOR="124"
 
 ### set to 'true' (and customize to taste) once you installed
 ### a powerline/nerd font, so your prompt looks even nicer!
-NERDFONTS=false
+NERDFONTS=true
 if [[ "$NERDFONTS" == "true" ]] ; then
   #export POWERLINE_LEFT_SEPARATOR=""
   #export POWERLINE_LEFT_END=""
