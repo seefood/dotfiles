@@ -1,3 +1,8 @@
+
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the start of this file.
+[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+#### END FIG ENV VARIABLES ####
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -48,8 +53,8 @@ POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{red} \Uf1d0 %f %F{yellow
 }❯ "
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir_writable dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs)
 
 # # Refresh Function - https://babushk.in/posts/renew-environment-tmux.html
 # if [ -n "$TMUX" ]; then
@@ -121,8 +126,18 @@ HIST_STAMPS="dd/mm/yyyy"
 plugins=(sudo git history taskwarrior tmux tmuxinator zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/local/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source /usr/local/opt/zinit/zinit.zsh
+
+zinit wait lucid for \
+ atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zdharma-continuum/fast-syntax-highlighting \
+ blockf \
+    zsh-users/zsh-completions \
+ atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions
 
 # User configuration
 
@@ -154,6 +169,42 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 
+autoload bashcompinit && bashcompinit
+function path_append ()  { local res="$(path_remove "$1" "$2")" ; echo "$res:$1" ; }
+function path_prepend () { local res="$(path_remove "$1" "$2")" ; echo "$1:$res" ; }
+function path_remove ()  { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//' ; }
+
+for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
+    /usr/local/opt/man-db/libexec/bin \
+    /usr/local/opt/go/libexec/bin \
+    /usr/local/opt/coreutils/libexec/gnubin \
+    /usr/local/opt/gnu-sed/libexec/gnubin \
+    /usr/local/opt/binutils/bin \
+    /usr/local/opt/curl/bin \
+    /usr/local/opt/python@3.9/libexec/bin \
+    ~/.rvm/gems/ruby-2.4.1/bin \
+    ~/.rvm/gems/ruby-2.4.1@kitchen/bin ; do
+  [[ -d $newpath ]] && export PATH="$(path_prepend "${newpath}" "${PATH}")"
+done
+
+if [ -d ~/.bash_aliases.d ]; then
+  for file in ~/.??*.zsh ~/.bash_aliases.d/*.sh; do
+    . $file
+  done
+fi
+
+if [[ $TERM_PROGRAM = "iTerm.app" ]] ; then
+  unset ITERM_SHELL_INTEGRATION_INSTALLED
+  source ~/.iterm2_shell_integration.zsh
+fi
+
 export PATH=$PATH:~/bin
 
 # autoload bashcompinit && bashcompinit
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/bit bit
+
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the end of this file.
+[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+#### END FIG ENV VARIABLES ####

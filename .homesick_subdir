@@ -1,5 +1,5 @@
 bin
-.bash_aliases.d
+.bash.aliases.d
 .config
 .gnupg
 .vim

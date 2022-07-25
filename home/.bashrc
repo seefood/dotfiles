@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -6,25 +7,52 @@ function path_append ()  { local res="$(path_remove "$1" "$2")" ; echo "$res:$1"
 function path_prepend () { local res="$(path_remove "$1" "$2")" ; echo "$1:$res" ; }
 function path_remove ()  { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//' ; }
 
-for newpath in ~/bin ~/.local/bin /opt/nginx/sbin \
-      /usr/local/opt/go/libexec/bin \
-      /usr/local/opt/coreutils/libexec/gnubin \
-      /usr/local/opt/gnu-sed/libexec/gnubin \
-      /usr/local/opt/binutils/bin \
-      /usr/local/opt/curl/bin \
-      ~/.rvm/gems/ruby-2.4.1/bin ; do
+for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
+    /usr/local/opt/man-db/libexec/bin \
+    /opt/homebrew/opt/man-db/libexec/bin \
+    /usr/local/opt/go/libexec/bin \
+    /opt/homebrew/opt/go/libexec/bin \
+    /usr/local/opt/*/libexec/gnubin \
+    /opt/homebrew/opt/*/libexec/gnubin \
+    /usr/local/opt/binutils/bin \
+    /opt/homebrew/opt/binutils/bin \
+    /usr/local/opt/curl/bin \
+    /opt/homebrew/opt/curl/bin \
+    /opt/homebrew/opt/gnu-getopt/bin \
+    /usr/local/opt/python@3.9/libexec/bin \
+    /opt/homebrew/opt/python@3.9/bin \
+    /opt/homebrew/opt/ruby@2.4/bin \
+    ~/.rvm/gems/ruby-2.4.1/bin \
+    ~/.fig/bin \
+    /usr/local/opt/terraform@0.13.5/bin \
+    /opt/homebrew/bin ; do
   [[ -d $newpath ]] && export PATH="$(path_prepend "${newpath}" "${PATH}")"
 done
 
-for newpath in /usr/local/opt/coreutils/libexec/gnuman \
-  /usr/local/opt/gnu-sed/libexec/gnuman ; do
+for newpath in \
+    /usr/share/man \
+    /usr/local/share/man \
+    /opt/homebrew/share/man \
+    /usr/local/opt/coreutils/libexec/gnuman \
+    /opt/homebrew/opt/coreutils/libexec/gnuman \
+    /usr/local/opt/gnu-sed/libexec/gnuman \
+    /opt/homebrew/opt/gnu-sed/libexec/gnuman \
+    /home/linuxbrew/.linuxbrew/share/man \
+    /home/linuxbrew/.linuxbrew/share/man \
+    ; do
   [[ -d $newpath ]] && export MANPATH="$(path_prepend "${newpath}" "${MANPATH}")"
 done
-
 unset newpath
 
 [[ "$PS1" ]] || return
 
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the start of this file.
+[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+#### END FIG ENV VARIABLES ####
+
+# Set a default locale or the system will pick out something unusable.
+export LANG=en_US.UTF-8
 [[ "$LC_CTYPE" == "UTF-8" ]] && export LC_CTYPE=en_US.UTF-8
 unset LC_TIME
 
@@ -33,17 +61,23 @@ if [[ -f /etc/bashrc ]]; then
   . /etc/bashrc
 fi
 
+if [ -d ~/.bash_completion.d ]; then
+  for file in  ~/.bash_completion.d/*; do
+    . $file
+  done
+fi
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+# HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
-shopt -s histappend
+# shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=20000
-HISTFILE=~/.bash_history.$(tty|tr -d "/")
+# HISTSIZE=10000
+# HISTFILESIZE=20000
+# HISTFILE=~/.bash_history.$(tty|tr -d "/")
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -64,39 +98,6 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
-fi
-if [ -d ~/.bash_aliases.d ]; then
-  for file in  ~/.bash_aliases.d/*.sh; do
-    . $file
-  done
-fi
-
-#export LANG=he_IL.UTF-8
-export LANG=en_US.UTF-8
-export QMAILMFTFILE=~ira/.qmailLISTS
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  elif [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
-  fi
-fi
-
-if [ -d ~/.bash_completion.d ]; then
-  for file in  ~/.bash_completion.d/*; do
-    . $file
-  done
-fi
-complete -C /usr/bin/command_completion_for_rake -o default rake
-
 umask 022
 UBUNTU_MENUPROXY=0
 
@@ -116,7 +117,7 @@ fi
 export GIT_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 
-export HISTIGNORE="&:[fb]g"
+#export HISTIGNORE="&:[fb]g"
 export DEBEMAIL="nospam-debmail@ira.abramov.org"
 export DEBFULLNAME="Ira Abramov"
 export PYTHONSTARTUP="$HOME/.pythonrc"
@@ -132,16 +133,109 @@ export BASH_IT_DOCKER_MACHINE="default"
 
 #ulimit -S -v 2000000
 #ulimit -S -m 250000
+ulimit -n 8192
 ulimit -v unlimited
 
 # (Advanced): Uncomment this to make Bash-it reload itself automatically
 # after enabling or disabling aliases, plugins, and completions.
 #export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
+# Choose log level for bash_it
+export BASH_IT_LOG_LEVEL=5
+
 export GPG_TTY=$(tty)
 
-# Source the bash_it!
-source ~/.bash_profile
+# Load RVM, if you are using it
+[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+
+# Your place for hosting Git repos. I use this for private repos.
+export GIT_HOSTING='git@git.github.com'
+
+# Don't check mail when opening terminal.
+unset MAILCHECK
+
+# Change this to your console based IRC client of choice.
+export IRC_CLIENT='irssi'
+
+# Set this to the command you use for todo.txt-cli
+export TODO="t"
+
+# Set Xterm/screen/Tmux title with only a short hostname. comment this to fall back on $HOSTNAME.
+export SHORT_HOSTNAME=$(hostname -s)
+
+# Lock and Load a custom theme file
+# location ~/.bash_it/themes/
+export BASH_IT_THEME="oh-my-posh"
+# Oh-my-posh redirects to a json elsewhere, customized our use.
+export POSH_THEME=~/.bluevine.omp.json
+
+# Settings only relevant to bash-it's internal themed prompts
+if [ "$BASH_IT_THEME" != "oh-my-posh " ] ; then
+  # Set this to false to turn off version control status checking within the prompt for all themes
+  export SCM_CHECK=true
+
+  # Set vcprompt executable path for scm advance info in prompt (demula theme)
+  # https://github.com/xvzf/vcprompt
+  #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
+
+  #export POWERLINE_LEFT_PROMPT="clock user_info scm python_venv ruby cwd in_vim"
+  export POWERLINE_LEFT_PROMPT="aws_profile scm python_venv ruby cwd"
+  export POWERLINE_LEFT_PROMPT="aws_profile scm cwd"
+  export POWERLINE_PROMPT="$POWERLINE_LEFT_PROMPT"
+  export POWERLINE_RIGHT_PROMPT="in_vim clock"
+  # Most people don't like that right side, so I'm turning it off. comment the
+  # next line if you want to try it:
+  #export POWERLINE_RIGHT_PROMPT=" "
+  [[ "$SSH_CONNECTION" ]] && export POWERLINE_RIGHT_PROMPT="$POWERLINE_RIGHT_PROMPT hostname"
+  export AWS_PROFILE_PROMPT_COLOR="19"
+  export PYTHON_VENV_THEME_PROMPT_COLOR="30"
+  export USER_INFO_THEME_PROMPT_COLOR_SUDO="63"
+  export RUBY_THEME_PROMPT_COLOR="124"
+
+  ### set to 'true' (and customize to taste) once you installed
+  ### a powerline/nerd font, so your prompt looks even nicer!
+  NERDFONTS=true
+  if [[ "$NERDFONTS" == "true" ]] ; then
+    #export POWERLINE_LEFT_SEPARATOR=""
+    #export POWERLINE_LEFT_END=""
+    #export POWERLINE_RIGHT_SEPARATOR=""
+    #export POWERLINE_RIGHT_END=""
+    #export POWERLINE_PROMPT_CHAR="⥤"
+    #export POWERLINE_PROMPT_CHAR="➤"
+    #export POWERLINE_PROMPT_CHAR="↳"
+    export POWERLINE_PROMPT_CHAR=" =>"
+    [[ "$OSTYPE" == "darwin"* ]] && export POWERLINE_PROMPT_CHAR=" =>"
+    export PYTHON_VENV_CHAR=" "
+    export RUBY_CHAR=" "
+    export AWS_PROFILE_CHAR=" "
+  else
+    export POWERLINE_PROMPT_CHAR="=>"
+    unset POWERLINE_LEFT_SEPARATOR POWERLINE_LEFT_END
+  fi
+fi
+
+# complete -C /usr/bin/command_completion_for_rake -o default rake
+complete -C /usr/local/bin/bit bit
+
+# Load aliases and functions
+if [ -f ~/.bash_aliases ]; then
+  . ~/.bash_aliases
+fi
+if [ -d ~/.bash.aliases.d ]; then
+  for file in  ~/.bash.aliases.d/*.sh; do
+    . $file
+  done
+fi
+
+# Path to the bash it configuration
+export BASH_IT="${HOME}/.bash_it"
+# Load Bash It
+[[ -d $BASH_IT ]] && source $BASH_IT/bash_it.sh
+
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the end of this file.
+[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+#### END FIG ENV VARIABLES ####
 
 # If an SSH connection and screen is available, attach to it.
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
