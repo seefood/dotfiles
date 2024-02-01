@@ -21,7 +21,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   hash brew 2>/dev/null || { echo "install brew first" ; exit 1 ; }
 
   brew doctor
-  brew tap caskroom/versions
+  brew tap homebrew/cask-versions
   brew tap caskroom/fonts
   brew tap chef/chef
 
