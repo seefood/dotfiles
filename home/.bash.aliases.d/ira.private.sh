@@ -32,4 +32,4 @@ alias eph='time { get_ssm.sh & update_ephemerals.sh ;}'
 alias vd='git -C ~/bluevine/chef-repo/ diff ephemerals^..ephemerals ; git -C ~/bluevine/ssm_decrypted/ diff HEAD^'
 
 alias csa='cookstyle -a --except Metrics/BlockNesting,Lint/ParenthesesAsGroupedExpression,Style/Next,Metrics/ParameterLists'
-alias ls='colorls --sort-dirs --gs'
+#alias ls='colorls --sort-dirs --gs'

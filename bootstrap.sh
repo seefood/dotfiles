@@ -16,14 +16,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
   if ! hash brew 2>/dev/null ; then
     echo "Installing Brew"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
   hash brew 2>/dev/null || { echo "install brew first" ; exit 1 ; }
 
   brew doctor
   brew tap homebrew/cask-versions
-  brew tap caskroom/fonts
-  brew tap chef/chef
+  brew tap homebrew/cask-fonts
 
   echo "getting some important extra brew packages"
   brew install thefuck screen the_silver_searcher git curl hub fd fzf wget cmake node
@@ -80,7 +79,7 @@ fi
 #################### Common
 ###########################
 
-sudo gem install homesick --no-ri --no-rdoc
+sudo gem install homesick -N
 
 # Have ensured that homesick is available
 hash homesick 2>/dev/null || (echo "homesick install failed" && exit 1)

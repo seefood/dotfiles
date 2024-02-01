@@ -16,15 +16,15 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   brew install smartmontools
 
   export HOMEBREW_CASK_OPTS=--appdir=/Applications
-  brew cask install iterm2
+  brew install iterm2
   if [[ ! -r ~/.itermcfg/com.googlecode.iterm2.plist ]] ; then
-    cp ~/.homesick/repos/dotfile/.itermcfg/* ~/.itermcfg/
-    ## TODO get iterm2 to use this directory with applescripting megic.
+    cp ~/.homesick/repos/dotfile/.itermcfg/* ~/.itermcfg/ || true
+    ## TODO get iterm2 to use this directory with applescripting magic.
   fi
 
-  brew cask install sourcetree qlcolorcode qlstephen qlmarkdown quicklook-json \
+  brew install --cask sourcetree qlcolorcode qlstephen qlmarkdown quicklook-json \
     qlprettypatch quicklook-csv webpquicklook suspicious-package \
-    font-firacode-nerd-font
+    font-fira-code-nerd-font
 
 else
   sudo apt install -y rsync tree git-extras unar

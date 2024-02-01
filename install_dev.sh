@@ -5,14 +5,15 @@ set -e
 if [[ "$OSTYPE" == "darwin"* ]] ; then
   export HOMEBREW_CASK_OPTS=--appdir=/Applications
 
-  brew cask install diffmerge
+  brew install --cask diffmerge
   #ln -sf /Applications/DiffMerge.app/Contents/Resources/diffmerge.sh /usr/local/bin/diffmerge
 
-  if ! brew cask install virtualbox ; then
-    echo
-    echo "Please open the 'Privacy and Security' control panel to allow this install and then run $0 again."
-  fi
-  brew cask install vagrant vagrant-manager visual-studio-code
+#  if ! brew install --cask virtualbox ; then
+#    echo
+#    echo "Please open the 'Privacy and Security' control panel to allow this install and then run $0 again."
+#  fi
+#  brew install --cask vagrant vagrant-manager
+  brew install --cask visual-studio-code
 else
   sudo apt install -y meld python-virtualenv
   wget "https://go.microsoft.com/fwlink/?LinkID=760868" -c -O /tmp/vscode.deb && \
