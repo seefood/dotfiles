@@ -23,7 +23,7 @@ please send me a PR.
 I repeat: this is for my personal use, it installs several things as root,
 expects open sudo access and may be a bit destructive (though idempotent).
 Do *NOT* run it if you didn't go over it and agreed to what it does, and as
-a genral rule, it's NEVER a good idea to run `curl *URL*|bash` ever ever ever.
+a general rule, it's NEVER a good idea to run `curl *URL*|bash` ever ever ever.
 having said that, have a ball :-)
 
     curl https://raw.githubusercontent.com/seefood/dotfiles/master/bootstrap.sh | bash
