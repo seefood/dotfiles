@@ -117,9 +117,9 @@ set laststatus=2
 " ------
 
 " If installed using Homebrew
-" set rtp+=/usr/local/opt/fzf
+set rtp+=/opt/homebrew/opt/fzf
 " If installed using git
-set rtp+=~/.fzf
+" set rtp+=~/.fzf
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
