@@ -219,7 +219,7 @@ if [ "$BASH_IT_THEME" != "oh-my-posh " ] ; then
     export POWERLINE_PROMPT_CHAR="=>"
     unset POWERLINE_LEFT_SEPARATOR POWERLINE_LEFT_END
   fi
-fi.zprofile
+fi
 
 # Load aliases and functions
 if [ -f ~/.bash_aliases ]; then
