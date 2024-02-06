@@ -24,10 +24,20 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
     /opt/homebrew/opt/ruby@2.4/bin \
     ~/.rvm/gems/ruby-2.4.1/bin \
     ~/.fig/bin \
+    /opt/homebrew/opt/fzf/bin \
+    ~/.fzf/bin \
     /usr/local/opt/terraform@0.13.5/bin \
     /opt/homebrew/bin ; do
   [[ -d $newpath ]] && export PATH="$(path_prepend "${newpath}" "${PATH}")"
 done
+
+# If not running interactively, don't do anything
+case $- in
+  *i*) ;;
+    *) return;;
+esac
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash" || true
 
 for newpath in \
     /usr/share/man \
@@ -46,10 +56,6 @@ unset newpath
 
 [[ "$PS1" ]] || return
 
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the start of this file.
-[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
-#### END FIG ENV VARIABLES ####
 
 # Set a default locale or the system will pick out something unusable.
 export LANG=en_US.UTF-8
@@ -167,7 +173,8 @@ export SHORT_HOSTNAME=$(hostname -s)
 # location ~/.bash_it/themes/
 export BASH_IT_THEME="oh-my-posh"
 # Oh-my-posh redirects to a json elsewhere, customized our use.
-export POSH_THEME=~/.bluevine.omp.json
+export POSH_THEME=/opt/homebrew/Cellar/oh-my-posh/19.8.2/themes/takuya.omp.json
+export POSH_THEME=/opt/homebrew/Cellar/oh-my-posh/19.8.2/themes/blue-owl.omp.json
 
 # Settings only relevant to bash-it's internal themed prompts
 if [ "$BASH_IT_THEME" != "oh-my-posh " ] ; then
@@ -205,17 +212,14 @@ if [ "$BASH_IT_THEME" != "oh-my-posh " ] ; then
     #export POWERLINE_PROMPT_CHAR="↳"
     export POWERLINE_PROMPT_CHAR=" =>"
     [[ "$OSTYPE" == "darwin"* ]] && export POWERLINE_PROMPT_CHAR=" =>"
-    export PYTHON_VENV_CHAR=" "
-    export RUBY_CHAR=" "
-    export AWS_PROFILE_CHAR=" "
+    export PYTHON_VENV_CHAR=" "
+    export RUBY_CHAR=" "
+    export AWS_PROFILE_CHAR="󰸏 "
   else
     export POWERLINE_PROMPT_CHAR="=>"
     unset POWERLINE_LEFT_SEPARATOR POWERLINE_LEFT_END
   fi
-fi
-
-# complete -C /usr/bin/command_completion_for_rake -o default rake
-complete -C /usr/local/bin/bit bit
+fi.zprofile
 
 # Load aliases and functions
 if [ -f ~/.bash_aliases ]; then
@@ -232,16 +236,12 @@ export BASH_IT="${HOME}/.bash_it"
 # Load Bash It
 [[ -d $BASH_IT ]] && source $BASH_IT/bash_it.sh
 
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the end of this file.
-[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
-#### END FIG ENV VARIABLES ####
 
 # If an SSH connection and screen is available, attach to it.
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
   sleep 1s; screen -q -m -RR -x
 else
-  for key in ~/.ssh/iabramov ~/.ssh/ira.pem ~/.ssh/id_iraATwork ; do
+  for key in ~/.ssh/*.pem ; do
     [[ -f $key ]] && ssh-add $key &> /dev/null
   done
 fi
