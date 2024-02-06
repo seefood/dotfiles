@@ -1,6 +1,6 @@
 # Local/private config goes in the include
 [include]
-  path = ~/.gitconfig.local
+  path = .gitconfig.local
 
 [hub]
   protocol = https
@@ -65,9 +65,9 @@
   type = cat-file -t
   unstash = stash apply
   wdiff = diff --word-diff=color --ignore-all-space
-  promote = !$ZSH/bin/git-promote
-  wtf     = !$ZSH/bin/git-wtf
-  rank-contributors = !$ZSH/bin/git-rank-contributors
+  promote = !bin/git-promote
+  wtf     = !bin/git-wtf
+  rank-contributors = !bin/git-rank-contributors
   count   = !git shortlog -sn
 
 [push]
@@ -123,7 +123,7 @@
   # whitespace = nowarn
 
 [commit]
-#  template = /home/ira/.stCommitMsg
+#  template = .stCommitMsg
 
 [rebase]
 #  autosquash = true
@@ -134,7 +134,7 @@
   abbrev = 10
   #whitespace = nowarn
   pager = diff-so-fancy | less --tabs=4 -RFX
-  excludesfile = $HOME/.gitignore_global
+	excludesfile = .gitignore_global
   autocrlf = input
 
 [filter "lfs"]
@@ -159,3 +159,10 @@
 	rebase = false
   # Change as appropriate (or per repo)
   # rebase = true
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
