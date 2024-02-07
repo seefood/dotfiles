@@ -22,9 +22,13 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
     ## TODO get iterm2 to use this directory with applescripting magic.
   fi
 
-  brew install --cask sourcetree qlcolorcode qlstephen qlmarkdown quicklook-json \
+  brew install --cask qlcolorcode qlstephen qlmarkdown quicklook-json \
     qlprettypatch quicklook-csv webpquicklook suspicious-package \
-    font-fira-code-nerd-font
+    font-fira-code-nerd-font ipynb-quicklook quickjson
+
+  # Make QL plugins kosher
+  xattr -d -r com.apple.quarantine ~/Library/QuickLook
+  qlmanage -r
 
 else
   sudo apt install -y rsync tree git-extras unar
