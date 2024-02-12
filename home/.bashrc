@@ -172,6 +172,9 @@ export SHORT_HOSTNAME=$(hostname -s)
 # Lock and Load a custom theme file
 # location ~/.bash_it/themes/
 export BASH_IT_THEME="oh-my-posh"
+# If OMP binary is not installed, fallback to a sensible default
+type -P oh-my-posh > /dev/null || export BASH_IT_THEME="powerline-multiline"
+
 # Oh-my-posh redirects to a json elsewhere, customized our use.
 export POSH_THEME=$HOME/.local/oh-my-posh/takuya.omp.json
 export POSH_THEME=$HOME/.local/oh-my-posh/blue-owl.omp.json
