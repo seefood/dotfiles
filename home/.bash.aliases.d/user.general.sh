@@ -50,12 +50,6 @@ if [ -d ~/.bash_completion.d ]; then
   done
 fi
 
-alias upt='sudo apt -u dist-upgrade'
-alias uupt='sudo apt update && upt'
-alias uptc='uupt ; sudo apt-get --purge autoremove  `deborphan` `deborphan  --guess-dev` `deborphan --guess-debug`'
-alias scan='nmap -sS -P0 -R -v -F -O -f'
-alias beep="echo -e '\a'  ; sleep 1 ; echo -e '\a'  ; sleep 1 ;echo -e '\a' "
-
 function nd() { mkdir "$1" && cd "$1"; }
 
 if [[ "$0" =~ bash ]] ; then
@@ -63,11 +57,11 @@ if [[ "$0" =~ bash ]] ; then
     function theme_change () {
       if [ "$1" == '--complete' ]; then
         for d in $(find "${BASH_IT}/themes" -maxdepth 1 -type d -name "$3*" ! -iname "*themes"); do
-          echo ${d##*/};
+          echo "${d##*/}"
         done
         exit
       fi
-      sed 's/\(.*BASH_IT_THEME=\).*/\1"'$1'"/' ~/.bashrc > ~/.bashrc.NEW && \
+      sed 's/\(.*BASH_IT_THEME=\).*/\1"'"$1"'"/' ~/.bashrc > ~/.bashrc.NEW && \
         cat ~/.bashrc.NEW > ~/.bashrc && rm ~/.bashrc.NEW
       unset PS1 # PROMPT_COMMAND
       export BASH_IT_THEME=$1

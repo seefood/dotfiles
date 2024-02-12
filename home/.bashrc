@@ -124,8 +124,6 @@ export GIT_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 
 #export HISTIGNORE="&:[fb]g"
-export DEBEMAIL="nospam-debmail@ira.abramov.org"
-export DEBFULLNAME="Ira Abramov"
 export PYTHONSTARTUP="$HOME/.pythonrc"
 
 export QUILT_PATCHES=debian/patches
