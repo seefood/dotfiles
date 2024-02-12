@@ -173,8 +173,8 @@ export SHORT_HOSTNAME=$(hostname -s)
 # location ~/.bash_it/themes/
 export BASH_IT_THEME="oh-my-posh"
 # Oh-my-posh redirects to a json elsewhere, customized our use.
-export POSH_THEME=/opt/homebrew/Cellar/oh-my-posh/19.8.2/themes/takuya.omp.json
-export POSH_THEME=/opt/homebrew/Cellar/oh-my-posh/19.8.2/themes/blue-owl.omp.json
+export POSH_THEME=$HOME/.local/oh-my-posh/takuya.omp.json
+export POSH_THEME=$HOME/.local/oh-my-posh/blue-owl.omp.json
 
 # Settings only relevant to bash-it's internal themed prompts
 if [ "$BASH_IT_THEME" != "oh-my-posh " ] ; then
