@@ -1,3 +1,4 @@
+#!/bin/bash
 if [[ $USER =~ ^ira ]] ; then
 
   # alias android-connect="mtpfs -o allow_other /media/GalaxyS2"
@@ -22,7 +23,11 @@ if [[ $USER =~ ^ira ]] ; then
     alias kgs="busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart(\"Restarting…\")'"
 
     function df () {
-      [[ "$@" ]] && /bin/df $@ || /bin/df -hT -x squashfs -x tmpfs
+      if [[ "$*" ]] ; then
+        /bin/df "$@"
+      else
+        /bin/df -hT -x squashfs -x tmpfs
+      fi
     }
   fi
 

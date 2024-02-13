@@ -3,8 +3,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-function path_append ()  { local res="$(path_remove "$1" "$2")" ; echo "$res:$1" ; }
-function path_prepend () { local res="$(path_remove "$1" "$2")" ; echo "$1:$res" ; }
+function path_append ()  { local res; res="$(path_remove "$1" "$2")" ; echo "$res:$1" ; }
+function path_prepend () { local res; res="$(path_remove "$1" "$2")" ; echo "$1:$res" ; }
 function path_remove ()  { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//' ; }
 
 for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
@@ -28,7 +28,7 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
     ~/.fzf/bin \
     ~/Library/Python/3.*/bin \
     /opt/homebrew/bin ; do
-  [[ -d $newpath ]] && export PATH="$(path_prepend "${newpath}" "${PATH}")"
+  [[ -d $newpath ]] && PATH="$(path_prepend "${newpath}" "${PATH}")" ; export PATH
 done
 
 # If not running interactively, don't do anything
@@ -37,7 +37,9 @@ case $- in
     *) return;;
 esac
 
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash" || true
+# shellcheck disable=SC1091
+test -e "${HOME}/.iterm2_shell_integration.bash" &&
+source "${HOME}/.iterm2_shell_integration.bash"
 
 for newpath in \
     /usr/share/man \
@@ -50,7 +52,7 @@ for newpath in \
     /home/linuxbrew/.linuxbrew/share/man \
     /home/linuxbrew/.linuxbrew/share/man \
     ; do
-  [[ -d $newpath ]] && export MANPATH="$(path_prepend "${newpath}" "${MANPATH}")"
+  [[ -d $newpath ]] && MANPATH="$(path_prepend "${newpath}" "${MANPATH}")" ; export MANPATH
 done
 unset newpath
 
@@ -64,12 +66,14 @@ unset LC_TIME
 
 # Source global definitions
 if [[ -f /etc/bashrc ]]; then
+  # shellcheck disable=SC1091
   . /etc/bashrc
 fi
 
 if [ -d ~/.bash_completion.d ]; then
   for file in  ~/.bash_completion.d/*; do
-    . $file
+  # shellcheck disable=SC1090
+    . "$file"
   done
 fi
 
@@ -105,10 +109,11 @@ fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 umask 022
-UBUNTU_MENUPROXY=0
+UBUNTU_MENUPROXY=0 ; export UBUNTU_MENUPROXY
 
 if [[ -d ${HOME}/.rbenv/bin ]] ; then
-  export PATH="$(path_prepend "${HOME}/.rbenv/bin" "${PATH}")"
+  PATH="$(path_prepend "${HOME}/.rbenv/bin" "${PATH}")"
+  export PATH
   eval "$(rbenv init -)"
 fi
 
@@ -145,31 +150,32 @@ ulimit -v unlimited
 #export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
 # Choose log level for bash_it
-export BASH_IT_LOG_LEVEL=5
+BASH_IT_LOG_LEVEL=5
 
-export GPG_TTY=$(tty)
+GPG_TTY=$(tty)
 
 # Load RVM, if you are using it
-[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+# shellcheck disable=SC1091
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # Your place for hosting Git repos. I use this for private repos.
-export GIT_HOSTING='git@git.github.com'
+GIT_HOSTING='git@git.github.com'
 
 # Don't check mail when opening terminal.
 unset MAILCHECK
 
-# Change this to your console based IRC client of choice.
-export IRC_CLIENT='irssi'
-
 # Set this to the command you use for todo.txt-cli
-export TODO="t"
+TODO="t"
 
 # Set Xterm/screen/Tmux title with only a short hostname. comment this to fall back on $HOSTNAME.
-export SHORT_HOSTNAME=$(hostname -s)
+SHORT_HOSTNAME=$(hostname -s)
+
+export GIT_HOSTING GPG_TTY BASH_IT_LOG_LEVEL SHORT_HOSTNAME TODO 
 
 # Lock and Load a custom theme file
 # location ~/.bash_it/themes/
-export BASH_IT_THEME="oh-my-posh"
+BASH_IT_THEME="oh-my-posh"
+export BASH_IT_THEME
 # If OMP binary is not installed, fallback to a sensible default
 type -P oh-my-posh > /dev/null || export BASH_IT_THEME="powerline-multiline"
 
@@ -224,18 +230,21 @@ fi
 
 # Load aliases and functions
 if [ -f ~/.bash_aliases ]; then
+  # shellcheck disable=SC1090
   . ~/.bash_aliases
 fi
 if [ -d ~/.bash.aliases.d ]; then
   for file in  ~/.bash.aliases.d/*.sh; do
-    . $file
+  # shellcheck disable=SC1090
+    . "$file"
   done
 fi
 
 # Path to the bash it configuration
 export BASH_IT="${HOME}/.bash_it"
 # Load Bash It
-[[ -d $BASH_IT ]] && source $BASH_IT/bash_it.sh
+# shellcheck disable=SC1091
+[[ -d $BASH_IT ]] && source "$BASH_IT/bash_it.sh"
 
 
 # If an SSH connection and screen is available, attach to it.
@@ -243,6 +252,6 @@ if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^sc
   sleep 1s; screen -q -m -RR -x
 else
   for key in ~/.ssh/*.pem ; do
-    [[ -f $key ]] && ssh-add $key &> /dev/null
+    [[ -f "$key" ]] && ssh-add "$key" &> /dev/null
   done
 fi
