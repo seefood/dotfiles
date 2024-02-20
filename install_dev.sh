@@ -14,13 +14,13 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
 #  fi
 #  brew install --cask vagrant vagrant-manager
   brew install --cask visual-studio-code
+elif [[ -r /etc/redhat-release ]] ; then
+  echo "RedHat? must be running on a server. not doing anything"
 else
   sudo apt install -y meld python-virtualenv
   wget "https://go.microsoft.com/fwlink/?LinkID=760868" -c -O /tmp/vscode.deb && \
     sudo apt install -y /tmp/vscode.deb && rm /tmp/vscode.deb
 fi
-
-~/bin/imgcat ~/.homesick/repos/dotfiles/images/chuck-norris-approves.gif
 
 if ! test -r ~/.netrc ; then
   echo "**** Creating .netrc for you. Please add in the user and a github token"
@@ -30,3 +30,5 @@ if ! test -r ~/.netrc ; then
   echo "       login USER" >> ~/.netrc
   echo "       password TOKEN" >> ~/.netrc
 fi
+
+~/bin/imgcat ~/.homesick/repos/dotfiles/images/chuck-norris-approves.gif

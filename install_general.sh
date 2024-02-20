@@ -30,6 +30,8 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   xattr -d -r com.apple.quarantine ~/Library/QuickLook
   qlmanage -r
 
+elif [[ -r /etc/redhat-release ]] ; then
+  sudo dnf install -y rsync tree git-extras unar
 else
   sudo apt install -y rsync tree git-extras unar
 fi

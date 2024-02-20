@@ -23,6 +23,7 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
     /opt/homebrew/opt/python@3.*/bin \
     /opt/homebrew/opt/ruby@2.*/bin \
     ~/.rvm/gems/ruby-2.4.1/bin \
+    /opt/homebrew/anaconda3/bin \
     ~/.fig/bin \
     /opt/homebrew/opt/fzf/bin \
     ~/.fzf/bin \
@@ -55,9 +56,6 @@ for newpath in \
   [[ -d $newpath ]] && MANPATH="$(path_prepend "${newpath}" "${MANPATH}")" ; export MANPATH
 done
 unset newpath
-
-[[ "$PS1" ]] || return
-
 
 # Set a default locale or the system will pick out something unusable.
 export LANG=en_US.UTF-8
@@ -233,6 +231,7 @@ if [ -f ~/.bash_aliases ]; then
   # shellcheck disable=SC1090
   . ~/.bash_aliases
 fi
+
 if [ -d ~/.bash.aliases.d ]; then
   for file in  ~/.bash.aliases.d/*.sh; do
   # shellcheck disable=SC1090
@@ -240,12 +239,15 @@ if [ -d ~/.bash.aliases.d ]; then
   done
 fi
 
+# Enable homeshick
+[[ -r "$HOME/.homesick/repos/homeshick/homeshick.sh" ]] &&
+  source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+
 # Path to the bash it configuration
 export BASH_IT="${HOME}/.bash_it"
 # Load Bash It
 # shellcheck disable=SC1091
 [[ -d $BASH_IT ]] && source "$BASH_IT/bash_it.sh"
-
 
 # If an SSH connection and screen is available, attach to it.
 if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
