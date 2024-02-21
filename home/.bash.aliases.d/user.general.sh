@@ -1,6 +1,7 @@
+#!/bi/bash
 function ewhich() {
-  command which $*
-  \type $*
+  command which "$@"
+  \type "$@"
 }
 
 # some more ls aliases
@@ -38,33 +39,36 @@ fi
 # enable programmable completion features (only for brew,
 # the rest are already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
+if hash brew 2>/dev/null && ! shopt -oq posix; then
+  if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+    # shellcheck disable=SC1091
+    . "$(brew --prefix)/etc/bash_completion"
   fi
 fi
 
 if [ -d ~/.bash_completion.d ]; then
   for file in  ~/.bash_completion.d/*; do
-    . $file
+    # shellcheck disable=SC1090
+    . "$file"
   done
 fi
 
-function nd() { mkdir "$1" && cd "$1"; }
+function nd() { mkdir "$1" && cd "$1" && return; }
 
 if [[ "$0" =~ bash ]] ; then
   if [[ "$BASH_IT" ]] ; then
     function theme_change () {
       if [ "$1" == '--complete' ]; then
-        for d in $(find "${BASH_IT}/themes" -maxdepth 1 -type d -name "$3*" ! -iname "*themes"); do
+        while IFS= read -r -d '' d ; do
           echo "${d##*/}"
-        done
+        done < <(find "${BASH_IT}/themes" -maxdepth 1 -type d -name "$3*" ! -iname "*themes")
         exit
       fi
       sed 's/\(.*BASH_IT_THEME=\).*/\1"'"$1"'"/' ~/.bashrc > ~/.bashrc.NEW && \
         cat ~/.bashrc.NEW > ~/.bashrc && rm ~/.bashrc.NEW
       unset PS1 # PROMPT_COMMAND
       export BASH_IT_THEME=$1
+      # shellcheck disable=SC1090
       source ~/.bashrc
     }
     complete -o default -C 'theme_change --complete $@' theme_change
@@ -77,13 +81,17 @@ if [[ "$0" =~ bash ]] ; then
       export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
       export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     fi
-    # Auto-completion
-    # IC_AWS_ENVIRONMENT
-    # TODO: fix fzf path to be ubuntu and Mac compat.
-    [[ $- == *i* ]] && source $(brew --prefix fzf)/shell/completion.bash 2> /dev/null
 
-    # Key bindings
-    # ------------
-    source "$(brew --prefix fzf)/shell/key-bindings.bash"
+    if hash brew 2>/dev/null ; then
+      # Auto-completion
+      # IC_AWS_ENVIRONMENT
+      # TODO: fix fzf path to be ubuntu and Mac compat.
+      # shellcheck disable=SC1091
+      [[ $- == *i* ]] && source "$(brew --prefix fzf)/shell/completion.bash" 2> /dev/null
+
+      # Key bindings
+      # shellcheck disable=SC1091
+      source "$(brew --prefix fzf)/shell/key-bindings.bash"
+    fi
   fi
 fi

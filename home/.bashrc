@@ -38,10 +38,6 @@ case $- in
     *) return;;
 esac
 
-# shellcheck disable=SC1091
-test -e "${HOME}/.iterm2_shell_integration.bash" &&
-source "${HOME}/.iterm2_shell_integration.bash"
-
 for newpath in \
     /usr/share/man \
     /usr/local/share/man \
@@ -240,6 +236,7 @@ if [ -d ~/.bash.aliases.d ]; then
 fi
 
 # Enable homeshick
+# shellcheck disable=SC1091
 [[ -r "$HOME/.homesick/repos/homeshick/homeshick.sh" ]] &&
   source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 

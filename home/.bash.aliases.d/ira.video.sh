@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Get cracking on some demuxing
 
 function demuxaudio () {
@@ -8,8 +10,9 @@ function demuxaudio () {
     for file ; do
 
         local output_file="${file%.*}"
-        local output_suffix="$(mediainfo "$file" | grep "Format  " | \
-            tail -1 | awk '{print $3}' | tr A-Z a-z)"
+        local output_suffix
+        output_suffix="$(mediainfo "$file" | grep "Format  " | \
+            tail -1 | awk '{print $3}' | tr '[:upper:]' '[:lower:]')"
         # Common names
         [[ $output_suffix == "opus" ]] && output_suffix="ogg"
 
