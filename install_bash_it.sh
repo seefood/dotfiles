@@ -12,7 +12,7 @@ source "$BASH_IT"/bash_it.sh
 
 # Completions
 bash-it enable completion makefile pip ssh system \
-  git docker defaults bash-it homesick
+  docker defaults bash-it
 
 # Plugins
 bash-it enable plugin base browser \
