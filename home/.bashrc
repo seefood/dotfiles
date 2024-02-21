@@ -64,13 +64,6 @@ if [[ -f /etc/bashrc ]]; then
   . /etc/bashrc
 fi
 
-if [ -d ~/.bash_completion.d ]; then
-  for file in  ~/.bash_completion.d/*; do
-  # shellcheck disable=SC1090
-    . "$file"
-  done
-fi
-
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 # HISTCONTROL=ignoreboth

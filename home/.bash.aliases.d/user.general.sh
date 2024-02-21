@@ -1,4 +1,4 @@
-#!/bi/bash
+#!/bin/bash
 function ewhich() {
   command which "$@"
   \type "$@"
@@ -13,8 +13,8 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# Common Typo
 alias mc='mv'
-#alias mutt='xttitle mutt:$USER mutt:$USER; /usr/bin/mutt'
 
 export HISTTIMEFORMAT="%d/%m/%y %T "
 export BASH_SILENCE_DEPRECATION_WARNING=1
@@ -27,11 +27,8 @@ if [ "$TERM" != "dumb" ] ; then
     export LSCOLORS=ExFxBxDxCxegedabagacad
   fi
 
-  alias ls > /dev/null 2>&1 || alias ls='\ls -hGF'
-  #alias dir='ls --color=auto --format=vertical'
-  #alias vdir='ls --color=auto --format=long'
+  alias ls > /dev/null 2>&1 || alias ls='\ls -hGF --color=auto'
 
-  #alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
 fi
