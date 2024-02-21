@@ -2,38 +2,38 @@
 
 set -e
 
-if [[ "$OSTYPE" == "darwin"* ]] ; then
-  brew install cv editorconfig multitail rsync tree
-  brew install --HEAD git-extras
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	brew install cv editorconfig multitail rsync tree
+	brew install --HEAD git-extras
 
-  # https://bitbucket.org/WAHa_06x36/theunarchiver
-  brew install unar
+	# https://bitbucket.org/WAHa_06x36/theunarchiver
+	brew install unar
 
-  brew install coreutils freetype gawk gnu-sed bat htop-osx osxutils \
-    proctools psgrep wdiff up
+	brew install coreutils freetype gawk gnu-sed bat htop-osx osxutils \
+		proctools psgrep wdiff up
 
-  # http://apple.stackexchange.com/questions/135565/how-do-i-get-detailed-smart-disk-information-on-os-x-mavericks-or-later
-  brew install smartmontools
+	# http://apple.stackexchange.com/questions/135565/how-do-i-get-detailed-smart-disk-information-on-os-x-mavericks-or-later
+	brew install smartmontools
 
-  export HOMEBREW_CASK_OPTS=--appdir=/Applications
-  brew install iterm2
-  if [[ ! -r ~/.itermcfg/com.googlecode.iterm2.plist ]] ; then
-    cp ~/.homesick/repos/dotfile/.itermcfg/* ~/.itermcfg/ || true
-    ## TODO get iterm2 to use this directory with applescripting magic.
-  fi
+	export HOMEBREW_CASK_OPTS=--appdir=/Applications
+	brew install iterm2
+	if [[ ! -r ~/.itermcfg/com.googlecode.iterm2.plist ]]; then
+		cp ~/.homesick/repos/dotfile/.itermcfg/* ~/.itermcfg/ || true
+		## TODO get iterm2 to use this directory with applescripting magic.
+	fi
 
-  brew install --cask qlcolorcode qlstephen qlmarkdown quicklook-json \
-    qlprettypatch quicklook-csv webpquicklook suspicious-package \
-    font-fira-code-nerd-font ipynb-quicklook quickjson syntax-highlight
+	brew install --cask qlcolorcode qlstephen qlmarkdown quicklook-json \
+		qlprettypatch quicklook-csv webpquicklook suspicious-package \
+		font-fira-code-nerd-font ipynb-quicklook quickjson syntax-highlight
 
-  # Make QL plugins kosher
-  xattr -d -r com.apple.quarantine ~/Library/QuickLook
-  qlmanage -r
+	# Make QL plugins kosher
+	xattr -d -r com.apple.quarantine ~/Library/QuickLook
+	qlmanage -r
 
-elif [[ -r /etc/redhat-release ]] ; then
-  sudo dnf install -y rsync tree git-extras unar
+elif [[ -r /etc/redhat-release ]]; then
+	sudo dnf install -y rsync tree git-extras unar
 else
-  sudo apt install -y rsync tree git-extras unar
+	sudo apt install -y rsync tree git-extras unar
 fi
 
 ~/bin/imgcat ~/.homesick/repos/dotfiles/images/DanyThumbsUp.gif

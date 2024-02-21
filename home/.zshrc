@@ -1,6 +1,8 @@
+#!/bin/zsh
 
 #### FIG ENV VARIABLES ####
 # Please make sure this block is at the start of this file.
+# shellcheck disable=SC1090
 [ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
 #### END FIG ENV VARIABLES ####
 # If you come from bash you might have to change your $PATH.
@@ -9,7 +11,7 @@
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=3000
-SAVEHIST=3000
+SAVEHIST=10000
 setopt appendhistory autocd
 bindkey -e
 # End of lines configured by zsh-newuser-install
@@ -23,7 +25,7 @@ compinit
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Path to your oh-my-zsh installation.
-  export ZSH=~/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -125,19 +127,22 @@ HIST_STAMPS="dd/mm/yyyy"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(sudo git history taskwarrior tmux tmuxinator zsh-autosuggestions)
 
+# shellcheck disable=SC1091
 source $ZSH/oh-my-zsh.sh
 # source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source /usr/local/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+
+# shellcheck disable=SC1091
 source /usr/local/opt/zinit/zinit.zsh
 
 zinit wait lucid for \
- atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-    zdharma-continuum/fast-syntax-highlighting \
- blockf \
-    zsh-users/zsh-completions \
- atload"!_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions
+	atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+	zdharma-continuum/fast-syntax-highlighting \
+	blockf \
+	zsh-users/zsh-completions \
+	atload"!_zsh_autosuggest_start" \
+	zsh-users/zsh-autosuggestions
 
 # User configuration
 
@@ -170,32 +175,38 @@ alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 
 autoload bashcompinit && bashcompinit
-function path_append ()  { local res="$(path_remove "$1" "$2")" ; echo "$res:$1" ; }
-function path_prepend () { local res="$(path_remove "$1" "$2")" ; echo "$1:$res" ; }
-function path_remove ()  { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//' ; }
+function path_append() {
+	local res="$(path_remove "$1" "$2")"
+	echo "$res:$1"
+}
+function path_prepend() {
+	local res="$(path_remove "$1" "$2")"
+	echo "$1:$res"
+}
+function path_remove() { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//'; }
 
 for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
-    /usr/local/opt/man-db/libexec/bin \
-    /usr/local/opt/go/libexec/bin \
-    /usr/local/opt/coreutils/libexec/gnubin \
-    /usr/local/opt/gnu-sed/libexec/gnubin \
-    /usr/local/opt/binutils/bin \
-    /usr/local/opt/curl/bin \
-    /usr/local/opt/python@3.9/libexec/bin \
-    ~/.rvm/gems/ruby-2.4.1/bin \
-    ~/.rvm/gems/ruby-2.4.1@kitchen/bin ; do
-  [[ -d $newpath ]] && export PATH="$(path_prepend "${newpath}" "${PATH}")"
+	/usr/local/opt/man-db/libexec/bin \
+	/usr/local/opt/go/libexec/bin \
+	/usr/local/opt/coreutils/libexec/gnubin \
+	/usr/local/opt/gnu-sed/libexec/gnubin \
+	/usr/local/opt/binutils/bin \
+	/usr/local/opt/curl/bin \
+	/usr/local/opt/python@3.9/libexec/bin \
+	~/.rvm/gems/ruby-2.4.1/bin \
+	~/.rvm/gems/ruby-2.4.1@kitchen/bin; do
+	[[ -d $newpath ]] && export PATH="$(path_prepend "${newpath}" "${PATH}")"
 done
 
 if [ -d ~/.bash_aliases.d ]; then
-  for file in ~/.??*.zsh ~/.bash_aliases.d/*.sh; do
-    . $file
-  done
+	for file in ~/.??*.zsh ~/.bash_aliases.d/*.sh; do
+		. "$file"
+	done
 fi
 
-if [[ $TERM_PROGRAM = "iTerm.app" ]] ; then
-  unset ITERM_SHELL_INTEGRATION_INSTALLED
-  source ~/.iterm2_shell_integration.zsh
+if [[ $TERM_PROGRAM = "iTerm.app" ]]; then
+	unset ITERM_SHELL_INTEGRATION_INSTALLED
+	source ~/.iterm2_shell_integration.zsh
 fi
 
 export PATH=$PATH:~/bin

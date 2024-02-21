@@ -3,53 +3,62 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-function path_append ()  { local res; res="$(path_remove "$1" "$2")" ; echo "$res:$1" ; }
-function path_prepend () { local res; res="$(path_remove "$1" "$2")" ; echo "$1:$res" ; }
-function path_remove ()  { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//' ; }
+function path_append() {
+	local res
+	res="$(path_remove "$1" "$2")"
+	echo "$res:$1"
+}
+function path_prepend() {
+	local res
+	res="$(path_remove "$1" "$2")"
+	echo "$1:$res"
+}
+function path_remove() { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//'; }
 
 for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
-    /usr/local/opt/man-db/libexec/bin \
-    /opt/homebrew/opt/man-db/libexec/bin \
-    /usr/local/opt/go/libexec/bin \
-    /opt/homebrew/opt/go/libexec/bin \
-    /usr/local/opt/*/libexec/gnubin \
-    /opt/homebrew/opt/*/libexec/gnubin \
-    /usr/local/opt/binutils/bin \
-    /opt/homebrew/opt/binutils/bin \
-    /usr/local/opt/curl/bin \
-    /opt/homebrew/opt/curl/bin \
-    /opt/homebrew/opt/gnu-getopt/bin \
-    /usr/local/opt/python@3.*/libexec/bin \
-    /opt/homebrew/opt/python@3.*/bin \
-    /opt/homebrew/opt/ruby@2.*/bin \
-    ~/.rvm/gems/ruby-2.4.1/bin \
-    /opt/homebrew/anaconda3/bin \
-    ~/.fig/bin \
-    /opt/homebrew/opt/fzf/bin \
-    ~/.fzf/bin \
-    ~/Library/Python/3.*/bin \
-    /opt/homebrew/bin ; do
-  [[ -d $newpath ]] && PATH="$(path_prepend "${newpath}" "${PATH}")" ; export PATH
+	/usr/local/opt/man-db/libexec/bin \
+	/opt/homebrew/opt/man-db/libexec/bin \
+	/usr/local/opt/go/libexec/bin \
+	/opt/homebrew/opt/go/libexec/bin \
+	/usr/local/opt/*/libexec/gnubin \
+	/opt/homebrew/opt/*/libexec/gnubin \
+	/usr/local/opt/binutils/bin \
+	/opt/homebrew/opt/binutils/bin \
+	/usr/local/opt/curl/bin \
+	/opt/homebrew/opt/curl/bin \
+	/opt/homebrew/opt/gnu-getopt/bin \
+	/usr/local/opt/python@3.*/libexec/bin \
+	/opt/homebrew/opt/python@3.*/bin \
+	/opt/homebrew/opt/ruby@2.*/bin \
+	~/.rvm/gems/ruby-2.4.1/bin \
+	/opt/homebrew/anaconda3/bin \
+	~/.fig/bin \
+	/opt/homebrew/opt/fzf/bin \
+	~/.fzf/bin \
+	~/Library/Python/3.*/bin \
+	/opt/homebrew/bin; do
+	[[ -d $newpath ]] && PATH="$(path_prepend "${newpath}" "${PATH}")"
+	export PATH
 done
 
 # If not running interactively, don't do anything
 case $- in
-  *i*) ;;
-    *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 for newpath in \
-    /usr/share/man \
-    /usr/local/share/man \
-    /opt/homebrew/share/man \
-    /usr/local/opt/coreutils/libexec/gnuman \
-    /opt/homebrew/opt/coreutils/libexec/gnuman \
-    /usr/local/opt/gnu-sed/libexec/gnuman \
-    /opt/homebrew/opt/gnu-sed/libexec/gnuman \
-    /home/linuxbrew/.linuxbrew/share/man \
-    /home/linuxbrew/.linuxbrew/share/man \
-    ; do
-  [[ -d $newpath ]] && MANPATH="$(path_prepend "${newpath}" "${MANPATH}")" ; export MANPATH
+	/usr/share/man \
+	/usr/local/share/man \
+	/opt/homebrew/share/man \
+	/usr/local/opt/coreutils/libexec/gnuman \
+	/opt/homebrew/opt/coreutils/libexec/gnuman \
+	/usr/local/opt/gnu-sed/libexec/gnuman \
+	/opt/homebrew/opt/gnu-sed/libexec/gnuman \
+	/home/linuxbrew/.linuxbrew/share/man \
+	/home/linuxbrew/.linuxbrew/share/man; do
+	[[ -d $newpath ]] && MANPATH="$(path_prepend "${newpath}" "${MANPATH}")"
+	export MANPATH
 done
 unset newpath
 
@@ -60,8 +69,8 @@ unset LC_TIME
 
 # Source global definitions
 if [[ -f /etc/bashrc ]]; then
-  # shellcheck disable=SC1091
-  . /etc/bashrc
+	# shellcheck disable=SC1091
+	. /etc/bashrc
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -89,28 +98,29 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$(cat /etc/debian_chroot)
+	debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 umask 022
-UBUNTU_MENUPROXY=0 ; export UBUNTU_MENUPROXY
+UBUNTU_MENUPROXY=0
+export UBUNTU_MENUPROXY
 
-if [[ -d ${HOME}/.rbenv/bin ]] ; then
-  PATH="$(path_prepend "${HOME}/.rbenv/bin" "${PATH}")"
-  export PATH
-  eval "$(rbenv init -)"
+if [[ -d ${HOME}/.rbenv/bin ]]; then
+	PATH="$(path_prepend "${HOME}/.rbenv/bin" "${PATH}")"
+	export PATH
+	eval "$(rbenv init -)"
 fi
 
 set -o emacs
 # Set my editor and git editor
 export EDITOR="vim"
 alias vi='vim'
-if hash nvim 2>/dev/null ; then
-  export EDITOR=nvim
-  alias vi='nvim'
+if hash nvim 2>/dev/null; then
+	export EDITOR=nvim
+	alias vi='nvim'
 fi
 export GIT_EDITOR=$EDITOR
 export VISUAL=$EDITOR
@@ -164,74 +174,74 @@ export GIT_HOSTING GPG_TTY BASH_IT_LOG_LEVEL SHORT_HOSTNAME TODO
 BASH_IT_THEME="oh-my-posh"
 export BASH_IT_THEME
 # If OMP binary is not installed, fallback to a sensible default
-type -P oh-my-posh > /dev/null || export BASH_IT_THEME="powerline-multiline"
+type -P oh-my-posh >/dev/null || export BASH_IT_THEME="powerline-multiline"
 
 # Oh-my-posh redirects to a json elsewhere, customized our use.
 export POSH_THEME=$HOME/.local/oh-my-posh/takuya.omp.json
 export POSH_THEME=$HOME/.local/oh-my-posh/blue-owl.omp.json
 
 # Settings only relevant to bash-it's internal themed prompts
-if [ "$BASH_IT_THEME" != "oh-my-posh " ] ; then
-  # Set this to false to turn off version control status checking within the prompt for all themes
-  export SCM_CHECK=true
+if [ "$BASH_IT_THEME" != "oh-my-posh " ]; then
+	# Set this to false to turn off version control status checking within the prompt for all themes
+	export SCM_CHECK=true
 
-  # Set vcprompt executable path for scm advance info in prompt (demula theme)
-  # https://github.com/xvzf/vcprompt
-  #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
+	# Set vcprompt executable path for scm advance info in prompt (demula theme)
+	# https://github.com/xvzf/vcprompt
+	#export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
 
-  #export POWERLINE_LEFT_PROMPT="clock user_info scm python_venv ruby cwd in_vim"
-  export POWERLINE_LEFT_PROMPT="aws_profile scm python_venv ruby cwd"
-  export POWERLINE_LEFT_PROMPT="aws_profile scm cwd"
-  export POWERLINE_PROMPT="$POWERLINE_LEFT_PROMPT"
-  export POWERLINE_RIGHT_PROMPT="in_vim clock"
-  # Most people don't like that right side, so I'm turning it off. comment the
-  # next line if you want to try it:
-  #export POWERLINE_RIGHT_PROMPT=" "
-  [[ "$SSH_CONNECTION" ]] && export POWERLINE_RIGHT_PROMPT="$POWERLINE_RIGHT_PROMPT hostname"
-  export AWS_PROFILE_PROMPT_COLOR="19"
-  export PYTHON_VENV_THEME_PROMPT_COLOR="30"
-  export USER_INFO_THEME_PROMPT_COLOR_SUDO="63"
-  export RUBY_THEME_PROMPT_COLOR="124"
+	#export POWERLINE_LEFT_PROMPT="clock user_info scm python_venv ruby cwd in_vim"
+	export POWERLINE_LEFT_PROMPT="aws_profile scm python_venv ruby cwd"
+	export POWERLINE_LEFT_PROMPT="aws_profile scm cwd"
+	export POWERLINE_PROMPT="$POWERLINE_LEFT_PROMPT"
+	export POWERLINE_RIGHT_PROMPT="in_vim clock"
+	# Most people don't like that right side, so I'm turning it off. comment the
+	# next line if you want to try it:
+	#export POWERLINE_RIGHT_PROMPT=" "
+	[[ "$SSH_CONNECTION" ]] && export POWERLINE_RIGHT_PROMPT="$POWERLINE_RIGHT_PROMPT hostname"
+	export AWS_PROFILE_PROMPT_COLOR="19"
+	export PYTHON_VENV_THEME_PROMPT_COLOR="30"
+	export USER_INFO_THEME_PROMPT_COLOR_SUDO="63"
+	export RUBY_THEME_PROMPT_COLOR="124"
 
-  ### set to 'true' (and customize to taste) once you installed
-  ### a powerline/nerd font, so your prompt looks even nicer!
-  NERDFONTS=true
-  if [[ "$NERDFONTS" == "true" ]] ; then
-    #export POWERLINE_LEFT_SEPARATOR=""
-    #export POWERLINE_LEFT_END=""
-    #export POWERLINE_RIGHT_SEPARATOR=""
-    #export POWERLINE_RIGHT_END=""
-    #export POWERLINE_PROMPT_CHAR="⥤"
-    #export POWERLINE_PROMPT_CHAR="➤"
-    #export POWERLINE_PROMPT_CHAR="↳"
-    export POWERLINE_PROMPT_CHAR=" =>"
-    [[ "$OSTYPE" == "darwin"* ]] && export POWERLINE_PROMPT_CHAR=" =>"
-    export PYTHON_VENV_CHAR=" "
-    export RUBY_CHAR=" "
-    export AWS_PROFILE_CHAR="󰸏 "
-  else
-    export POWERLINE_PROMPT_CHAR="=>"
-    unset POWERLINE_LEFT_SEPARATOR POWERLINE_LEFT_END
-  fi
+	### set to 'true' (and customize to taste) once you installed
+	### a powerline/nerd font, so your prompt looks even nicer!
+	NERDFONTS=true
+	if [[ "$NERDFONTS" == "true" ]]; then
+		#export POWERLINE_LEFT_SEPARATOR=""
+		#export POWERLINE_LEFT_END=""
+		#export POWERLINE_RIGHT_SEPARATOR=""
+		#export POWERLINE_RIGHT_END=""
+		#export POWERLINE_PROMPT_CHAR="⥤"
+		#export POWERLINE_PROMPT_CHAR="➤"
+		#export POWERLINE_PROMPT_CHAR="↳"
+		export POWERLINE_PROMPT_CHAR=" =>"
+		[[ "$OSTYPE" == "darwin"* ]] && export POWERLINE_PROMPT_CHAR=" =>"
+		export PYTHON_VENV_CHAR=" "
+		export RUBY_CHAR=" "
+		export AWS_PROFILE_CHAR="󰸏 "
+	else
+		export POWERLINE_PROMPT_CHAR="=>"
+		unset POWERLINE_LEFT_SEPARATOR POWERLINE_LEFT_END
+	fi
 fi
 
 # Load aliases and functions
 if [ -f ~/.bash_aliases ]; then
-  # shellcheck disable=SC1090
-  . ~/.bash_aliases
+	# shellcheck disable=SC1090
+	. ~/.bash_aliases
 fi
 
 if [ -d ~/.bash.aliases.d ]; then
-  for file in  ~/.bash.aliases.d/*.sh; do
-  # shellcheck disable=SC1090
-    . "$file"
-  done
+	for file in ~/.bash.aliases.d/*.sh; do
+		# shellcheck disable=SC1090
+		. "$file"
+	done
 fi
 
 # Enable homeshick
 # shellcheck disable=SC1091
 [[ -r "$HOME/.homesick/repos/homeshick/homeshick.sh" ]] &&
-  source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+	source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 
 # Path to the bash it configuration
 export BASH_IT="${HOME}/.bash_it"
@@ -240,10 +250,11 @@ export BASH_IT="${HOME}/.bash_it"
 [[ -d $BASH_IT ]] && source "$BASH_IT/bash_it.sh"
 
 # If an SSH connection and screen is available, attach to it.
-if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen" ; then
-  sleep 1s; screen -q -m -RR -x
+if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen"; then
+	sleep 1s
+	screen -q -m -RR -x
 else
-  for key in ~/.ssh/*.pem ; do
-    [[ -f "$key" ]] && ssh-add "$key" &> /dev/null
-  done
+	for key in ~/.ssh/*.pem; do
+		[[ -f "$key" ]] && ssh-add "$key" &>/dev/null
+	done
 fi

@@ -6,19 +6,26 @@ set -e
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until this script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do
+	sudo -n true
+	sleep 60
+	kill -0 "$$" || exit
+done 2>/dev/null &
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
-#####################################
-##################### MacOS env setup
-#####################################
+	#####################################
+	##################### MacOS env setup
+	#####################################
 
-	if ! hash brew 2>/dev/null ; then
+	if ! hash brew 2>/dev/null; then
 		echo "Installing Brew"
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	fi
-	hash brew 2>/dev/null || { echo "install brew first" ; exit 1 ; }
+	hash brew 2>/dev/null || {
+		echo "install brew first"
+		exit 1
+	}
 
 	brew doctor
 	brew tap homebrew/cask-versions
@@ -28,14 +35,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	brew install screen the_silver_searcher git curl hub fd fzf wget cmake node
 
 	# This little joke kills some of our nicest code.
-	test -r /etc/bashrc_Apple_Terminal && \
+	test -r /etc/bashrc_Apple_Terminal &&
 		sudo mv /etc/bashrc_Apple_Terminal /etc/bashrc_Apple_Terminal.disabled
 
-elif [[ -f /etc/redhat-release ]] ; then
+elif [[ -f /etc/redhat-release ]]; then
 
-#####################################
-##################### RH-ish env setup
-#####################################
+	#####################################
+	##################### RH-ish env setup
+	#####################################
 
 	# Enable Fedora
 	sudo dnf copr enable tkbcopr/fd -y
@@ -46,22 +53,22 @@ elif [[ -f /etc/redhat-release ]] ; then
 		git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf &&
 		~/.fzf/install --all --no-zsh --no-fish --no-update-rc
 
-elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
+elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]]; then
 
-#####################################
-#################### Ubuntu env setup
-#####################################
+	#####################################
+	#################### Ubuntu env setup
+	#####################################
 
 	echo "installing some essential packages"
 	sudo apt update
 	sudo apt install -y screen silversearcher-ag curl git \
-			software-properties-common python3-pip rubygems tmux build-essential \
-			cmake python3-dev nodejs npm python-dev
+		software-properties-common python3-pip rubygems tmux build-essential \
+		cmake python3-dev nodejs npm python-dev
 
 	# Adding backports, neovim and other useful bits.
 	sudo add-apt-repository -u "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-backports main restricted universe multiverse"
 
-	if ! hash nvim 2>/dev/null ; then
+	if ! hash nvim 2>/dev/null; then
 		echo "install neovim, trying from default sources"
 		sudo apt install -y neovim || {
 			sudo add-apt-repository -u ppa:neovim-ppa/stable -y && sudo apt update
@@ -78,11 +85,11 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
 	fi
 
 	# Download fd
-	if hash fd 2>/dev/null ; then
+	if hash fd 2>/dev/null; then
 		echo "fd exists."
 	else
 		fdversion=7.2.0
-		wget -q https://github.com/sharkdp/fd/releases/download/v${fdversion}/fd_${fdversion}_amd64.deb && \
+		wget -q https://github.com/sharkdp/fd/releases/download/v${fdversion}/fd_${fdversion}_amd64.deb &&
 			sudo dpkg -i fd_${fdversion}_amd64.deb
 
 		rm -Rf fd_${fdversion}_amd64.deb
@@ -99,6 +106,7 @@ fi
 
 [[ -d "$HOME/.homesick/repos/homeshick" ]] ||
 	git clone https://github.com/andsens/homeshick.git "$HOME/.homesick/repos/homeshick"
+# shellcheck disable=SC1091
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 
 # Have ensured that homesick is available
@@ -106,16 +114,16 @@ hash homeshick 2>/dev/null || (echo "homeshick install failed" && exit 1)
 
 pip3 install --upgrade powerline-status --user
 
-if [[ -d "$HOME/.homesick/repos/dotfiles" ]] ; then
+if [[ -d "$HOME/.homesick/repos/dotfiles" ]]; then
 	echo "Oh good, the homeshick is already checked out..."
 else
 	## Clone dotfiles
 	echo "Cloning the dotfiles"
 	homeshick clone seefood/dotfiles
 
-	while read -r dir ; do
+	while read -r dir; do
 		mkdir -p ~/"${dir}"
-	done < ~/.homesick/repos/dotfiles/.homesick_subdir
+	done <~/.homesick/repos/dotfiles/.homesick_subdir
 fi
 
 homeshick symlink dotfiles
@@ -128,16 +136,16 @@ echo "Make sure you have your correct settings in ~/.gitconfig.local"
 echo ''
 echo "Now installing vundle..."
 echo ''
-[[ -d ~/.vim/bundle/Vundle.vim ]] || \
+[[ -d ~/.vim/bundle/Vundle.vim ]] ||
 	git clone -q https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Install pathogen for vim/neovim
 mkdir -p ~/.vim/autoload ~/.vim/bundle
-[[ -r ~/.vim/autoload/pathogen.vim ]] || \
+[[ -r ~/.vim/autoload/pathogen.vim ]] ||
 	curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 # Vim color scheme install
-if ! [[ -d ~/.vim/colors/wombat/ ]] ; then
+if ! [[ -d ~/.vim/colors/wombat/ ]]; then
 	echo ''
 	echo "Now installing vim wombat color scheme..."
 	echo ''
@@ -149,7 +157,7 @@ echo 'fire up vundle installation'
 vim +PluginInstall +qall && echo 'vim plugins installed!'
 
 # Bash color scheme
-if ! [[ -r ~/.dircolors ]] ; then
+if ! [[ -r ~/.dircolors ]]; then
 	echo ''
 	echo "Now installing solarized dark WSL color scheme..."
 	echo ''
