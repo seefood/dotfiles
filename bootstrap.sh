@@ -36,16 +36,16 @@ elif [[ -f /etc/redhat-release ]] ; then
 #####################################
 ##################### RH-ish env setup
 #####################################
-	
-	# Enable Fedora 
+
+	# Enable Fedora
 	sudo dnf copr enable tkbcopr/fd -y
 
-	sudo dnf install -y screen the_silver_searcher curl git fd tmux 
+	sudo dnf install -y screen the_silver_searcher curl git fd tmux
 
 	[[ ! -d ~/.fzf ]] &&
 		git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf &&
 		~/.fzf/install --all --no-zsh --no-fish --no-update-rc
-	
+
 elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]] ; then
 
 #####################################
@@ -97,7 +97,7 @@ fi
 #################### Common
 ###########################
 
-[[ -d "$HOME/.homesick/repos/homeshick" ]] || 
+[[ -d "$HOME/.homesick/repos/homeshick" ]] ||
 	git clone https://github.com/andsens/homeshick.git "$HOME/.homesick/repos/homeshick"
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 

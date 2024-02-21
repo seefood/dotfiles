@@ -40,7 +40,7 @@ function! s:Start()
     nnoremap <buffer> <silent> <Space>n :PageNext<CR>
     nnoremap <buffer> <silent> <Space>p :PagePrev<CR>
     nnoremap <buffer> <silent> <Space>q :ExitPresentation<CR>
-    
+
     autocmd BufWinLeave <buffer> call s:Exit()
 endfunction
 

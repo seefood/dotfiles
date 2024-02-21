@@ -58,6 +58,6 @@ then
   else
     echo "Default shell not set successfully..." >&2
   fi
-else 
+else
   echo "You chose not to set your default shell to zsh. Exiting now..."
 fi

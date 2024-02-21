@@ -157,7 +157,7 @@ TODO="t"
 # Set Xterm/screen/Tmux title with only a short hostname. comment this to fall back on $HOSTNAME.
 SHORT_HOSTNAME=$(hostname -s)
 
-export GIT_HOSTING GPG_TTY BASH_IT_LOG_LEVEL SHORT_HOSTNAME TODO 
+export GIT_HOSTING GPG_TTY BASH_IT_LOG_LEVEL SHORT_HOSTNAME TODO
 
 # Lock and Load a custom theme file
 # location ~/.bash_it/themes/
