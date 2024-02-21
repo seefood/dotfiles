@@ -250,7 +250,7 @@ export BASH_IT="${HOME}/.bash_it"
 [[ -d $BASH_IT ]] && source "$BASH_IT/bash_it.sh"
 
 # If an SSH connection and screen is available, attach to it.
-if [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen"; then
+if hash screen 2>/dev/null && [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen"; then
 	sleep 1s
 	screen -q -m -RR -x
 else
