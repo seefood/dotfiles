@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -6,12 +6,12 @@
 function path_append() {
 	local res
 	res="$(path_remove "$1" "$2")"
-	echo "$res:$1"
+	echo "${res}:$1"
 }
 function path_prepend() {
 	local res
 	res="$(path_remove "$1" "$2")"
-	echo "$1:$res"
+	echo "$1:${res}"
 }
 function path_remove() { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//'; }
 
@@ -37,7 +37,7 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
 	~/.fzf/bin \
 	~/Library/Python/3.*/bin \
 	/opt/homebrew/bin; do
-	[[ -d $newpath ]] && PATH="$(path_prepend "${newpath}" "${PATH}")"
+	[[ -d ${newpath} ]] && PATH="$(path_prepend "${newpath}" "${PATH}")"
 	export PATH
 done
 
@@ -57,14 +57,14 @@ for newpath in \
 	/opt/homebrew/opt/gnu-sed/libexec/gnuman \
 	/home/linuxbrew/.linuxbrew/share/man \
 	/home/linuxbrew/.linuxbrew/share/man; do
-	[[ -d $newpath ]] && MANPATH="$(path_prepend "${newpath}" "${MANPATH}")"
+	[[ -d ${newpath} ]] && MANPATH="$(path_prepend "${newpath}" "${MANPATH}")"
 	export MANPATH
 done
 unset newpath
 
 # Set a default locale or the system will pick out something unusable.
 export LANG=en_US.UTF-8
-[[ "$LC_CTYPE" == "UTF-8" ]] && export LC_CTYPE=en_US.UTF-8
+[[ ${LC_CTYPE} == "UTF-8" ]] && export LC_CTYPE=en_US.UTF-8
 unset LC_TIME
 
 # Source global definitions
@@ -94,10 +94,10 @@ shopt -s checkwinsize
 #shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+if [ -z "${debian_chroot-}" ] && [ -r /etc/debian_chroot ]; then
 	debian_chroot=$(cat /etc/debian_chroot)
 fi
 
@@ -111,6 +111,7 @@ export UBUNTU_MENUPROXY
 if [[ -d ${HOME}/.rbenv/bin ]]; then
 	PATH="$(path_prepend "${HOME}/.rbenv/bin" "${PATH}")"
 	export PATH
+	# shellcheck disable=SC2312
 	eval "$(rbenv init -)"
 fi
 
@@ -122,11 +123,11 @@ if hash nvim 2>/dev/null; then
 	export EDITOR=nvim
 	alias vi='nvim'
 fi
-export GIT_EDITOR=$EDITOR
-export VISUAL=$EDITOR
+export GIT_EDITOR=${EDITOR}
+export VISUAL=${EDITOR}
 
 #export HISTIGNORE="&:[fb]g"
-export PYTHONSTARTUP="$HOME/.pythonrc"
+export PYTHONSTARTUP="${HOME}/.pythonrc"
 
 export QUILT_PATCHES=debian/patches
 export QUILT_REFRESH_ARGS="-p ab --no-timestamps --no-index"
@@ -153,7 +154,7 @@ GPG_TTY=$(tty)
 
 # Load RVM, if you are using it
 # shellcheck disable=SC1091
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+[[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm"
 
 # Your place for hosting Git repos. I use this for private repos.
 GIT_HOSTING='git@git.github.com'
@@ -177,8 +178,8 @@ export BASH_IT_THEME
 type -P oh-my-posh >/dev/null || export BASH_IT_THEME="powerline-multiline"
 
 # Oh-my-posh redirects to a json elsewhere, customized our use.
-export POSH_THEME=$HOME/.local/oh-my-posh/takuya.omp.json
-export POSH_THEME=$HOME/.local/oh-my-posh/blue-owl.omp.json
+export POSH_THEME=${HOME}/.local/oh-my-posh/takuya.omp.json
+export POSH_THEME=${HOME}/.local/oh-my-posh/blue-owl.omp.json
 
 # Settings only relevant to bash-it's internal themed prompts
 if [ "$BASH_IT_THEME" != "oh-my-posh " ]; then
@@ -192,12 +193,12 @@ if [ "$BASH_IT_THEME" != "oh-my-posh " ]; then
 	#export POWERLINE_LEFT_PROMPT="clock user_info scm python_venv ruby cwd in_vim"
 	export POWERLINE_LEFT_PROMPT="aws_profile scm python_venv ruby cwd"
 	export POWERLINE_LEFT_PROMPT="aws_profile scm cwd"
-	export POWERLINE_PROMPT="$POWERLINE_LEFT_PROMPT"
+	export POWERLINE_PROMPT="${POWERLINE_LEFT_PROMPT}"
 	export POWERLINE_RIGHT_PROMPT="in_vim clock"
 	# Most people don't like that right side, so I'm turning it off. comment the
 	# next line if you want to try it:
 	#export POWERLINE_RIGHT_PROMPT=" "
-	[[ "$SSH_CONNECTION" ]] && export POWERLINE_RIGHT_PROMPT="$POWERLINE_RIGHT_PROMPT hostname"
+	[[ "${SSH_CONNECTION}" ]] && export POWERLINE_RIGHT_PROMPT="${POWERLINE_RIGHT_PROMPT} hostname"
 	export AWS_PROFILE_PROMPT_COLOR="19"
 	export PYTHON_VENV_THEME_PROMPT_COLOR="30"
 	export USER_INFO_THEME_PROMPT_COLOR_SUDO="63"
@@ -206,7 +207,7 @@ if [ "$BASH_IT_THEME" != "oh-my-posh " ]; then
 	### set to 'true' (and customize to taste) once you installed
 	### a powerline/nerd font, so your prompt looks even nicer!
 	NERDFONTS=true
-	if [[ "$NERDFONTS" == "true" ]]; then
+	if [[ ${NERDFONTS} == "true" ]]; then
 		#export POWERLINE_LEFT_SEPARATOR=""
 		#export POWERLINE_LEFT_END=""
 		#export POWERLINE_RIGHT_SEPARATOR=""
@@ -215,7 +216,7 @@ if [ "$BASH_IT_THEME" != "oh-my-posh " ]; then
 		#export POWERLINE_PROMPT_CHAR="➤"
 		#export POWERLINE_PROMPT_CHAR="↳"
 		export POWERLINE_PROMPT_CHAR=" =>"
-		[[ "$OSTYPE" == "darwin"* ]] && export POWERLINE_PROMPT_CHAR=" =>"
+		[[ ${OSTYPE} == "darwin"* ]] && export POWERLINE_PROMPT_CHAR=" =>"
 		export PYTHON_VENV_CHAR=" "
 		export RUBY_CHAR=" "
 		export AWS_PROFILE_CHAR="󰸏 "
@@ -225,17 +226,20 @@ if [ "$BASH_IT_THEME" != "oh-my-posh " ]; then
 	fi
 fi
 
+# Load completions, functions and aliases
+for dir in /opt/homebrew/etc/bash_completion.d /etc/bash_completion.d ~/.bash.aliases.d; do
+	if [[ -d $dir ]]; then
+		for file in "$dir"/*; do
+			# shellcheck disable=SC1090
+			. "$file"
+		done
+	fi
+done
+
 # Load aliases and functions
-if [ -f ~/.bash_aliases ]; then
+if [[ -f ~/.bash_aliases ]]; then
 	# shellcheck disable=SC1090
 	. ~/.bash_aliases
-fi
-
-if [ -d ~/.bash.aliases.d ]; then
-	for file in ~/.bash.aliases.d/*.sh; do
-		# shellcheck disable=SC1090
-		. "$file"
-	done
 fi
 
 # Enable homeshick
@@ -250,11 +254,11 @@ export BASH_IT="${HOME}/.bash_it"
 [[ -d $BASH_IT ]] && source "$BASH_IT/bash_it.sh"
 
 # If an SSH connection and screen is available, attach to it.
-if hash screen 2>/dev/null && [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" ]] && echo "$TERM" | grep -q -v "^screen"; then
+if hash screen 2>/dev/null && [[ ${TERM} != "dumb" ]] && [[ "${SSH_TTY}" ]] && echo "${TERM}" | grep -q -v "^screen"; then
 	sleep 1s
 	screen -q -m -RR -x
 else
 	for key in ~/.ssh/*.pem; do
-		[[ -f "$key" ]] && ssh-add "$key" &>/dev/null
+		[[ -f ${key} ]] && ssh-add "${key}" &>/dev/null
 	done
 fi

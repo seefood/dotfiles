@@ -41,10 +41,15 @@ indent_size = 2
 
 # Matches the exact files either package.json or .travis.yml
 [{package.json,.travis.yml}]
-indent_style = tab
+indent_style = spaces
 indent_size = 2
 
 # Standards I like
-[{*.groovy,*.rb,*.sh,.bash*,*.yaml,*.yml}]
+[{*.groovy,*.rb,*.sh,.bash*}]
 indent_style = tab
+indent_size = 4
+
+# Standards I'm forced to...
+[{*.md,*.MD,*.yaml,*.yml}]
+indent_style = spaces
 indent_size = 2
