@@ -107,9 +107,9 @@
 
 [merge]
 	#tool = meld
-	tool = sourcetree
+	#tool = sourcetree
 	#tool = diffmerge
-	#tool = vscode
+	tool = vscode
 	log = true
 	renamelimit = 2000
 
@@ -124,6 +124,7 @@
 
 [commit]
 #  template = .stCommitMsg
+	whitespace = nowarn
 
 [rebase]
 #  autosquash = true

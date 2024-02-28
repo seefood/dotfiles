@@ -36,8 +36,13 @@ else
 	sudo apt install -y rsync tree git-extras unar
 fi
 
-~/bin/imgcat ~/.homesick/repos/dotfiles/images/DanyThumbsUp.gif
+## Adding in some tmux magic. no need to care if you don't use tmux.
+mkdir -p ~/src
+git clone https://github.com/bnorick/tmux-config.git ~/src/tmux-config
+~/src/tmux-config/install.sh
 
+# Looks like we are done.
+~/bin/imgcat ~/.homesick/repos/dotfiles/images/DanyThumbsUp.gif
 echo
 [[ "$OSTYPE" == "darwin"* ]] && echo "Iterm2 is set up, if you want to switch to it. Remember to set the font to Fura Code if you want beautiful powerline prompts"
 echo "Looks good! Now run this:"
