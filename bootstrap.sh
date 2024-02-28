@@ -47,7 +47,7 @@ elif [[ -f /etc/redhat-release ]]; then
 	# Enable Fedora
 	sudo dnf copr enable tkbcopr/fd -y
 
-	sudo dnf install -y screen the_silver_searcher curl git fd tmux
+	sudo dnf install -y the_silver_searcher curl git fd tmux
 
 	[[ ! -d ~/.fzf ]] &&
 		git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf &&

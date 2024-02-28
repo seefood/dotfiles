@@ -1,6 +1,1 @@
-.tags*
-home/.atom/git-time-machine/
-home/.atom/split-diff
-home/.config/nvim/.netrwhist
-home/bin/wtf
-.vagrant/
+home/.local/oh-my-posh/
