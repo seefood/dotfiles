@@ -178,8 +178,9 @@ export BASH_IT_THEME
 type -P oh-my-posh >/dev/null || export BASH_IT_THEME="powerline-multiline"
 
 # Oh-my-posh redirects to a json elsewhere, customized our use.
-export POSH_THEME=${HOME}/.local/oh-my-posh/takuya.omp.json
 export POSH_THEME=${HOME}/.local/oh-my-posh/blue-owl.omp.json
+# Setting for vim, tmux and other tools using poweline
+export POWERLINE_CONFIG_COMMAND=~/.local/bin/powerline-config
 
 # Settings only relevant to bash-it's internal themed prompts
 if [ "$BASH_IT_THEME" != "oh-my-posh " ]; then
@@ -254,11 +255,13 @@ export BASH_IT="${HOME}/.bash_it"
 [[ -d $BASH_IT ]] && source "$BASH_IT/bash_it.sh"
 
 # If an SSH connection and screen is available, attach to it.
+<<<<<<< HEAD
+=======
 if hash screen 2>/dev/null && [[ ${TERM} != "dumb" ]] && [[ "${SSH_TTY}" ]] && echo "${TERM}" | grep -q -v "^screen"; then
 	sleep 1s
 	screen -q -m -RR -x
 else
+>>>>>>> f9efaaa7da595b47b5ec216a9968e0030186d990
 	for key in ~/.ssh/*.pem; do
 		[[ -f ${key} ]] && ssh-add "${key}" &>/dev/null
 	done
-fi
