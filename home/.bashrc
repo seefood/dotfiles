@@ -254,14 +254,6 @@ export BASH_IT="${HOME}/.bash_it"
 # shellcheck disable=SC1091
 [[ -d $BASH_IT ]] && source "$BASH_IT/bash_it.sh"
 
-# If an SSH connection and screen is available, attach to it.
-<<<<<<< HEAD
-=======
-if hash screen 2>/dev/null && [[ ${TERM} != "dumb" ]] && [[ "${SSH_TTY}" ]] && echo "${TERM}" | grep -q -v "^screen"; then
-	sleep 1s
-	screen -q -m -RR -x
-else
->>>>>>> f9efaaa7da595b47b5ec216a9968e0030186d990
-	for key in ~/.ssh/*.pem; do
-		[[ -f ${key} ]] && ssh-add "${key}" &>/dev/null
-	done
+for key in ~/.ssh/*.pem; do
+	[[ -f ${key} ]] && ssh-add "${key}" &>/dev/null
+done
