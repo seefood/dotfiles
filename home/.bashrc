@@ -70,6 +70,7 @@ fi
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 # HISTCONTROL=ignoreboth
+HISTCONTROL=erasedupes
 
 # append to the history file, don't overwrite it
 # shopt -s histappend
@@ -141,7 +142,7 @@ ulimit -v unlimited
 #export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
 # Choose log level for bash_it
-export BASH_IT_LOG_LEVEL=5
+export BASH_IT_LOG_LEVEL=1
 
 export GPG_TTY=$(tty)
 
@@ -167,7 +168,7 @@ export SHORT_HOSTNAME=$(hostname -s)
 # location ~/.bash_it/themes/
 export BASH_IT_THEME="oh-my-posh"
 # Oh-my-posh redirects to a json elsewhere, customized our use.
-export POSH_THEME=~/.bluevine.omp.json
+export POSH_THEME=~/.poshthemes/powerlevel10k_classic.omp.json
 
 # Settings only relevant to bash-it's internal themed prompts
 if [ "$BASH_IT_THEME" != "oh-my-posh " ] ; then
@@ -245,3 +246,19 @@ else
     [[ -f $key ]] && ssh-add $key &> /dev/null
   done
 fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('$HOME/.local/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "$HOME/.local/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/.local/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="$HOME/.local/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
