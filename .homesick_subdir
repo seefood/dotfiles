@@ -6,3 +6,4 @@ bin
 .vim/after/ftplugin
 .vim/syntax
 .atom
+.local

@@ -13,4 +13,3 @@ homesick doesn't have that, and that's fine. I'll just have to copy these over f
 * .pki
 * .profile
 * .config/asciinema/config
-

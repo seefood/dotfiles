@@ -1,161 +1,175 @@
 # Local/private config goes in the include
 [include]
-  path = ~/.gitconfig.local
+	path = .gitconfig.local
 
 [hub]
-  protocol = https
+	protocol = https
 
 [alias]
-  aliases = config --get-regexp alias
-  amend = commit --amend --reuse-message=HEAD
-  ba = branch -a
-  br = branch
-  branches = branch -a
-  c = clone --recursive
-  ca = !git add -A && git commit -av
-  ca = commit -a
-  ci = commit
-  co = checkout
-  contributors = shortlog --summary --numbered
-  cp = cherry-pick
-  credit = "\"!f() { git commit --amend --author \\\"$1 <$2>\\\" -C HEAD; }; f\""
-  d = "!\"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat\""
-  dc = diff --cached
-  df = diff
-  dfs = diff --cached
-  di = "di = !\"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d\""
-  dm = \"!git branch --merged | grep -v \\* | xargs -n 1 git branch -d\"
-  dump = cat-file -p
-  fb = "!f() { git branch -a --contains ; }; f"
-  fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S; }; f"
-  # fixup is like amend but for older commits. From https://blog.filippo.io/git-fixup-amending-an-older-commit/
-  fixup = "!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
-  fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=; }; f"
-  ft = "!f() { git describe --always --contains ; }; f"
-  go = "\"!f() { git checkout -b \\\"$1\\\" 2> /dev/null || git checkout \\\"$1\\\"; }; f\""
-  graph = log --graph --pretty=format:'%C(red)%h%Creset%C(red bold)%d%Creset %s%Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
-  hist = log --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %s %C(yellow)%an %C(cyan)%cr%Creset' --abbrev-commit --date=relative
-  l = log --pretty=oneline -n 20 --graph --abbrev-commit
-  last = log 1 - HEAD
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  lg = log -p
-  lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-  lol = log --graph --decorate --pretty=oneline --abbrev-commit
-  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-  ls = ls-files
-  new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
-  p = !git checkout master && git pull origin master && git push origin master && git checkout -
-  patch = !git --no-pager diff --no-color
-  plog = log --pretty=fixes
-  pop = stash pop
-  pp = !git checkout develop && git pull origin develop && git push origin develop && git checkout -
-  pu = push --force-with-lease
-  r = reset
-  reb = "\"!r() { git rebase -i HEAD~$1; }; r\""
-  remotes = remote -v
-  retag = "\"!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r\""
-  review = git-review
-  rh = reset --hard
-  s = status -s
-  slog = log --oneline --decorate
-  squash = !"f() { NL=$1; GIT_EDITOR=\"sed -i '2,$NL s/pick/squash/;/# This is the 2nd commit message:/,$ {d}'\"; git rebase -i HEAD~$NL; }; f"
-  st = status
-  tags = tag -l
-  type = cat-file -t
-  unstash = stash apply
-  wdiff = diff --word-diff=color --ignore-all-space
-  promote = !$ZSH/bin/git-promote
-  wtf     = !$ZSH/bin/git-wtf
-  rank-contributors = !$ZSH/bin/git-rank-contributors
-  count   = !git shortlog -sn
+	aliases = config --get-regexp alias
+	amend = commit --amend --reuse-message=HEAD
+	ba = branch -a
+	br = branch
+	branches = branch -a
+	c = clone --recursive
+	ca = !git add -A && git commit -av
+	ca = commit -a
+	ci = commit
+	co = checkout
+	contributors = shortlog --summary --numbered
+	cp = cherry-pick
+	credit = "\"!f() { git commit --amend --author \\\"$1 <$2>\\\" -C HEAD; }; f\""
+	d = "!\"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat\""
+	dc = diff --cached
+	df = diff
+	dfs = diff --cached
+	di = "di = !\"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d\""
+	dm = \"!git branch --merged | grep -v \\* | xargs -n 1 git branch -d\"
+	dump = cat-file -p
+	fb = "!f() { git branch -a --contains ; }; f"
+	fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S; }; f"
+	# fixup is like amend but for older commits. From https://blog.filippo.io/git-fixup-amending-an-older-commit/
+	fixup = "!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
+	fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=; }; f"
+	ft = "!f() { git describe --always --contains ; }; f"
+	go = "\"!f() { git checkout -b \\\"$1\\\" 2> /dev/null || git checkout \\\"$1\\\"; }; f\""
+	graph = log --graph --pretty=format:'%C(red)%h%Creset%C(red bold)%d%Creset %s%Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+	hist = log --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %s %C(yellow)%an %C(cyan)%cr%Creset' --abbrev-commit --date=relative
+	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+	last = log 1 - HEAD
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lg = log -p
+	lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	ls = ls-files
+	new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+	p = !git checkout master && git pull origin master && git push origin master && git checkout -
+	patch = !git --no-pager diff --no-color
+	plog = log --pretty=fixes
+	pop = stash pop
+	pp = !git checkout develop && git pull origin develop && git push origin develop && git checkout -
+	pu = push --force-with-lease
+	r = reset
+	reb = "\"!r() { git rebase -i HEAD~$1; }; r\""
+	remotes = remote -v
+	retag = "\"!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r\""
+	review = git-review
+	rh = reset --hard
+	s = status -s
+	slog = log --oneline --decorate
+	squash = !"f() { NL=$1; GIT_EDITOR=\"sed -i '2,$NL s/pick/squash/;/# This is the 2nd commit message:/,$ {d}'\"; git rebase -i HEAD~$NL; }; f"
+	st = status
+	tags = tag -l
+	type = cat-file -t
+	unstash = stash apply
+	wdiff = diff --word-diff=color --ignore-all-space
+	promote = !bin/git-promote
+	wtf     = !bin/git-wtf
+	rank-contributors = !bin/git-rank-contributors
+	count   = !git shortlog -sn
 
 [push]
-  default = simple
+	default = simple
 
 [color]
-  ui = auto
+	ui = auto
 [color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
+	current = yellow reverse
+	local = yellow
+	remote = green
 [color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
-  commit = yellow bold
-  whitespace = red reverse
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	commit = yellow bold
+	whitespace = red reverse
 [color "status"]
-  added = yellow
-  changed = green
-  untracked = cyan
+	added = yellow
+	changed = green
+	untracked = cyan
 [color "decorate"]
-  tag = blue
+	tag = blue
 
 [diff "zip"]
-  textconv = unzip -v
+	textconv = unzip -v
 
 [pretty]
-  fixes = Fixes: %h (\"%s\")
+	fixes = Fixes: %h (\"%s\")
 
 [log]
-  decorate=true
+	decorate=true
 
 [url "https://"]
-  insteadOf = git://
+	insteadOf = git://
 
 [merge]
-  # Mac or Linux:
-  tool = meld
-  # Optional, only on Mac:
-  #tool = diffmerge
-  log = true
-  renamelimit = 2000
+	#tool = meld
+	#tool = sourcetree
+	#tool = diffmerge
+	tool = vscode
+	log = true
+	renamelimit = 2000
 
 [mergetool]
-  keepBackup = false
+	keepBackup = false
 
 [difftool]
-  prompt = false
+	prompt = false
 
 [apply]
-  # whitespace = nowarn
+	#whitespace = nowarn
 
 [commit]
-#  template = /home/ira/.stCommitMsg
+#  template = .stCommitMsg
+	whitespace = nowarn
 
 [rebase]
 #  autosquash = true
 
 [core]
-  editor = vim
-  pager = less -R
-  abbrev = 10
-  #whitespace = nowarn
-  pager = diff-so-fancy | less --tabs=4 -RFX
-  excludesfile = $HOME/.gitignore_global
-  autocrlf = input
+	editor = vim
+	pager = less -R
+	abbrev = 10
+	whitespace = nowarn
+	pager = diff-so-fancy | less --tabs=4 -RFX
+	excludesfile = .gitignore_global
+	autocrlf = input
 
 [filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  required = true
-  process = git-lfs filter-process
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
 
 [help]
-  autocorrect = 1
+	autocorrect = 1
 
 [http]
-  postBuffer = 1048576000
+	postBuffer = 1048576000
 
 [pack]
-  threads = 1
+	threads = 1
 
 [rerere]
-  enabled = true
+	enabled = true
 
 [pull]
 	rebase = false
-  # Change as appropriate (or per repo)
-  # rebase = true
+	# Change as appropriate (or per repo)
+	# rebase = true
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[mergetool "vscode"]
+	cmd = "code --wait $MERGED"
+[diff]
+	tool = vscode
+[difftool "vscode"]
+	cmd = "code --wait --diff $LOCAL $REMOTE"

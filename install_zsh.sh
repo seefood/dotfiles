@@ -9,26 +9,24 @@ sudo apt-get update
 sudo apt install zsh -y git bash-completion
 
 # oh-my-zsh install
-if [ -d ~/.oh-my-zsh/ ] ; then
-  echo ''
-  echo "oh-my-zsh is already installed..."
-  read -p "Would you like to update oh-my-zsh now?" -n 1 -r
-  echo ''
-  if [[ $REPLY =~ ^[Yy]$ ]] ; then
-    cd ~/.oh-my-zsh && git pull
-    if [[ $? -eq 0 ]]
-    then
-      echo "Update complete..." && cd
-    else
-      echo "Update not complete..." >&2 cd
-    fi
-  fi
+if [ -d ~/.oh-my-zsh/ ]; then
+	echo ''
+	echo "oh-my-zsh is already installed..."
+	read -p "Would you like to update oh-my-zsh now?" -n 1 -r
+	echo ''
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		if cd ~/.oh-my-zsh && git pull; then
+			echo "Update complete..."
+			cd || true
+		else
+			echo "Update not complete..." cd >&2
+		fi
+	fi
 else
-  echo "oh-my-zsh not found, now installing oh-my-zsh..."
-  echo ''
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	echo "oh-my-zsh not found, now installing oh-my-zsh..."
+	echo ''
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
-
 
 # oh-my-zsh plugin install
 echo ''
@@ -48,16 +46,13 @@ git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/theme
 echo ''
 read -p "Do you want to change your default shell? y/n" -n 1 -r
 echo ''
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-  echo "Now setting default shell..."
-  chsh -s $(which zsh)
-  if [[ $? -eq 0 ]]
-  then
-    echo "Successfully set your default shell to zsh..."
-  else
-    echo "Default shell not set successfully..." >&2
-  fi
-else 
-  echo "You chose not to set your default shell to zsh. Exiting now..."
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+	echo "Now setting default shell..."
+	if chsh -s "$(which zsh)"; then
+		echo "Successfully set your default shell to zsh..."
+	else
+		echo "Default shell not set successfully..." >&2
+	fi
+else
+	echo "You chose not to set your default shell to zsh. Exiting now..."
 fi

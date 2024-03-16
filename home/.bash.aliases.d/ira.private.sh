@@ -1,35 +1,39 @@
-# alias android-connect="mtpfs -o allow_other /media/GalaxyS2"
-# alias android-disconnect="fusermount -u /media/GalaxyS2"
+#!/bin/bash
+if [[ $USER =~ ^ira ]]; then
 
-alias tat='vi ~/bin/tatsuya && strfile ~/bin/tatsuya'
+	# alias android-connect="mtpfs -o allow_other /media/GalaxyS2"
+	# alias android-disconnect="fusermount -u /media/GalaxyS2"
 
-alias uma='ssh ira@uma.scso.com'
-alias bu-server='rsync -avP uma:/var/backup/current/* /warez/backups/uma/'
-alias bu-server='rsync -avvP uma::backup/current/ /warez/backups/uma/'
+	# alias tat='vi ~/bin/tatsuya && strfile ~/bin/tatsuya'
 
-alias cm='mboxcheck ~/Mail/Nospams ~/Mail/root ~/Mail/schwab ~/Mail/people/* ~/Mail/lists/* ~/Mail/people/* ~/Mail/roles/*'
-alias irc='BitchX -A -N -n SeeFood '
+	alias uma='ssh ira@uma.scso.com'
 
-alias bot='su - moobot -c moobot/moobot.py'
+	alias socks5="ssh scso.com -qfN -D 9051"
+	alias mgif='v2gif *.webm *.mp4 -d'
 
-#alias socks5="ssh scso.com -q -f -n -D 9051 sleep 900"
-alias socks5="ssh scso.com -qfN -D 9051"
-alias mgif='v2gif *.webm *.mp4 -d'
+	if [[ "$OSTYPE" == "darwin"* ]]; then
+		alias upt='brew upgrade'
+		alias uupt='brew upgrade'
+	else
+		alias upt='sudo apt -u dist-upgrade'
+		alias uupt='sudo apt update && upt'
+		alias uptc='uupt ; sudo apt-get --purge autoremove  `deborphan` `deborphan  --guess-dev` `deborphan --guess-debug`'
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-alias upt='brew upgrade'
-alias uupt='brew upgrade'
-else
-alias upt='sudo apt -u dist-upgrade'
-alias uupt='sudo apt update && upt'
-alias uptc='uupt ; sudo apt-get --purge autoremove  `deborphan` `deborphan  --guess-dev` `deborphan --guess-debug`'
+		#alias tat='vi ~/bin/tatsuya && strfile ~/bin/tatsuya'
+		alias kgs="busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart(\"Restarting…\")'"
+
+		function df() {
+			if [[ "$*" ]]; then
+				/bin/df "$@"
+			else
+				/bin/df -hT -x squashfs -x tmpfs
+			fi
+		}
+	fi
+
+	alias scan='sudo nmap -sS -Pn -R -v -O -f'
+	alias beep="echo -e '\a'; sleep 1; echo -e '\a'; sleep 1; echo -e '\a'"
+	type -P colorls >/dev/null && alias ls='colorls --sort-dirs --gs'
+	export DEBEMAIL="nospam-debmail@ira.abramov.org"
+	export DEBFULLNAME="Ira Abramov"
 fi
-alias scan='sudo nmap -sS -Pn -R -v -O -f'
-alias beep="echo -e '\a'; sleep 1; echo -e '\a'; sleep 1; echo -e '\a'"
-
-
-alias eph='time { get_ssm.sh & update_ephemerals.sh ;}'
-alias vd='git -C ~/bluevine/chef-repo/ diff ephemerals^..ephemerals ; git -C ~/bluevine/ssm_decrypted/ diff HEAD^'
-
-alias csa='cookstyle -a --except Metrics/BlockNesting,Lint/ParenthesesAsGroupedExpression,Style/Next,Metrics/ParameterLists'
-alias ls='colorls --sort-dirs --gs'

@@ -1,5 +1,7 @@
+#!/bin/bash
+
 function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1):/'
+	git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1):/'
 }
 
 # Set vcprompt executable path for scm advance info in prompt (demula theme)

@@ -20,14 +20,14 @@ UP=$(cat ~/bin/bandwidth.log | awk 'NR==3{print $2}')
 # # Public IP
 PUB_IP=$(cat ~/bin/bandwidth.json | jq -r .client.ip)
 
-if [[ "$PUB_IP" = ";; connection timed out; no servers could be reached" ]]; then 
+if [[ "$PUB_IP" = ";; connection timed out; no servers could be reached" ]]; then
     PUB_IP="Not Available"
 elif [[ "$PUB_IP" = "" ]]; then
     PUB_IP="No external access"
-else 
+else
     PUB_IP=$(cat ~/bin/bandwidth.json | jq -r .client.ip)
 fi
- 
+
 INTERNET=''
 
 internet_info=`airport -I | grep agrCtlRSSI | awk '{print $2}' | sed 's/-//g'`

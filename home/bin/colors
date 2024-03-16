@@ -31,4 +31,3 @@ case $1 in
   color {232..255}
   ;;
 esac
-

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Source: https://www.tylerewing.co/tmux-now-playing 
+# Source: https://www.tylerewing.co/tmux-now-playing
 
 NOW_PLAYING=$(osascript <<EOF
 set spotify_state to false

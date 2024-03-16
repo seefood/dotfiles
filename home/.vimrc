@@ -25,7 +25,7 @@ Plugin 'tpope/vim-pathogen'
 Plugin 'vim-scripts/indentpython.vim'
 "Plugin 'python-mode/python-mode'
 "Bundle 'Valloric/YouCompleteMe'
-Bundle 'tabnine/YouCompleteMe'
+"Bundle 'tabnine/YouCompleteMe'
 Plugin 'nvie/vim-flake8'
 
 " others:
@@ -117,22 +117,22 @@ set laststatus=2
 " ------
 
 " If installed using Homebrew
-" set rtp+=/usr/local/opt/fzf
+set rtp+=/opt/homebrew/opt/fzf
 " If installed using git
-set rtp+=~/.fzf
+" set rtp+=~/.fzf
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " YouCompleteME customizations
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-let g:ycm_python_interpreter_path = ''
-let g:ycm_python_sys_path = []
-let g:ycm_extra_conf_vim_data = [
-  \  'g:ycm_python_interpreter_path',
-  \  'g:ycm_python_sys_path'
-  \]
-let g:ycm_global_ycm_extra_conf = '~/.vim/global_extra_conf.py'
+"let g:ycm_autoclose_preview_window_after_completion=1
+"map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"let g:ycm_python_interpreter_path = ''
+"let g:ycm_python_sys_path = []
+"let g:ycm_extra_conf_vim_data = [
+  "\  'g:ycm_python_interpreter_path',
+  "\  'g:ycm_python_sys_path'
+  "\]
+"let g:ycm_global_ycm_extra_conf = '~/.vim/global_extra_conf.py'
 
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
