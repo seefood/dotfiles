@@ -1,0 +1,17 @@
+#!/bin/bash
+# This activates the python argcomplete if you have it installed.
+# see for instance:
+# https://docs.ansible.com/ansible/devel/installation_guide/intro_installation.html#shell-completion
+
+if hash activate-global-python-argcomplete; then
+	# argcomplete is installed and on the path. let's activate!
+	eval "$(register-python-argcomplete ansible)"
+	eval "$(register-python-argcomplete ansible-config)"
+	eval "$(register-python-argcomplete ansible-console)"
+	eval "$(register-python-argcomplete ansible-doc)"
+	eval "$(register-python-argcomplete ansible-galaxy)"
+	eval "$(register-python-argcomplete ansible-inventory)"
+	eval "$(register-python-argcomplete ansible-playbook)"
+	eval "$(register-python-argcomplete ansible-pull)"
+	eval "$(register-python-argcomplete ansible-vault)"
+fi
