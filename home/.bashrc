@@ -36,7 +36,8 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
 	/opt/homebrew/opt/fzf/bin \
 	~/.fzf/bin \
 	~/Library/Python/3.*/bin \
-	/opt/homebrew/bin; do
+	/opt/homebrew/bin \
+	~/.local/miniconda3/bin; do
 	[[ -d ${newpath} ]] && PATH="$(path_prepend "${newpath}" "${PATH}")"
 	export PATH
 done
@@ -259,15 +260,13 @@ export BASH_IT="${HOME}/.bash_it"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/.local/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('$HOME/.local/miniconda3/bin/conda' 'shell.bash' 'hook' 2>/dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+	eval "$__conda_setup"
 else
-    if [ -f "$HOME/.local/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/.local/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="$HOME/.local/miniconda3/bin:$PATH"
-    fi
+	if [ -f "$HOME/.local/miniconda3/etc/profile.d/conda.sh" ]; then
+		. "$HOME/.local/miniconda3/etc/profile.d/conda.sh"
+	fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
