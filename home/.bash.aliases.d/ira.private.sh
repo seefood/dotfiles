@@ -36,4 +36,6 @@ if [[ $USER =~ ^ira ]]; then
 	type -P colorls >/dev/null && alias ls='colorls --sort-dirs --gs'
 	export DEBEMAIL="nospam-debmail@ira.abramov.org"
 	export DEBFULLNAME="Ira Abramov"
+	# shellcheck disable=SC2139
+	alias psig="/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Personal &"
 fi
