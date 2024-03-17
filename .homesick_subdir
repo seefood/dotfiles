@@ -1,4 +1,4 @@
-bin
+.local/bin
 .bash.aliases.d
 .config
 .gnupg
