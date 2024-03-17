@@ -7,7 +7,7 @@ pip3 install pre-commit --user
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	export HOMEBREW_CASK_OPTS=--appdir=/Applications
 
-	brew install --cask diffmerge
+	brew install --cask diffmerge git-split-diffs
 	#ln -sf /Applications/DiffMerge.app/Contents/Resources/diffmerge.sh /usr/local/bin/diffmerge
 
 	#  if ! brew install --cask virtualbox ; then
@@ -22,6 +22,7 @@ else
 	sudo apt install -y meld python-virtualenv
 	wget "https://go.microsoft.com/fwlink/?LinkID=760868" -c -O /tmp/vscode.deb &&
 		sudo apt install -y /tmp/vscode.deb && rm /tmp/vscode.deb
+
 fi
 
 if ! test -r ~/.netrc; then
