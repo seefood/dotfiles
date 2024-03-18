@@ -134,8 +134,8 @@
 	abbrev = 10
 	whitespace = nowarn
 	# pager = less -R
-	# pager = diff-so-fancy | less --tabs=4 -RFX
-	pager = git-split-diffs --color | less -RFX
+	pager = diff-so-fancy | less --tabs=4 -RFX
+	# pager = git-split-diffs --color | less -RFX
 	excludesfile = .gitignore_global
 	autocrlf = input
 
