@@ -233,7 +233,7 @@ if [ "$BASH_IT_THEME" != "oh-my-posh " ]; then
 fi
 
 # Load completions, functions and aliases
-for dir in /opt/homebrew/etc/bash_completion.d /etc/bash_completion.d ~/.bash.aliases.d ~/.bash_completion.d; do
+for dir in /opt/homebrew/etc/bash_completion.d /etc/bash_completion.d ~/.bash_aliases.d ~/.bash_completion.d; do
 	if [[ -d $dir ]]; then
 		for file in "$dir"/*; do
 			# shellcheck disable=SC1090
