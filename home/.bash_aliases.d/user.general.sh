@@ -33,10 +33,12 @@ if [ "$TERM" != "dumb" ]; then
 	alias egrep='egrep --color=auto'
 fi
 
+export HOMEBREW_AUTO_UPDATE_SECS=$((3600 * 24))
+
 # enable programmable completion features (only for brew,
 # the rest are already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if hash brew 2>/dev/null && ! shopt -oq posix; then
+if [ "$HOMEBREW_PREFIX" ] && ! shopt -oq posix; then
 	if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
 		# shellcheck disable=SC1091
 		. "$(brew --prefix)/etc/bash_completion"
@@ -71,7 +73,7 @@ if [[ "$0" =~ bash ]]; then
 		complete -o default -C 'theme_change --complete $@' theme_change
 
 	else
-		## These are now handled in bash-it
+		## These are now handled in bash-it, but in case you haven't installed it:
 		# Setup fzf
 		if hash fzf 2>/dev/null && hash fd 2>/dev/null; then
 			# If FD is installed, let FZF use it.
@@ -79,7 +81,7 @@ if [[ "$0" =~ bash ]]; then
 			export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 		fi
 
-		if hash brew 2>/dev/null; then
+		if [ "$HOMEBREW_PREFIX" ]; then
 			# Auto-completion
 			# IC_AWS_ENVIRONMENT
 			# TODO: fix fzf path to be ubuntu and Mac compat.

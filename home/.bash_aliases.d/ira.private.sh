@@ -37,5 +37,5 @@ if [[ $USER =~ ^ira ]]; then
 	export DEBEMAIL="nospam-debmail@ira.abramov.org"
 	export DEBFULLNAME="Ira Abramov"
 	# shellcheck disable=SC2139
-	alias psig="/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Personal &"
+	alias psig="/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Personal >/dev/null 2>&1 &"
 fi
