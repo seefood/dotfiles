@@ -17,9 +17,12 @@ if [[ $USER =~ ^ira ]]; then
 		alias uupt='brew upgrade'
 	else
 		alias wsig="signal-desktop --user-data-dir=${HOME}/.config/Signal-Work &> /dev/null &"
-		alias upt='sudo apt -u dist-upgrade'
+		alias upt='sudo apt -u dist-upgrade; \
+			curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin; \
+			sudo flatpak update'
 		alias uupt='sudo apt update && upt'
-		alias uptc='uupt ; sudo apt-get --purge autoremove  `deborphan` `deborphan  --guess-dev` `deborphan --guess-debug`'
+		alias uptc='uupt && sudo apt-get --purge autoremove'
+		alias uptcc='uuptc `deborphan` `deborphan  --guess-dev` `deborphan --guess-debug`'
 
 		#alias tat='vi ~/bin/tatsuya && strfile ~/bin/tatsuya'
 		alias kgs="busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart(\"Restarting…\")'"
