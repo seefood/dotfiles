@@ -16,6 +16,7 @@ function path_prepend() {
 function path_remove() { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//'; }
 
 for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
+	/var/lib/rancher/rke2/bin \
 	/usr/local/opt/man-db/libexec/bin \
 	/opt/homebrew/opt/man-db/libexec/bin \
 	/usr/local/opt/go/libexec/bin \
