@@ -232,8 +232,18 @@ if [ "$BASH_IT_THEME" != "oh-my-posh " ]; then
 	fi
 fi
 
+# enable programmable completion features (only for brew,
+# the rest are already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ "$HOMEBREW_PREFIX" ] && ! shopt -oq posix; then
+	if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+		# shellcheck disable=SC1091
+		. "$(brew --prefix)/etc/bash_completion"
+	fi
+fi
+
 # Load completions, functions and aliases
-for dir in /opt/homebrew/etc/bash_completion.d /etc/bash_completion.d ~/.bash_aliases.d ~/.bash_completion.d; do
+for dir in ~/.bash_aliases.d ~/.bash_completion.d; do
 	if [[ -d $dir ]]; then
 		for file in "$dir"/*; do
 			# shellcheck disable=SC1090

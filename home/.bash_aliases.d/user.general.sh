@@ -35,23 +35,6 @@ fi
 
 export HOMEBREW_AUTO_UPDATE_SECS=$((3600 * 24))
 
-# enable programmable completion features (only for brew,
-# the rest are already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ "$HOMEBREW_PREFIX" ] && ! shopt -oq posix; then
-	if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
-		# shellcheck disable=SC1091
-		. "$(brew --prefix)/etc/bash_completion"
-	fi
-fi
-
-if [ -d ~/.bash_completion.d ]; then
-	for file in ~/.bash_completion.d/*; do
-		# shellcheck disable=SC1090
-		. "$file"
-	done
-fi
-
 function nd() { mkdir "$1" && cd "$1" && return; }
 
 if [[ "$0" =~ bash ]]; then
