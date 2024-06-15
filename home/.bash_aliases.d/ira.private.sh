@@ -12,9 +12,11 @@ if [[ $USER =~ ^ira ]]; then
 	alias mgif='v2gif *.webm *.mp4 -d'
 
 	if [[ "$OSTYPE" == "darwin"* ]]; then
+		alias psig="/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Personal &> /dev/null &"
 		alias upt='brew upgrade'
 		alias uupt='brew upgrade'
 	else
+		alias wsig="signal-desktop --user-data-dir=${HOME}/.config/Signal-Work &> /dev/null &"
 		alias upt='sudo apt -u dist-upgrade'
 		alias uupt='sudo apt update && upt'
 		alias uptc='uupt ; sudo apt-get --purge autoremove  `deborphan` `deborphan  --guess-dev` `deborphan --guess-debug`'
@@ -37,5 +39,4 @@ if [[ $USER =~ ^ira ]]; then
 	export DEBEMAIL="nospam-debmail@ira.abramov.org"
 	export DEBFULLNAME="Ira Abramov"
 	# shellcheck disable=SC2139
-	alias psig="/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Personal &"
 fi
