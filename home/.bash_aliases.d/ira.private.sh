@@ -18,8 +18,10 @@ if [[ $USER =~ ^ira ]]; then
 	else
 		alias wsig="signal-desktop --user-data-dir=${HOME}/.config/Signal-Work &> /dev/null &"
 		alias upt='sudo apt -u dist-upgrade; \
+			echo OMP version is now $(oh-my-posh version); \
 			curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin; \
-			sudo flatpak update'
+			echo OMP version is now $(oh-my-posh version); \
+			flatpak update -y; sudo flatpak update -y'
 		alias uupt='sudo apt update && upt'
 		alias uptc='uupt && sudo apt-get --purge autoremove'
 		alias uptcc='uuptc `deborphan` `deborphan  --guess-dev` `deborphan --guess-debug`'
@@ -41,5 +43,4 @@ if [[ $USER =~ ^ira ]]; then
 	type -P colorls >/dev/null && alias ls='colorls --sort-dirs --gs'
 	export DEBEMAIL="nospam-debmail@ira.abramov.org"
 	export DEBFULLNAME="Ira Abramov"
-	# shellcheck disable=SC2139
 fi
