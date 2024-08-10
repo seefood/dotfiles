@@ -19,8 +19,9 @@ if [[ $USER =~ ^ira ]]; then
 		alias wsig="signal-desktop --user-data-dir=${HOME}/.config/Signal-Work &> /dev/null &"
 		alias upt='sudo apt -u dist-upgrade; \
 			echo OMP version is now $(oh-my-posh version); \
-			curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin; \
-			echo OMP version is now $(oh-my-posh version); \
+			[ "$(find ~/.local/bin/oh-my-posh -mtime +4)" ] && \
+			{ curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin; \
+			echo OMP version is now $(oh-my-posh version); } ; \
 			flatpak update -y; sudo flatpak update -y'
 		alias uupt='sudo apt update && upt'
 		alias uptc='uupt && sudo apt-get --purge autoremove'

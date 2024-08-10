@@ -38,6 +38,7 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
 	~/.fzf/bin \
 	~/Library/Python/3.*/bin \
 	/opt/homebrew/bin \
+	~/.local/platform-tools \
 	~/.local/miniconda3/bin; do
 	[[ -d ${newpath} ]] && PATH="$(path_prepend "${newpath}" "${PATH}")"
 	export PATH
