@@ -13,8 +13,14 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Common Typo
-alias mc='mv'
+if which -s mc; then
+	# Minio or midnight Commander is installed
+	unalias mc 2>/dev/null
+	eval $($(which mc) --autocompletion)
+else
+	# Common Typo
+	alias mc='mv'
+fi
 
 export HISTTIMEFORMAT="%d/%m/%y %T "
 export BASH_SILENCE_DEPRECATION_WARNING=1

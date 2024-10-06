@@ -219,3 +219,5 @@ complete -o nospace -C /usr/local/bin/bit bit
 # Please make sure this block is at the end of this file.
 [ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
 #### END FIG ENV VARIABLES ####
+
+complete -o nospace -C /opt/homebrew/bin/mc mc
