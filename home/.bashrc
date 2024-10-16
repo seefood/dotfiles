@@ -31,13 +31,13 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
 	/usr/local/opt/python@3.*/libexec/bin \
 	/opt/homebrew/opt/python@3.*/bin \
 	/opt/homebrew/opt/ruby@2.*/bin \
-	~/.rvm/gems/ruby-2.4.1/bin \
+	~/.rvm/gems/ruby-*/bin \
 	/opt/homebrew/anaconda3/bin \
 	~/.fig/bin \
 	/opt/homebrew/opt/fzf/bin \
-	~/.fzf/bin \
 	~/Library/Python/3.*/bin \
 	/opt/homebrew/bin \
+	/usr/local/cuda-*/bin \
 	~/.local/platform-tools \
 	~/.local/miniconda3/bin; do
 	[[ -d ${newpath} ]] && PATH="$(path_prepend "${newpath}" "${PATH}")"
