@@ -81,6 +81,7 @@
       "alignment": "right",
       "segments": [
         {
+          "style": "diamond",
           "leading_diamond": "\ue0c5",
           "template": "  {{ .UserName }}<transparent> / </>{{ .HostName }}",
           "foreground": "#43CCEA",
