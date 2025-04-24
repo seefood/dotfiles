@@ -176,10 +176,14 @@ export GIT_HOSTING GPG_TTY BASH_IT_LOG_LEVEL SHORT_HOSTNAME TODO
 
 # Lock and Load a custom theme file
 # location ~/.bash_it/themes/
-BASH_IT_THEME="oh-my-posh"
-export BASH_IT_THEME
+BASH_IT_THEME=${BASH_IT_THEME:-oh-my-posh}
 # If OMP binary is not installed, fallback to a sensible default
-type -P oh-my-posh >/dev/null || export BASH_IT_THEME="powerline-multiline"
+if [[ $BASH_IT_THEME == "oh-my-posh" ]]; then
+	type -P oh-my-posh >/dev/null
+else
+	BASH_IT_THEME="powerline-multiline"
+fi
+export BASH_IT_THEME
 
 # Oh-my-posh redirects to a json elsewhere, customized our use.
 
