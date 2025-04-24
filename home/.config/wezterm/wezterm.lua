@@ -20,7 +20,14 @@ config.font = wezterm.font_with_fallback {
 }
 config.font_size = 22.0
 config.line_height = 1
-config.default_cursor_style = 'BlinkingBlock'
+config.default_cursor_style = 'BlinkingUnderline'
+config.animation_fps = 15
+config.cursor_blink_ease_in = 'Constant'
+-- config.cursor_blink_ease_out = 'Constant'
+-- config.cursor_blink_ease_in = "Linear"
+config.cursor_blink_ease_out = "Linear"
+config.cursor_blink_rate = 700
+config.cursor_thickness = "5px"
 
 -- How many lines of scrollback you want to retain per tab
 config.scrollback_lines = 35000
@@ -53,7 +60,18 @@ config.window_frame = {
 	inactive_titlebar_bg = '#335333',
 }
 
+wezterm.on('bell', function(window, pane)
+		wezterm.log_info('the bell was rung in pane ' .. pane:pane_id() .. '!')
+	end)
+config.visual_bell = {
+	fade_in_function = 'EaseIn',
+	fade_in_duration_ms = 250,
+	fade_out_function = 'EaseOut',
+	fade_out_duration_ms = 250,
+}
+
 config.colors = {
+	visual_bell = '#a02020',
 	tab_bar = {
 		-- The color of the inactive tab bar edge/divider
 		inactive_tab_edge = '#775737',
