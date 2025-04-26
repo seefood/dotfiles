@@ -1,82 +1,20 @@
--- Pull in the wezterm API
-local wezterm = require 'wezterm'
+local Config = require('config')
 
--- This will hold the configuration.
-local config = wezterm.config_builder()
+require('utils.backdrops')
+   -- :set_focus('#000000')
+   -- :set_images_dir(require('wezterm').home_dir .. '/Pictures/Wallpapers/')
+   :set_images()
+   :random()
 
--- This is where you actually apply your config choices
+require('events.left-status').setup()
+require('events.right-status').setup({ date_format = '%a %H:%M:%S' })
+require('events.tab-title').setup({ hide_active_tab_unseen = false, unseen_icon = 'circle' })
+require('events.new-tab-button').setup()
 
--- For example, changing the color scheme:
--- config.color_scheme = 'AdventureTime'
-config.color_scheme = 'Catppuccin Mocha'
--- config.color_scheme = 'Catppuccin Frappuccino'
--- config.color_scheme = 'Gruvbox Dark'
-
-config.font = wezterm.font_with_fallback {
-	'Maple Mono NF',
-	'FiraCode Nerd Font',
-	'JetBrains Mono',
-	'Courier New'
-}
-config.font_size = 22.0
-config.line_height = 1
-config.default_cursor_style = 'BlinkingUnderline'
-config.animation_fps = 15
-config.cursor_blink_ease_in = 'Constant'
--- config.cursor_blink_ease_out = 'Constant'
--- config.cursor_blink_ease_in = "Linear"
-config.cursor_blink_ease_out = "Linear"
-config.cursor_blink_rate = 700
-config.cursor_thickness = "5px"
-
--- How many lines of scrollback you want to retain per tab
-config.scrollback_lines = 35000
-
--- Enable the scrollbar.
--- It will occupy the right window padding space.
--- If right padding is set to 0 then it will be increased
--- to a single cell width
-config.enable_scroll_bar = true
-
-config.window_frame = {
-	-- The font used in the tab bar.
-	-- Roboto Bold is the default; this font is bundled
-	-- with wezterm.
-	-- Whatever font is selected here, it will have the
-	-- main font setting appended to it to pick up any
-	-- fallback fonts you may have used there.
-	font = wezterm.font { family = 'Roboto', weight = 'Bold' },
-
-	-- The size of the font in the tab bar.
-	-- Default to 10.0 on Windows but 12.0 on other systems
-	font_size = 16.0,
-
-	-- The overall background color of the tab bar when
-	-- the window is focused
-	active_titlebar_bg = '#333353',
-
-	-- The overall background color of the tab bar when
-	-- the window is not focused
-	inactive_titlebar_bg = '#335333',
-}
-
-wezterm.on('bell', function(window, pane)
-		wezterm.log_info('the bell was rung in pane ' .. pane:pane_id() .. '!')
-	end)
-config.visual_bell = {
-	fade_in_function = 'EaseIn',
-	fade_in_duration_ms = 250,
-	fade_out_function = 'EaseOut',
-	fade_out_duration_ms = 250,
-}
-
-config.colors = {
-	visual_bell = '#a02020',
-	tab_bar = {
-		-- The color of the inactive tab bar edge/divider
-		inactive_tab_edge = '#775737',
-	},
-}
-
--- and finally, return the configuration to wezterm
-return config
+return Config:init()
+   :append(require('config.appearance'))
+   :append(require('config.bindings'))
+   :append(require('config.domains'))
+   :append(require('config.fonts'))
+   :append(require('config.general'))
+   :append(require('config.launch')).options
