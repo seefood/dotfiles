@@ -20,7 +20,7 @@ return {
    cursor_blink_ease_out = 'Linear',
    default_cursor_style = 'BlinkingUnderline',
    cursor_blink_rate = 650,
-   cursor_thickness = "30%",
+   cursor_thickness = "5px",
 
    -- color scheme
    colors = colors,
