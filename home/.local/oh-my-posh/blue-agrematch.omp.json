@@ -21,28 +21,15 @@
           "style": "plain"
         },
         {
-          "background": "#2cada5",
-          "foreground": "#111111",
-          "powerline_symbol": "\ue0b0",
-          "properties": {
-            "display_mode": "environment",
-            "fetch_virtual_env": true,
-            "home_enabled": true
-          },
-          "style": "powerline",
-          "template": " \ue235 {{ if .Venv }}({{ .Venv }}){{ end }} ",
-          "type": "python"
-        },
-        {
           "properties": {
             "folder_icon": "...",
-            "folder_separator_icon": "<transparent> \ue0bd </>",
+            "folder_separator_icon": "<transparent>\ue0bd</>",
             "home_icon": "\ueb06",
             "style": "agnoster_short"
           },
           "leading_diamond": "<transparent,#01579B>\ue0b0</>",
           "trailing_diamond": "\ue0b0",
-          "template": " {{ .Path }} ",
+          "template": "{{ .Path }}",
           "foreground": "#ffffff",
           "background": "#01579B",
           "type": "path",
@@ -55,7 +42,7 @@
             "fetch_status": true,
             "fetch_upstream_icon": true
           },
-          "template": " {{ if .UpstreamURL }}{{ url .UpstreamIcon .UpstreamURL }} {{ end }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
+          "template": "{{ if .UpstreamURL }}{{ url .UpstreamIcon .UpstreamURL }} {{ end }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}",
           "foreground": "#000000",
           "powerline_symbol": "\ue0b0",
           "background": "#00C853",
@@ -75,7 +62,7 @@
           },
           "leading_diamond": "<transparent,#49404f>\ue0b0</>",
           "trailing_diamond": "\ue0b0",
-          "template": " {{ .FormattedMs }}s ",
+          "template": "{{ .FormattedMs }}s",
           "foreground": "#ffffff",
           "background": "#49404f",
           "type": "executiontime",
@@ -96,8 +83,7 @@
       "alignment": "right",
       "segments": [
         {
-          "leading_diamond": "\ue0c5",
-          "template": "  {{ if .SSHSession }}\uf43d{{ end }}{{ .UserName }}<transparent> / </>{{ .HostName }}",
+          "template": " {{ if .SSHSession }}\uf43d{{ end }}{{ .UserName }}<transparent>\ue0bd</>{{ .HostName }}",
           "foreground": "#43CCEA",
           "background": "#29315A",
           "type": "session",
@@ -117,7 +103,7 @@
               "arn:aws:eks:eu-west-1:1234567890:cluster/posh": "posh"
             }
           },
-          "template": " \udb84\udcfe{{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}} ",
+          "template": "\udb84\udcfe{{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}",
           "foreground": "#000000",
           "powerline_symbol": "\ue0b0",
           "background": "#ebcc34",
@@ -125,22 +111,28 @@
           "style": "powerline"
         },
         {
-          "template": " \ue235 {{ .Full }} ",
-          "foreground": "#100e23",
+          "background": "#2cada5",
+          "foreground": "#111111",
           "powerline_symbol": "\ue0b0",
-          "background": "#906cff",
-          "type": "python",
-          "style": "powerline"
+          "properties": {
+            "display_mode": "environment",
+            "fetch_virtual_env": true,
+            "home_enabled": true
+          },
+          "style": "powerline",
+          "template": "{{ if .Venv }}({{ .Venv }}){{ end }}\ue235 {{ .Full }}",
+          "type": "python"
         },
         {
           "properties": {
             "time_format": "15:04:05"
           },
-          "template": "<transparent> \ue0ba\ue0bc </>{{ .CurrentDate | date .Format }} ",
+          "template": "{{ .CurrentDate | date .Format }}",
+          "powerline_symbol": "\ue0b0",
           "foreground": "#3EC669",
           "background": "#29315A",
           "type": "time",
-          "style": "plain"
+          "style": "powerline"
         }
       ]
     },
