@@ -21,6 +21,19 @@
           "style": "plain"
         },
         {
+          "background": "#2cada5",
+          "foreground": "#111111",
+          "powerline_symbol": "\ue0b0",
+          "properties": {
+            "display_mode": "environment",
+            "fetch_virtual_env": true,
+            "home_enabled": true
+          },
+          "style": "powerline",
+          "template": " \ue235 {{ if .Venv }}({{ .Venv }}){{ end }} ",
+          "type": "python"
+        },
+        {
           "properties": {
             "folder_icon": "...",
             "folder_separator_icon": "<transparent> \ue0bd </>",
