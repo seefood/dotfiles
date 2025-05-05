@@ -29,7 +29,7 @@
           },
           "leading_diamond": "<transparent,#01579B>\ue0b0</>",
           "trailing_diamond": "\ue0b0",
-          "template": "{{ .Path }}",
+          "template": "{{ .Path }} ",
           "foreground": "#ffffff",
           "background": "#01579B",
           "type": "path",
