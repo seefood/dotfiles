@@ -54,8 +54,10 @@ local keys = {
    { key = 'Backspace',  mods = mod.SUPER,     action = act.SendString '\u{15}' },
 
    -- copy/paste --
-   { key = 'c',          mods = 'CTRL|SHIFT',  action = act.CopyTo('Clipboard') },
-   { key = 'v',          mods = 'CTRL|SHIFT',  action = act.PasteFrom('Clipboard') },
+   { key = 'c',          mods = 'CTRL|SHIFT',  action = act.CopyTo('Clipboard') },    -- Unix/GNU compatibility
+   { key = 'v',          mods = 'CTRL|SHIFT',  action = act.PasteFrom('Clipboard') }, -- Unix/GNU compatibility
+   { key = 'c',          mods = mod.SUPER,     action = act.CopyTo('Clipboard') },    -- MacOS compatibility
+   { key = 'v',          mods = mod.SUPER,     action = act.PasteFrom('Clipboard') }, -- MacOS compatibility
 
    -- tabs --
    -- tabs: spawn+close
