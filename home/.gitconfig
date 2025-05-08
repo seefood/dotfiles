@@ -13,7 +13,6 @@
 	branches = branch -a
 	c = clone --recursive
 	ca = !git add -A && git commit -av
-	ca = commit -a
 	ci = commit
 	co = checkout
 	contributors = shortlog --summary --numbered

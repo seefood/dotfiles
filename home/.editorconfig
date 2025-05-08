@@ -18,7 +18,7 @@ indent_size = 4
 charset = utf-8
 
 # 4 space indentation by tab
-[*.py]
+[*.py, *.lua]
 indent_style = tab
 indent_size = 4
 
@@ -40,7 +40,7 @@ indent_style = tab
 indent_size = 2
 
 # Matches the exact files either package.json or .travis.yml
-[{package.json,.travis.yml}]
+[*.json]
 indent_style = spaces
 indent_size = 2
 

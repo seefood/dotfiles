@@ -3,7 +3,7 @@
 # see for instance:
 # https://docs.ansible.com/ansible/devel/installation_guide/intro_installation.html#shell-completion
 
-if hash activate-global-python-argcomplete; then
+if hash activate-global-python-argcomplete 2>/dev/null; then
 	# argcomplete is installed and on the path. let's activate!
 	eval "$(register-python-argcomplete ansible)"
 	eval "$(register-python-argcomplete ansible-config)"
