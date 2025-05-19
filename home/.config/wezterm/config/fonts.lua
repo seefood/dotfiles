@@ -17,7 +17,7 @@ local font = wezterm.font_with_fallback {
 }
 local font_size = 12
 if platform.is_mac then
-	font_size = 22
+	font_size = 16
 end
 local font_family = 'JetBrainsMono Nerd Font'
 
