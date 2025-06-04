@@ -83,7 +83,7 @@
       "alignment": "right",
       "segments": [
         {
-          "template": " {{ if .SSHSession }}\uf43d{{ end }}{{ .UserName }}<transparent>\ue0bd</>{{ .HostName }}",
+          "template": " {{ if .SSHSession }}\uf43d {{ end }}{{ .UserName }}<#007788>\udb80\udc65</>{{ .HostName }}",
           "foreground": "#43CCEA",
           "background": "#29315A",
           "type": "session",

@@ -8,3 +8,10 @@
 .atom
 .local
 .tmux
+.config/blesh
+.config/fish/completions
+.config/htop
+.config/karabiner
+.config/karabiner/assets
+.config/lla
+.config/thefuck
