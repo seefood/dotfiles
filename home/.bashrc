@@ -37,7 +37,9 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
 	/opt/homebrew/opt/fzf/bin \
 	~/Library/Python/3.*/bin \
 	/opt/homebrew/bin \
+	/opt/homebrew/opt/node@22/bin \
 	/usr/local/cuda-*/bin \
+	/Users/ira/.codeium/windsurf/bin \
 	~/.local/platform-tools \
 	~/.local/miniconda3/bin; do
 	[[ -d ${newpath} ]] && PATH="$(path_prepend "${newpath}" "${PATH}")"
@@ -273,19 +275,6 @@ export BASH_IT="${HOME}/.bash_it"
 # Load Bash It
 # shellcheck disable=SC1091
 [[ -d $BASH_IT ]] && source "$BASH_IT/bash_it.sh"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/.local/miniconda3/bin/conda' 'shell.bash' 'hook' 2>/dev/null)"
-if [ $? -eq 0 ]; then
-	eval "$__conda_setup"
-else
-	if [ -f "$HOME/.local/miniconda3/etc/profile.d/conda.sh" ]; then
-		. "$HOME/.local/miniconda3/etc/profile.d/conda.sh"
-	fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 for key in ~/.ssh/*.pem; do
 	[[ -f ${key} ]] && ssh-add "${key}" &>/dev/null
