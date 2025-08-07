@@ -1,0 +1,4 @@
+# shellcheck shell=bash
+
+# initiate carapace completion
+[ -x /opt/homebrew/bin/carapace ] && source <(carapace _carapace bash)
