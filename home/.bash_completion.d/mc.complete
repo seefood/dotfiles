@@ -1,1 +1,4 @@
-complete -C /opt/homebrew/bin/mc mc
+# shellcheck shell=bash
+
+# initiate minio completion
+[ -x /opt/homebrew/bin/mc ] && complete -C /opt/homebrew/bin/mc mc

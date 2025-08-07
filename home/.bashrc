@@ -52,6 +52,12 @@ case $- in
 *) return ;;
 esac
 
+# Simple prompt for Cascade
+[ -n "$CASCADE" ] &&
+	export PS1='\u@\h:\w\$ ' &&
+	unset BASH_IT_THEME &&
+	return
+
 for newpath in \
 	/usr/share/man \
 	/usr/local/share/man \
@@ -178,24 +184,26 @@ export GIT_HOSTING GPG_TTY BASH_IT_LOG_LEVEL SHORT_HOSTNAME TODO
 
 # Lock and Load a custom theme file
 # location ~/.bash_it/themes/
+
+# Regular prompt configuration
 BASH_IT_THEME=${BASH_IT_THEME:-oh-my-posh}
 # If OMP binary is not installed, fallback to a sensible default
 if [[ $BASH_IT_THEME == "oh-my-posh" ]]; then
 	type -P oh-my-posh >/dev/null
-else
-	BASH_IT_THEME="powerline-multiline"
+	#    else
+	#        BASH_IT_THEME="powerline-multiline"
 fi
 export BASH_IT_THEME
 
-# Oh-my-posh redirects to a json elsewhere, customized our use.
+if [ "$BASH_IT_THEME" == "oh-my-posh " ]; then
+	# Oh-my-posh redirects to a json elsewhere, customized our use.
 
-#export POSH_THEME=${HOME}/.local/oh-my-posh/powerlevel10k_classic.omp.json
-export POSH_THEME=${HOME}/.local/oh-my-posh/blue-owl.omp.json
-# Setting for vim, tmux and other tools using poweline
-export POWERLINE_CONFIG_COMMAND=~/.local/bin/powerline-config
-
-# Settings only relevant to bash-it's internal themed prompts
-if [ "$BASH_IT_THEME" != "oh-my-posh " ]; then
+	#export POSH_THEME=${HOME}/.local/oh-my-posh/powerlevel10k_classic.omp.json
+	export POSH_THEME=${HOME}/.local/oh-my-posh/blue-owl.omp.json
+	# Setting for vim, tmux and other tools using poweline
+	export POWERLINE_CONFIG_COMMAND=~/.local/bin/powerline-config
+else
+	# Settings only relevant to bash-it's internal themed prompts
 	# Set this to false to turn off version control status checking within the prompt for all themes
 	export SCM_CHECK=true
 
