@@ -54,7 +54,7 @@ case $- in
 esac
 
 # Simple prompt for Cascade
-[ -n "$CASCADE" ] &&
+[[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" ]] &&
 	export PS1='\u@\h:\w\$ ' &&
 	unset BASH_IT_THEME &&
 	return
