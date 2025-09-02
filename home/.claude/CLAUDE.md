@@ -1,6 +1,16 @@
 # Global Installation Preferences
 
-Prefer `uv tool install` for Python tools and packages when it's optimal for disk space usage (uv provides shared caching and deduplication). Fall back to `pip install --user` or virtual environments when uv compatibility issues exist or when tools specifically recommend pip installation. Never suggest installing packages globally without proper isolation.
+# Package Manager Isolation Preferences
+
+Always prefer isolated installation methods over system-wide global installs:
+
+- **Python**: `uv tool install` (best for disk space with shared caching) > `pip install --user` > virtual environments
+- **Node.js**: `npx` for one-time runs > local project installs > `npm install -g` 
+- **Rust**: `cargo install` (automatically isolates to `~/.cargo/bin`)
+- **Go**: `go install` (automatically isolates to `$GOPATH/bin`)  
+- **Ruby**: `gem install --user-install` > system gems
+
+General rule: Use package manager tools that isolate installations rather than polluting system directories. Only suggest system-wide installation when tools specifically require it or when isolation methods have compatibility issues.
 
 # Solution Guidelines
 
