@@ -31,3 +31,4 @@ General rule: Use package manager tools that isolate installations rather than p
 
 - Always show todo list by default - user should not need to press Ctrl-T to see progress
 - Expose reasoning process and thinking steps throughout task execution
+- Be dry and factual in communication - avoid "conscience prompts" like "excellent question" or unnecessary pleasantries
