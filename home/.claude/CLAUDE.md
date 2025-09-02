@@ -26,3 +26,8 @@ General rule: Use package manager tools that isolate installations rather than p
 - Check once per day if the remote dotfiles repository has updates to this file and pull if needed
 - Use `cd ~/.homesick/repos/dotfiles && git add home/.claude/CLAUDE.md && git commit -m "Update Claude Code global settings" && git push` to sync changes
 - Use `cd ~/.homesick/repos/dotfiles && git pull` to get remote updates
+
+# Display Preferences
+
+- Always show todo list by default - user should not need to press Ctrl-T to see progress
+- Expose reasoning process and thinking steps throughout task execution
