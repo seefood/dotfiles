@@ -135,7 +135,7 @@
 	# pager = less -R
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	# pager = git-split-diffs --color | less -RFX
-	excludesfile = .gitignore_global
+	excludesfile = ~/.gitignore_global
 	autocrlf = input
 
 [filter "lfs"]
@@ -173,3 +173,5 @@
 	tool = vscode
 [difftool "vscode"]
 	cmd = "code --wait --diff $LOCAL $REMOTE"
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential

@@ -2,3 +2,21 @@
 *~
 *.swp
 .vscode
+.claude/
+# JetBrains IDEs
+.idea/
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Common temp/cache
+.cache/
+*.tmp
+*.temp
