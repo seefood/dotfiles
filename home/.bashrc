@@ -34,6 +34,7 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
 	~/.rvm/gems/ruby-*/bin \
 	/opt/homebrew/anaconda3/bin \
 	~/.fig/bin \
+	~/AppImages \
 	/opt/homebrew/opt/fzf/bin \
 	~/Library/Python/3.*/bin \
 	/opt/homebrew/bin \
