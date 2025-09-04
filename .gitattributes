@@ -1,2 +1,1 @@
-*.md -diff -text
-home/.claude/CLAUDE.md -whitespace -diff -text
+home/.claude/CLAUDE.md -whitespace

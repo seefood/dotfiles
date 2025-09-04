@@ -12,6 +12,32 @@ Always prefer isolated installation methods over system-wide global installs:
 
 General rule: Use package manager tools that isolate installations rather than polluting system directories. Only suggest system-wide installation when tools specifically require it or when isolation methods have compatibility issues.
 
+# Locked Environment Requirements (CRITICAL)
+
+**MANDATORY for ALL projects:** Always use locked/frozen environments for reproducible builds and deployments.
+
+**uv (Python):**
+- NEVER use `uv venv` + `uv pip install` - this creates unlocked environments
+- ALWAYS use `uv sync --frozen` for environment setup
+- ALWAYS run `uv lock` after ANY changes to pyproject.toml dependencies
+- ALWAYS commit uv.lock files to version control
+
+**Other Package Managers:**
+- **Pixi**: Always use `pixi install --locked`
+- **Poetry**: Always use `poetry install --frozen`
+- **Pipenv**: Always use `pipenv install --deploy`
+- **npm/yarn**: Always commit package-lock.json/yarn.lock
+- **Cargo**: Always commit Cargo.lock
+
+**Environment Setup Workflow:**
+1. Modify dependencies in pyproject.toml/package.json/etc.
+2. Run lock command (uv lock, npm install, etc.)
+3. Commit both dependency file AND lock file
+4. Use frozen/locked install commands in all environments
+
+**VIOLATION CONSEQUENCES:**
+Non-deterministic builds, dependency conflicts, production failures, debugging nightmares.
+
 # SOLUTION VERIFICATION - PRIME DIRECTIVE
 
 NEVER suggest solutions, commands, configurations, or implementations without VERIFIED documentation.
@@ -24,7 +50,7 @@ MANDATORY verification process for ALL technical suggestions:
 
 FORBIDDEN - Do not suggest without verification:
 - Installation commands or package names
-- Configuration syntax or parameters
+- Configuration syntax, file locations or parameters
 - API usage patterns or method calls
 - Command-line flags or options
 - Implementation approaches or code patterns
@@ -38,9 +64,10 @@ EXAMPLES OF VIOLATIONS:
 - "Set the config flag `--enable-feature`" (unverified flag)
 - "Call API with `client.method(param='value')`" (unverified API)
 - "Deploy using `kubectl apply -f config.yaml`" (unverified approach)
+- "just create a setting file in ~/.wrong_location/wrong_filename.ini" (a settings file the tool never really reads)
 
 VIOLATION CONSEQUENCE:
-Each wrong answer wastes user time, breaks trust, and can break systems.
+Each wrong answer wastes user time, breaks trust, and can break systems, leading to loss of income to user and therefore hurt Anthropic inc. in its quest for world domination, and capture of all Pokemons.
 ACCURACY > SPEED. Better to say "I need to verify this" than give wrong answers.
 
 If official docs are exhausted and I only have educated guesses:
