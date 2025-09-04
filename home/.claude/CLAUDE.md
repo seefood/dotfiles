@@ -1,6 +1,27 @@
+# Git commit everything
+
+Whenever editing files in a git repo (which is most of the time):
+
+- Every time a task is done, create a commit. That means also update Claude.md, README, infrastructure docs if relevant.
+- Commit on every task finish, small commits are better than larger ones, allows the user to roll back or squash later.
+- Use descriptive commit messages to capture the full scope of the changes.
+
+## EXTREMELY IMPORTANT: Code Quality Checks
+
+**ALWAYS run the following commands before completing any task:**
+
+Automatically use the IDE's built-in diagnostics tool to check for linting and type errors:
+
+   - Run `mcp__ide__getDiagnostics` to check all files for diagnostics
+   - Fix any linting or type errors before considering the task complete
+   - Do this for any file you create or modify
+
+This is a CRITICAL step that must NEVER be skipped when working on any code-related task.
+
+
 # Global Installation Preferences
 
-# Package Manager Isolation Preferences
+## Package Manager Isolation Preferences
 
 Always prefer isolated installation methods over system-wide global installs:
 
@@ -12,7 +33,7 @@ Always prefer isolated installation methods over system-wide global installs:
 
 General rule: Use package manager tools that isolate installations rather than polluting system directories. Only suggest system-wide installation when tools specifically require it or when isolation methods have compatibility issues.
 
-# Locked Environment Requirements (CRITICAL)
+## Locked Environment Requirements (CRITICAL)
 
 **MANDATORY for ALL projects:** Always use locked/frozen environments for reproducible builds and deployments.
 
@@ -40,15 +61,22 @@ Non-deterministic builds, dependency conflicts, production failures, debugging n
 
 # SOLUTION VERIFICATION - PRIME DIRECTIVE
 
-NEVER suggest solutions, commands, configurations, or implementations without VERIFIED documentation.
+NEVER suggest solutions, commands, configurations, or implementations without Looking up Context 7 or VERIFIED/official documentation.
 
-MANDATORY verification process for ALL technical suggestions:
+## Look up documentation with Context7
+
+When code examples, setup or configuration steps, or library/API documentation are requested, use the Context7 mcp server to get the information.
+If the info
+
+## MANDATORY verification process for ALL technical suggestions
+
 1. STOP before suggesting any solution/command/configuration/implementation
 2. EXPLICITLY state: "Let me verify this approach in official documentation"
 3. If I cannot verify: MUST say "I cannot verify this approach exists/works"
 4. If uncertain: MUST say "This is unverified/my guess" and present as such
 
-FORBIDDEN - Do not suggest without verification:
+## FORBIDDEN - Do not suggest without verification
+
 - Installation commands or package names
 - Configuration syntax, file locations or parameters
 - API usage patterns or method calls
@@ -60,6 +88,7 @@ FORBIDDEN - Do not suggest without verification:
 - Troubleshooting steps or fixes
 
 EXAMPLES OF VIOLATIONS:
+
 - "Run `npm install @nonexistent/package`" (unverified package)
 - "Set the config flag `--enable-feature`" (unverified flag)
 - "Call API with `client.method(param='value')`" (unverified API)
@@ -67,7 +96,9 @@ EXAMPLES OF VIOLATIONS:
 - "just create a setting file in ~/.wrong_location/wrong_filename.ini" (a settings file the tool never really reads)
 
 VIOLATION CONSEQUENCE:
-Each wrong answer wastes user time, breaks trust, and can break systems, leading to loss of income to user and therefore hurt Anthropic inc. in its quest for world domination, and capture of all Pokemons.
+
+Each wrong answer wastes user time, breaks trust, and can break systems, leading to loss of income to user
+and therefore hurt Anthropic inc. in its quest for world domination, and capturing of all Pokemons.
 ACCURACY > SPEED. Better to say "I need to verify this" than give wrong answers.
 
 If official docs are exhausted and I only have educated guesses:
