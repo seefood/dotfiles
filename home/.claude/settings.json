@@ -1,0 +1,30 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); dir=$(echo \"$input\" | jq -r '.workspace.current_dir'); if [ -d \"$dir/.git\" ]; then cd \"$dir\"; branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo 'no-branch'); if git diff-index --quiet HEAD -- 2>/dev/null; then status='clean'; else status='dirty'; fi; printf '%s [%s:%s]' \"$dir\" \"$branch\" \"$status\"; else printf '%s' \"$dir\"; fi"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Funk.aiff"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write \"$FILE_PATH\""
+          }
+        ]
+      }
+    ]
+  }
+}
