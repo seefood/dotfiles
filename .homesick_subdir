@@ -16,4 +16,4 @@
 .config/lla
 .config/thefuck
 .claude
-.claude/hooks/
+.claude/hooks
