@@ -10,7 +10,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/play-sound.js notification"
+            "command": "node ~/.claude/hooks/play-sound.js notification"
           }
         ]
       }
@@ -21,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/play-sound.js"
+            "command": "node ~/.claude/hooks/play-sound.js"
           }
         ]
       }
@@ -32,7 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/play-sound.js done"
+            "command": "node ~/.claude/hooks/play-sound.js done"
           },
           {
             "type": "command",
