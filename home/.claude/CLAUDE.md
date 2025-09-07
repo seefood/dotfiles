@@ -9,7 +9,9 @@
 ## Git Operations  
 - Commit after every completed task
 - Git commit successful only if exit code = 0
-- `commit --no-verify` requires explicit user permission
+- NEVER use `commit --no-verify` without explicit user permission
+- If pre-commit hooks fail: STOP, ask user how to proceed
+- Task is NOT complete until commit passes hooks cleanly
 
 ## Environment Management
 - Python: ALWAYS `uv sync --frozen`, NEVER `uv venv + uv pip install`. same for pixi, npm, etc.
