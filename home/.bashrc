@@ -53,12 +53,6 @@ case $- in
 *) return ;;
 esac
 
-# Simple prompt for Cascade
-[[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" ]] &&
-	export PS1='\u@\h:\w\$ ' &&
-	unset BASH_IT_THEME &&
-	return
-
 for newpath in \
 	/usr/share/man \
 	/usr/local/share/man \
@@ -186,15 +180,22 @@ export GIT_HOSTING GPG_TTY BASH_IT_LOG_LEVEL SHORT_HOSTNAME TODO
 # Lock and Load a custom theme file
 # location ~/.bash_it/themes/
 
-# Regular prompt configuration
-BASH_IT_THEME=${BASH_IT_THEME:-oh-my-posh}
-# If OMP binary is not installed, fallback to a sensible default
-if [[ $BASH_IT_THEME == "oh-my-posh" ]]; then
-	type -P oh-my-posh >/dev/null
-	#    else
-	#        BASH_IT_THEME="powerline-multiline"
+# Simple prompt for Cascade
+if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" ]]; then
+	export PS1='\u@\h:\w\$ '
+	unset BASH_IT_THEME
+	return
+
+else
+	# Regular prompt configuration
+	BASH_IT_THEME=${BASH_IT_THEME:-oh-my-posh}
+	# If OMP binary is not installed, fallback to a sensible default
+	if [[ $BASH_IT_THEME == "oh-my-posh" ]]; then
+		type -P oh-my-posh >/dev/null ||
+			BASH_IT_THEME="powerline-multiline"
+	fi
+	export BASH_IT_THEME
 fi
-export BASH_IT_THEME
 
 if [ "$BASH_IT_THEME" == "oh-my-posh " ]; then
 	# Oh-my-posh redirects to a json elsewhere, customized our use.
