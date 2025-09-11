@@ -60,8 +60,7 @@ local keys = {
    { key = 'v',          mods = mod.SUPER,     action = act.PasteFrom('Clipboard') }, -- MacOS compatibility
 
    -- terminal control sequences --
-   { key = 'a',          mods = 'CTRL',        action = act.SendString '\u{01}' },    -- Ctrl-A: beginning of line
-   { key = 'r',          mods = 'CTRL',        action = act.SendString '\u{12}' },    -- Ctrl-R: reverse search
+   -- Removed explicit Ctrl-A and Ctrl-R bindings to fix macOS readline issue
 
    -- tabs --
    -- tabs: spawn+close
