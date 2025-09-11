@@ -59,6 +59,10 @@ local keys = {
    { key = 'c',          mods = mod.SUPER,     action = act.CopyTo('Clipboard') },    -- MacOS compatibility
    { key = 'v',          mods = mod.SUPER,     action = act.PasteFrom('Clipboard') }, -- MacOS compatibility
 
+   -- terminal control sequences --
+   { key = 'a',          mods = 'CTRL',        action = act.SendString '\u{01}' },    -- Ctrl-A: beginning of line
+   { key = 'r',          mods = 'CTRL',        action = act.SendString '\u{12}' },    -- Ctrl-R: reverse search
+
    -- tabs --
    -- tabs: spawn+close
    { key = 't',          mods = mod.SUPER,     action = act.SpawnTab('DefaultDomain') },
@@ -243,7 +247,7 @@ local mouse_bindings = {
 }
 
 return {
-   disable_default_key_bindings = true,
+   disable_default_key_bindings = false,
    -- disable_default_mouse_bindings = true,
    leader = { key = 'Space', mods = mod.SUPER_REV },
    keys = keys,
