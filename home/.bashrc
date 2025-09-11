@@ -181,7 +181,7 @@ export GIT_HOSTING GPG_TTY BASH_IT_LOG_LEVEL SHORT_HOSTNAME TODO
 # location ~/.bash_it/themes/
 
 # Simple prompt for Cascade
-if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" ]]; then
+if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" || "$TERM_PROGRAM" = "vscode" ]]; then
 	export PS1='\u@\h:\w\$ '
 	unset BASH_IT_THEME
 	return
