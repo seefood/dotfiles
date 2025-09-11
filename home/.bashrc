@@ -180,8 +180,11 @@ export GIT_HOSTING GPG_TTY BASH_IT_LOG_LEVEL SHORT_HOSTNAME TODO
 # Lock and Load a custom theme file
 # location ~/.bash_it/themes/
 
-# Simple prompt for Cascade
-if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" || "$TERM_PROGRAM" = "vscode" ]]; then
+# Simple prompt for embedded terminals and editors
+if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
+	"$TERM_PROGRAM" = "vscode" || "$TERM_PROGRAM" = "cursor" ||
+	-n "$VSCODE_PID" || -n "$VSCODE_CWD" ||
+	"$TERM" = "dumb" || -n "$EMACS" || -n "$INSIDE_EMACS" ]]; then
 	export PS1='\u@\h:\w\$ '
 	unset BASH_IT_THEME
 	return
@@ -197,7 +200,7 @@ else
 	export BASH_IT_THEME
 fi
 
-if [ "$BASH_IT_THEME" == "oh-my-posh " ]; then
+if [ "$BASH_IT_THEME" == "oh-my-posh" ]; then
 	# Oh-my-posh redirects to a json elsewhere, customized our use.
 
 	#export POSH_THEME=${HOME}/.local/oh-my-posh/powerlevel10k_classic.omp.json
