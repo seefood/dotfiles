@@ -75,10 +75,12 @@
 
 [color]
 	ui = auto
+
 [color "branch"]
 	current = yellow reverse
 	local = yellow
 	remote = green
+
 [color "diff"]
 	meta = yellow bold
 	frag = magenta bold
@@ -86,10 +88,12 @@
 	new = green bold
 	commit = yellow bold
 	whitespace = red reverse
+
 [color "status"]
 	added = yellow
 	changed = green
 	untracked = cyan
+
 [color "decorate"]
 	tag = blue
 
@@ -109,9 +113,11 @@
 	#tool = meld
 	#tool = sourcetree
 	#tool = diffmerge
-	tool = vscode
+	#tool = vscode
+	tool = cursor
 	log = true
 	renamelimit = 2000
+	conflictStyle = zdiff3
 
 [mergetool]
 	keepBackup = false
@@ -134,7 +140,7 @@
 	abbrev = 10
 	whitespace = nowarn
 	# pager = less -R
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
 	# pager = git-split-diffs --color | less -RFX
 	excludesfile = ~/.gitignore_global
 	autocrlf = input
@@ -165,14 +171,88 @@
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
+
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+
 [mergetool "vscode"]
 	cmd = "code --wait $MERGED"
+
+[mergetool "cursor"]
+	cmd = "cursor --wait $MERGED"
+
 [diff]
-	tool = vscode
+	#tool = vscode
+	tool = cursor
+	colorMoved = default
+
 [difftool "vscode"]
 	cmd = "code --wait --diff $LOCAL $REMOTE"
+
+[difftool "cursor"]
+	cmd = "cursor --wait --diff $LOCAL $REMOTE"
+
 [credential "https://github.com"]
 	helper = !/usr/bin/gh auth git-credential
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	features = ira-style decorations ira-colours pop-line-numbers
+
+[delta "sbs"]
+	side-by-side = true
+
+[delta "ira-style"]
+	navigate = true  # use n and N to move between diff sections
+	hyperlinks-file-link-format = "cursor://file/{path}:{line}"
+	# hyperlinks-file-link-format = "vscode://file/{path}:{line}"
+	# hyperlinks-file-link-format = "idea://open?file={path}&line={line}"
+	# hyperlinks-file-link-format = "pycharm://open?file={path}&line={line}"
+	hyperlinks = true
+
+[delta "ira-colours"]
+	#minus-style =  white bold "#771111"
+	minus-style =  syntax "#441111"
+	#plus-style =   white bold "#007711"
+	plus-style =   syntax "#004411"
+
+	whitespace-error-style = 22 reverse
+
+	git-moved-from-style = bold purple     # An ad-hoc named style (must end in "-style")
+
+	map-styles = "ira-colours.git-moved-from-style => red #cccccc, \
+                bold cyan => syntax #cccccc"
+
+	# we could also have defined git-moved-to-style = bold cyan
+
+[delta "pop-line-numbers"]
+	#line-numbers = true
+	line-numbers-minus-style = "#bb4444" bold
+	line-numbers-zero-style = "#606060" italic
+	line-numbers-plus-style = "#448844"
+	line-numbers-left-format = "{nm:>4}┊"
+	line-numbers-right-format = "{np:>4}│"
+	#line-numbers-left-style = blue
+	#line-numbers-right-style = blue
+	line-numbers-left-style =  "#00ddaa"
+	line-numbers-right-style = "#00ddaa"
+
+
+[delta "unobtrusive-line-numbers"]
+	line-numbers = true
+	line-numbers-minus-style = "#444444"
+	line-numbers-zero-style = "#444444"
+	line-numbers-plus-style = "#444444"
+	line-numbers-left-format = "{nm:>4}┊"
+	line-numbers-right-format = "{np:>4}│"
+	line-numbers-left-style = blue
+	line-numbers-right-style = blue
+
+[delta "decorations"]
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
+	hunk-header-decoration-style = orange box
