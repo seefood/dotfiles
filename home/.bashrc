@@ -131,7 +131,7 @@ if hash nvim 2>/dev/null; then
 	alias vi='nvim'
 fi
 export GIT_EDITOR=${EDITOR}
-export VISUAL=${EDITOR}
+export VISUAL=cursor
 
 #export HISTIGNORE="&:[fb]g"
 export PYTHONSTARTUP="${HOME}/.pythonrc"

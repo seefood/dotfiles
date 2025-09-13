@@ -4,10 +4,16 @@
 
 # Feel free to go get the original if you are more fond of Zsh than Bash.
 
-sudo apt-get update
-
-sudo apt install zsh -y git bash-completion
-
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	if [ -x /bin/zsh ]; then
+		brew install zsh-completions
+	else
+		brew install zsh zsh-completions
+	fi
+else
+	sudo apt-get update
+	sudo apt install zsh -y git bash-completion
+fi
 # oh-my-zsh install
 if [ -d ~/.oh-my-zsh/ ]; then
 	echo ''
@@ -25,16 +31,16 @@ if [ -d ~/.oh-my-zsh/ ]; then
 else
 	echo "oh-my-zsh not found, now installing oh-my-zsh..."
 	echo ''
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 # oh-my-zsh plugin install
 echo ''
 echo "Now installing oh-my-zsh plugins..."
 echo ''
-git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
-git clone git://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
+#git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+#git clone git://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+#git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 
 # powerlevel9k install
 echo ''

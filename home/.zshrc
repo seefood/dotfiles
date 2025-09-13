@@ -1,62 +1,109 @@
 #!/bin/zsh
+# shellcheck disable=SC2034
 
 #### FIG ENV VARIABLES ####
 # Please make sure this block is at the start of this file.
 # shellcheck disable=SC1090
 [ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
 #### END FIG ENV VARIABLES ####
+
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=3000
-SAVEHIST=10000
-setopt appendhistory autocd
-bindkey -e
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/ira/.zshrc'
+function path_append() {
+	local res="$(path_remove "$1" "$2")"
+	echo "$res:$1"
+}
+function path_prepend() {
+	local res="$(path_remove "$1" "$2")"
+	echo "$1:$res"
+}
+function path_remove() { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//'; }
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
+	/var/lib/rancher/rke2/bin \
+	/usr/local/opt/man-db/libexec/bin \
+	/opt/homebrew/opt/man-db/libexec/bin \
+	/usr/local/opt/go/libexec/bin \
+	/opt/homebrew/opt/go/libexec/bin \
+	/usr/local/opt/*/libexec/gnubin \
+	/opt/homebrew/opt/*/libexec/gnubin \
+	/usr/local/opt/binutils/bin \
+	/opt/homebrew/opt/binutils/bin \
+	/usr/local/opt/curl/bin \
+	/opt/homebrew/opt/curl/bin \
+	/opt/homebrew/opt/gnu-getopt/bin \
+	/usr/local/opt/python@3.*/libexec/bin \
+	/opt/homebrew/opt/python@3.*/bin \
+	/opt/homebrew/opt/ruby@2.*/bin \
+	~/.rvm/gems/ruby-*/bin \
+	/opt/homebrew/anaconda3/bin \
+	~/.fig/bin \
+	~/AppImages \
+	/opt/homebrew/opt/fzf/bin \
+	~/Library/Python/3.*/bin \
+	/opt/homebrew/bin \
+	/opt/homebrew/opt/node@22/bin \
+	/usr/local/cuda-*/bin \
+	/Users/ira/.codeium/windsurf/bin \
+	~/.local/platform-tools \
+	~/.npm-global/bin; do
+	[[ -d ${newpath} ]] && PATH="$(path_prepend "${newpath}" "${PATH}")"
+	export PATH
+done
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set a default locale or the system will pick out something unusable.
+export LANG=en_US.UTF-8
+[[ ${LC_CTYPE} == "UTF-8" ]] && export LC_CTYPE=en_US.UTF-8
+unset LC_TIME
 
-# Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
+# If not running interactively, don't do anything
+case $- in
+*i*) ;;
+*) return ;;
+esac
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
 #ZSH_THEME="robbyrussell"
 #ZSH_THEME="amuse"
-# POWERLEVEL9K_MODE='awesome-fontconfig'
-POWERLEVEL9K_MODE="nerdfont-complete"
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="oh-my-posh"
 
-# POWERLEVEL9K_IP_INTERFACE='en0'
-# POWERLEVEL9K_PUBLIC_IP_HOST='http://ident.me'
+# If you have set oh-my-posh above, this will be used:
+#export POSH_THEME=${HOME}/.local/oh-my-posh/powerlevel10k_classic.omp.json
+export POSH_THEME=${HOME}/.local/oh-my-posh/blue-owl.omp.json
 
-# zsh tmux settings
-#ZSH_TMUX_AUTOSTART='true'
+unset EMBEDDED_TERM
+# Simple prompt for embedded terminals and editors
+if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
+	"$TERM_PROGRAM" = "vscode" || "$TERM_PROGRAM" = "cursor" ||
+	-n "$VSCODE_PID" || -n "$VSCODE_CWD" || "$TERM_PROGRAM" = "Apple_Terminal" ||
+	"$TERM" = "dumb" || -n "$EMACS" || -n "$INSIDE_EMACS" ]]; then
 
-## Powerlevel9k Settings
-POWERLEVEL9K_HISTORY_BACKGROUND='green'
+	# Use a simple prompt in a simple terminal
+	PS1='\u@\h:\w\$ '
+	unset ZSH_THEME
+	EMBEDDED_TERM=1
+elif [[ "$ZSH_THEME" == "powerlevel9k" ]]; then
+	POWERLEVEL9K_HISTORY_BACKGROUND='green'
 
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+	POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
+	POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
 
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+	POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{red} \Uf1d0 %f %F{yellow
-}❯ "
+	POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
+	POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{red} \Uf1d0 %f %F{yellow
+	}❯ "
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir_writable dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs)
+	POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir_writable dir vcs)
+	POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs)
+	# POWERLEVEL9K_TIME_FORMAT="%D{%T | %m.%d.%y}"
+
+fi
 
 # # Refresh Function - https://babushk.in/posts/renew-environment-tmux.html
 # if [ -n "$TMUX" ]; then
@@ -73,9 +120,6 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs)
 #     refresh
 # }
 
-# POWERLEVEL9K_TIME_FORMAT="%D{%T | %m.%d.%y}"
-##
-
 # Default username to hide "user@hostname" info
 DEFAULT_USER="ira"
 
@@ -86,11 +130,8 @@ DEFAULT_USER="ira"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -102,6 +143,9 @@ DEFAULT_USER="ira"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -117,107 +161,125 @@ DEFAULT_USER="ira"
 # see 'man strftime' for details.
 HIST_STAMPS="dd/mm/yyyy"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+if [[ -z "$EMBEDDED_TERM" ]]; then
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git history taskwarrior tmux tmuxinator zsh-autosuggestions)
+	if [ -d ~/.bash_aliases.d ]; then
+		for file in ~/.??*.zsh ~/.bash_aliases.d/*.sh; do
+			. "$file"
+		done
+	fi
 
-# shellcheck disable=SC1091
-source $ZSH/oh-my-zsh.sh
-# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-# source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source /usr/local/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+	if [[ $TERM_PROGRAM = "iTerm.app" ]]; then
+		unset ITERM_SHELL_INTEGRATION_INSTALLED
+		source ~/.iterm2_shell_integration.zsh
+	fi
 
-# shellcheck disable=SC1091
-source /usr/local/opt/zinit/zinit.zsh
+	for newpath in \
+		/usr/share/man \
+		/usr/local/share/man \
+		/opt/homebrew/share/man \
+		/usr/local/opt/coreutils/libexec/gnuman \
+		/opt/homebrew/opt/coreutils/libexec/gnuman \
+		/usr/local/opt/gnu-sed/libexec/gnuman \
+		/opt/homebrew/opt/gnu-sed/libexec/gnuman \
+		/home/linuxbrew/.linuxbrew/share/man \
+		/home/linuxbrew/.linuxbrew/share/man; do
+		[[ -d ${newpath} ]] && MANPATH="$(path_prepend "${newpath}" "${MANPATH}")"
+		export MANPATH
+	done
+	unset newpath
 
-zinit wait lucid for \
-	atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-	zdharma-continuum/fast-syntax-highlighting \
-	blockf \
-	zsh-users/zsh-completions \
-	atload"!_zsh_autosuggest_start" \
-	zsh-users/zsh-autosuggestions
+	# Setting for vim, tmux and other tools using poweline
+	export POWERLINE_CONFIG_COMMAND=~/.local/bin/powerline-config
+
+	# zinit install (only init if already installed)
+	ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+	[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+	[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+	source "${ZINIT_HOME}/zinit.zsh"
+
+	# Init a few plugins
+	zinit ice wait lucid
+	zinit load zdharma-continuum/history-search-multi-word
+
+	# plugins loaded without investigating.
+	zinit ice wait lucid
+	zinit light zdharma-continuum/fast-syntax-highlighting
+
+	# Snippet
+	zinit ice wait
+	zinit snippet https://gist.githubusercontent.com/hightemp/5071909/raw/
+
+	# old OMZ plugins
+	plugins=(sudo git history taskwarrior tmux tmuxinator)
+
+	zinit wait lucid for \
+		atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+		zdharma-continuum/fast-syntax-highlighting \
+		blockf \
+		zsh-users/zsh-completions \
+		atload"!_zsh_autosuggest_start" \
+		zsh-users/zsh-autosuggestions
+
+	# Themes handling - Maybe needs to be in a seperate script (TODO)
+
+	if [[ "$ZSH_THEME" == "powerlevel9k" ]]; then
+		# zinit PL9k
+		unset ZSH_THEME
+	elif [[ "$ZSH_THEME" == "powerlevel10k" ]]; then
+		# Load powerlevel10k theme
+		zinit ice depth"1" # git clone depth
+		zinit light romkatv/powerlevel10k
+		unset ZSH_THEME
+	elif [[ "$ZSH_THEME" == "oh-my-posh" ]] && type oh-my-posh &>/dev/null; then
+		eval "$(oh-my-posh init zsh)"
+		unset ZSH_THEME
+	elif [[ "$ZSH_THEME" ]]; then
+		## Based on suggestions at https://github.com/zdharma-continuum/zinit#migration
+		## this is for internal omz theme support, don't use this as-is for third party themes
+		## like powerlevel9k,powerlevel10k which have their own zinit integration
+
+		## Zinit Setting
+		# Must Load OMZ Git library
+		zi snippet OMZL::git.zsh
+
+		# Must Load OMZ Async prompt library
+		zi snippet OMZL::async_prompt.zsh
+
+		# Load Git plugin from OMZ
+		zi snippet OMZP::git
+		zi cdclear -q # <- forget completions provided up to this moment
+
+		setopt promptsubst
+
+		# Load Prompt
+		zi snippet OMZT::${ZSH_THEME}
+		unset ZSH_THEME
+	fi
+
+	# autoload bashcompinit && bashcompinit
+	autoload -U +X bashcompinit && bashcompinit
+	#complete -o nospace -C /usr/local/bin/bit bit
+	complete -o nospace -C /opt/homebrew/bin/mc mc
+fi
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+	export EDITOR='vim'
+else
+	export EDITOR='vim'
+	export VISUAL='cursor'
+fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-
-# Example aliases
-alias zshconfig="code ~/.zshrc"
-alias ohmyzsh="code ~/.oh-my-zsh"
-
-autoload bashcompinit && bashcompinit
-function path_append() {
-	local res="$(path_remove "$1" "$2")"
-	echo "$res:$1"
-}
-function path_prepend() {
-	local res="$(path_remove "$1" "$2")"
-	echo "$1:$res"
-}
-function path_remove() { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//'; }
-
-for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
-	/usr/local/opt/man-db/libexec/bin \
-	/usr/local/opt/go/libexec/bin \
-	/usr/local/opt/coreutils/libexec/gnubin \
-	/usr/local/opt/gnu-sed/libexec/gnubin \
-	/usr/local/opt/binutils/bin \
-	/usr/local/opt/curl/bin \
-	/usr/local/opt/python@3.9/libexec/bin \
-	~/.rvm/gems/ruby-2.4.1/bin \
-	~/.rvm/gems/ruby-2.4.1@kitchen/bin; do
-	[[ -d $newpath ]] && export PATH="$(path_prepend "${newpath}" "${PATH}")"
-done
-
-if [ -d ~/.bash_aliases.d ]; then
-	for file in ~/.??*.zsh ~/.bash_aliases.d/*.sh; do
-		. "$file"
-	done
-fi
-
-if [[ $TERM_PROGRAM = "iTerm.app" ]]; then
-	unset ITERM_SHELL_INTEGRATION_INSTALLED
-	source ~/.iterm2_shell_integration.zsh
-fi
-
-export PATH=$PATH:~/bin
-
-# autoload bashcompinit && bashcompinit
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/bit bit
 
 #### FIG ENV VARIABLES ####
 # Please make sure this block is at the end of this file.
 [ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
 #### END FIG ENV VARIABLES ####
-
-complete -o nospace -C /opt/homebrew/bin/mc mc
