@@ -1,4 +1,4 @@
-#!/bin/bash
+#shellcheck shell=bash
 if [[ $USER =~ ^ira ]]; then
 
 	# alias android-connect="mtpfs -o allow_other /media/GalaxyS2"
@@ -12,11 +12,11 @@ if [[ $USER =~ ^ira ]]; then
 	alias mgif='v2gif *.webm *.mp4 -d'
 
 	if [[ "$OSTYPE" == "darwin"* ]]; then
-		alias psig="/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Personal &> /dev/null &"
+		alias psig='/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Personal &> /dev/null &'
 		alias upt='brew upgrade'
 		alias uupt='brew upgrade'
 	else
-		alias wsig="signal-desktop --user-data-dir=${HOME}/.config/Signal-Work &> /dev/null &"
+		alias wsig='signal-desktop --user-data-dir=${HOME}/.config/Signal-Work &> /dev/null &'
 		alias upt='sudo apt -u dist-upgrade; \
 			oh-my-posh upgrade; \
 			flatpak update -y; sudo flatpak update -y'
@@ -38,7 +38,7 @@ if [[ $USER =~ ^ira ]]; then
 
 	alias scan='sudo nmap -sS -Pn -R -v -O -f'
 	alias beep="echo -e '\a'; sleep 1; echo -e '\a'; sleep 1; echo -e '\a'"
-	type -P colorls >/dev/null && alias ls='colorls --sort-dirs --gs'
+	type -p colorls >/dev/null && alias ls='colorls --sort-dirs --gs'
 	export DEBEMAIL="nospam-debmail@ira.abramov.org"
 	export DEBFULLNAME="Ira Abramov"
 fi

@@ -26,17 +26,12 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
 	/opt/homebrew/opt/man-db/libexec/bin \
 	/usr/local/opt/go/libexec/bin \
 	/opt/homebrew/opt/go/libexec/bin \
-	/usr/local/opt/*/libexec/gnubin \
-	/opt/homebrew/opt/*/libexec/gnubin \
 	/usr/local/opt/binutils/bin \
 	/opt/homebrew/opt/binutils/bin \
 	/usr/local/opt/curl/bin \
 	/opt/homebrew/opt/curl/bin \
 	/opt/homebrew/opt/gnu-getopt/bin \
-	/usr/local/opt/python@3.*/libexec/bin \
 	/opt/homebrew/opt/python@3.*/bin \
-	/opt/homebrew/opt/ruby@2.*/bin \
-	~/.rvm/gems/ruby-*/bin \
 	/opt/homebrew/anaconda3/bin \
 	~/.fig/bin \
 	~/AppImages \
@@ -44,11 +39,12 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
 	~/Library/Python/3.*/bin \
 	/opt/homebrew/bin \
 	/opt/homebrew/opt/node@22/bin \
-	/usr/local/cuda-*/bin \
 	/Users/ira/.codeium/windsurf/bin \
 	~/.local/platform-tools \
 	~/.npm-global/bin; do
-	[[ -d ${newpath} ]] && PATH="$(path_prepend "${newpath}" "${PATH}")"
+	if [[ -d ${newpath} ]]; then
+		PATH="$(path_prepend "${newpath}" "${PATH}")"
+	fi
 	export PATH
 done
 
@@ -70,6 +66,7 @@ esac
 
 #ZSH_THEME="robbyrussell"
 #ZSH_THEME="amuse"
+#ZSH_THEME="powerlevel10k"
 ZSH_THEME="oh-my-posh"
 
 # If you have set oh-my-posh above, this will be used:
@@ -87,22 +84,6 @@ if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
 	PS1='\u@\h:\w\$ '
 	unset ZSH_THEME
 	EMBEDDED_TERM=1
-elif [[ "$ZSH_THEME" == "powerlevel9k" ]]; then
-	POWERLEVEL9K_HISTORY_BACKGROUND='green'
-
-	POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
-	POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
-
-	POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-
-	POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
-	POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{red} \Uf1d0 %f %F{yellow
-	}❯ "
-
-	POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir_writable dir vcs)
-	POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs)
-	# POWERLEVEL9K_TIME_FORMAT="%D{%T | %m.%d.%y}"
-
 fi
 
 # # Refresh Function - https://babushk.in/posts/renew-environment-tmux.html
@@ -163,6 +144,12 @@ HIST_STAMPS="dd/mm/yyyy"
 
 if [[ -z "$EMBEDDED_TERM" ]]; then
 
+	# autoload bashcompinit && bashcompinit
+	autoload -U +X bashcompinit && bashcompinit
+	autoload -Uz +X compinit && compinit
+	#complete -o nospace -C /usr/local/bin/bit bit
+	complete -o nospace -C /opt/homebrew/bin/mc mc
+
 	if [ -d ~/.bash_aliases.d ]; then
 		for file in ~/.??*.zsh ~/.bash_aliases.d/*.sh; do
 			. "$file"
@@ -171,7 +158,8 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 
 	if [[ $TERM_PROGRAM = "iTerm.app" ]]; then
 		unset ITERM_SHELL_INTEGRATION_INSTALLED
-		source ~/.iterm2_shell_integration.zsh
+		[[ -f ~/.iterm2_shell_integration.zsh ]] &&
+			source ~/.iterm2_shell_integration.zsh
 	fi
 
 	for newpath in \
@@ -207,11 +195,8 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 	zinit light zdharma-continuum/fast-syntax-highlighting
 
 	# Snippet
-	zinit ice wait
+	zinit ice wait lucid
 	zinit snippet https://gist.githubusercontent.com/hightemp/5071909/raw/
-
-	# old OMZ plugins
-	plugins=(sudo git history taskwarrior tmux tmuxinator)
 
 	zinit wait lucid for \
 		atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
@@ -221,53 +206,69 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 		atload"!_zsh_autosuggest_start" \
 		zsh-users/zsh-autosuggestions
 
+	# old OMZ plugins
+	plugins=(sudo git history taskwarrior tmux tmuxinator)
+	## Zinit Setting
+	# Must Load OMZ Git library
+	zinit snippet OMZL::git.zsh
+
+	for plug in ${plugins[*]}; do
+		# Load Git and other plugins from OMZ
+		zinit ice wait lucid
+		zinit snippet OMZP::${plug}
+	done
+
 	# Themes handling - Maybe needs to be in a seperate script (TODO)
 
-	if [[ "$ZSH_THEME" == "powerlevel9k" ]]; then
-		# zinit PL9k
-		unset ZSH_THEME
-	elif [[ "$ZSH_THEME" == "powerlevel10k" ]]; then
+	if [[ "$ZSH_THEME" =~ "^powerlevel" ]]; then
+
+		# Powerlevel9k theme is kind of deprecated,
+		# but the settings still work with powerlevel10k
+		POWERLEVEL9K_HISTORY_BACKGROUND='green'
+
+		POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
+		POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+
+		POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+
+		POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
+		POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{red} \Uf1d0 %f %F{yellow}❯ "
+
+		POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir_writable dir vcs)
+		POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs)
+		# POWERLEVEL9K_TIME_FORMAT="%D{%T | %m.%d.%y}"
+
 		# Load powerlevel10k theme
 		zinit ice depth"1" # git clone depth
 		zinit light romkatv/powerlevel10k
 		unset ZSH_THEME
 	elif [[ "$ZSH_THEME" == "oh-my-posh" ]] && type oh-my-posh &>/dev/null; then
-		eval "$(oh-my-posh init zsh)"
+		eval $(oh-my-posh init zsh)
 		unset ZSH_THEME
 	elif [[ "$ZSH_THEME" ]]; then
 		## Based on suggestions at https://github.com/zdharma-continuum/zinit#migration
 		## this is for internal omz theme support, don't use this as-is for third party themes
 		## like powerlevel9k,powerlevel10k which have their own zinit integration
 
-		## Zinit Setting
-		# Must Load OMZ Git library
-		zi snippet OMZL::git.zsh
-
 		# Must Load OMZ Async prompt library
-		zi snippet OMZL::async_prompt.zsh
-
-		# Load Git plugin from OMZ
-		zi snippet OMZP::git
-		zi cdclear -q # <- forget completions provided up to this moment
+		zinit ice wait lucid
+		zinit snippet OMZL::async_prompt.zsh
+		zinit cdclear -q # <- forget completions provided up to this moment
 
 		setopt promptsubst
 
 		# Load Prompt
-		zi snippet OMZT::${ZSH_THEME}
+		zinit snippet OMZT::${ZSH_THEME}
 		unset ZSH_THEME
 	fi
-
-	# autoload bashcompinit && bashcompinit
-	autoload -U +X bashcompinit && bashcompinit
-	#complete -o nospace -C /usr/local/bin/bit bit
-	complete -o nospace -C /opt/homebrew/bin/mc mc
 fi
 
 # User configuration
 
-Preferred editor for local and remote sessions
+# Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
 	export EDITOR='vim'
+	export VISUAL='vim'
 else
 	export EDITOR='vim'
 	export VISUAL='cursor'

@@ -292,3 +292,5 @@ export BASH_IT="${HOME}/.bash_it"
 for key in ~/.ssh/*.pem; do
 	[[ -f ${key} ]] && ssh-add "${key}" &>/dev/null
 done
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash" || true
