@@ -18,7 +18,7 @@ repos:
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 2.1.5
     hooks:
-      - id: git-check  # Configure in .gitattributes
+      - id: git-check # Configure in .gitattributes
         exclude: ".claude"
       - id: shellcheck
         exclude: ".bats$|zsh"
