@@ -33,10 +33,6 @@
           {
             "type": "command",
             "command": "node ~/.claude/hooks/play-sound.js done"
-          },
-          {
-            "type": "command",
-            "command": "npx prettier --write \"$FILE_PATH\""
           }
         ]
       }

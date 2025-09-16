@@ -4,10 +4,10 @@ My collection of dotfiles, maintained through [homesick](https://github.com/tech
 
 ## Preparation
 
-* Make sure that your user is able to run `sudo`. This should work out of the box if your user is listed as an administrator of the machine. If not, follow [this guide](http://osxdaily.com/2014/02/06/add-user-sudoers-file-mac/) to add your user to the `/etc/sudoers` file: `sudo visudo`
-* Make sure that you have a stable internet connection.
-* If you need to use a proxy to access the internet, make sure your terminal is set up to use the proxy (environment variables, etc.).
-* Mac users: Install the Xcode Developer Tools: xcode-select --install. This will prompt you to download the Xcode Developer Tools, which include required tools like git. Using this method prevents you from having to download the full 2+GB Xcode installer.
+- Make sure that your user is able to run `sudo`. This should work out of the box if your user is listed as an administrator of the machine. If not, follow [this guide](http://osxdaily.com/2014/02/06/add-user-sudoers-file-mac/) to add your user to the `/etc/sudoers` file: `sudo visudo`
+- Make sure that you have a stable internet connection.
+- If you need to use a proxy to access the internet, make sure your terminal is set up to use the proxy (environment variables, etc.).
+- Mac users: Install the Xcode Developer Tools: xcode-select --install. This will prompt you to download the Xcode Developer Tools, which include required tools like git. Using this method prevents you from having to download the full 2+GB Xcode installer.
 
 ## Installation
 
@@ -20,7 +20,7 @@ please send me a PR.
 
 I repeat: this is for my personal use, it installs several things as root,
 expects open sudo access and may be a bit destructive (though idempotent).
-Do *NOT* run it if you didn't go over it and agreed to what it does, and as
+Do _NOT_ run it if you didn't go over it and agreed to what it does, and as
 a general rule, it's NEVER a good idea to run `curl *URL*|bash` ever ever ever.
 having said that, have a ball :-)
 
@@ -62,10 +62,10 @@ Other nice to have (not auto installed) is [progress](https://github.com/Xfennec
 
 #### MacOS Users
 
-* `~/.homesick/repos/dotfiles/install_homebrew.sh`: This will download and install [Homebrew](https://brew.sh).
-* `~/.homesick/repos/dotfiles/install_general.sh`: This will install a standard set of tools (command line and UI).
-* `~/.homesick/repos/dotfiles/install_dev.sh`: Optional file, will install a set of development tools - only run if you plan to use the machine for software development.
-* `~/.homesick/repos/dotfiles/osx-settings.sh`: Based on [Mathias Bynens' Dotfiles](https://github.com/mathiasbynens/dotfiles), a common set of OS X settings.
+- `~/.homesick/repos/dotfiles/install_homebrew.sh`: This will download and install [Homebrew](https://brew.sh).
+- `~/.homesick/repos/dotfiles/install_general.sh`: This will install a standard set of tools (command line and UI).
+- `~/.homesick/repos/dotfiles/install_dev.sh`: Optional file, will install a set of development tools - only run if you plan to use the machine for software development.
+- `~/.homesick/repos/dotfiles/osx-settings.sh`: Based on [Mathias Bynens' Dotfiles](https://github.com/mathiasbynens/dotfiles), a common set of OS X settings.
 
 Then log out and back in again to apply the changes.
 
@@ -73,14 +73,14 @@ For more cool shell tools, see my [Dev-Env gist](https://gist.github.com/seefood
 
 ## Thanks
 
-* [homesick](https://github.com/technicalpickles/homesick)
-* [Michael J. Smalley](https://github.com/michaeljsmalley/dotfiles) for the *vim* configuration.
-* [Mathias Bynens](https://github.com/mathiasbynens/dotfiles) for the OS X settings.
-* [Bash-it](https://github.com/bash-it/bash-it) for the *Bash-it* framework.
-* [dotfiles by Nils Winkler](https://github.com/nwinkler/dotfiles).
-* [dotfiles by Lital Natan](https://github.com/smackware/bashprofile).
-* [dotfiles by Adir Gabay](https://github.com/adirg/dotfiles).
-* [dotfiles by Jessica Deen](https://github.com/jldeen/dotfiles),
+- [homesick](https://github.com/technicalpickles/homesick)
+- [Michael J. Smalley](https://github.com/michaeljsmalley/dotfiles) for the _vim_ configuration.
+- [Mathias Bynens](https://github.com/mathiasbynens/dotfiles) for the OS X settings.
+- [Bash-it](https://github.com/bash-it/bash-it) for the _Bash-it_ framework.
+- [dotfiles by Nils Winkler](https://github.com/nwinkler/dotfiles).
+- [dotfiles by Lital Natan](https://github.com/smackware/bashprofile).
+- [dotfiles by Adir Gabay](https://github.com/adirg/dotfiles).
+- [dotfiles by Jessica Deen](https://github.com/jldeen/dotfiles),
   mainly for the zsh trickeries, though I have rewrote this entirely for zinit by this point...
 
 ## License

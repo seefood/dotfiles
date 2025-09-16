@@ -33,6 +33,13 @@
 - Environment variables: UPPERCASE
 - Files: lowercase with hyphens for scripts
 
+### Shared Configuration Structure
+
+- **Shared configs**: Use `~/.shell_commons/*.sh` for bash/zsh common functionality
+- **Numbering**: Use prefix numbers for load order (e.g., `05-lang.sh`, `20-path_and_manpath.sh`, `50-crap_terminals.sh`)
+- **Categories**: Separate by function - language setup, PATH/MANPATH, terminal fixes
+- **Sourcing**: Both shells source all `.sh` files in `~/.shell_commons/`
+
 ### Imports and Dependencies
 
 - Use full paths in PATH modifications

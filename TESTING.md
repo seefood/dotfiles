@@ -1,5 +1,4 @@
-Testing this repo
------------------
+## Testing this repo
 
 For MacOS: formatting a mac to factory empty each run is a bit tedious,
 so I've been testing with a Virtualbox image I found here:
