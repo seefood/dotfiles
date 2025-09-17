@@ -110,17 +110,20 @@
 	insteadOf = git://
 
 [merge]
-	#tool = meld
+	tool = meld
 	#tool = sourcetree
 	#tool = diffmerge
 	#tool = vscode
-	tool = cursor
+	#tool = cursor
 	log = true
 	renamelimit = 2000
 	conflictStyle = zdiff3
 
 [mergetool]
 	keepBackup = false
+
+[mergetool "meld"]
+	cmd = meld \"$LOCAL\" \"$MERGED\" \"$REMOTE\" --output=\"$MERGED\"
 
 [difftool]
 	prompt = false
