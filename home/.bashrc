@@ -1,50 +1,12 @@
 #!/bin/bash
+# shellcheck disable=SC2312,SC2015
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-function path_append() {
-	local res
-	res="$(path_remove "$1" "$2")"
-	echo "${res}:$1"
-}
-function path_prepend() {
-	local res
-	res="$(path_remove "$1" "$2")"
-	echo "$1:${res}"
-}
-function path_remove() { echo -n "$2" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//'; }
-
-for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
-	/var/lib/rancher/rke2/bin \
-	/usr/local/opt/man-db/libexec/bin \
-	/opt/homebrew/opt/man-db/libexec/bin \
-	/usr/local/opt/go/libexec/bin \
-	/opt/homebrew/opt/go/libexec/bin \
-	/usr/local/opt/*/libexec/gnubin \
-	/opt/homebrew/opt/*/libexec/gnubin \
-	/usr/local/opt/binutils/bin \
-	/opt/homebrew/opt/binutils/bin \
-	/usr/local/opt/curl/bin \
-	/opt/homebrew/opt/curl/bin \
-	/opt/homebrew/opt/gnu-getopt/bin \
-	/usr/local/opt/python@3.*/libexec/bin \
-	/opt/homebrew/opt/python@3.*/bin \
-	/opt/homebrew/opt/ruby@2.*/bin \
-	~/.rvm/gems/ruby-*/bin \
-	/opt/homebrew/anaconda3/bin \
-	~/.fig/bin \
-	~/AppImages \
-	/opt/homebrew/opt/fzf/bin \
-	~/Library/Python/3.*/bin \
-	/opt/homebrew/bin \
-	/opt/homebrew/opt/node@22/bin \
-	/usr/local/cuda-*/bin \
-	/Users/ira/.codeium/windsurf/bin \
-	~/.local/platform-tools \
-	~/.npm-global/bin; do
-	[[ -d ${newpath} ]] && PATH="$(path_prepend "${newpath}" "${PATH}")"
-	export PATH
+for file in ~/.shell_commons/*.sh; do
+	# shellcheck disable=SC1090
+	source "${file}"
 done
 
 # If not running interactively, don't do anything
@@ -52,21 +14,6 @@ case $- in
 *i*) ;;
 *) return ;;
 esac
-
-for newpath in \
-	/usr/share/man \
-	/usr/local/share/man \
-	/opt/homebrew/share/man \
-	/usr/local/opt/coreutils/libexec/gnuman \
-	/opt/homebrew/opt/coreutils/libexec/gnuman \
-	/usr/local/opt/gnu-sed/libexec/gnuman \
-	/opt/homebrew/opt/gnu-sed/libexec/gnuman \
-	/home/linuxbrew/.linuxbrew/share/man \
-	/home/linuxbrew/.linuxbrew/share/man; do
-	[[ -d ${newpath} ]] && MANPATH="$(path_prepend "${newpath}" "${MANPATH}")"
-	export MANPATH
-done
-unset newpath
 
 # Set a default locale or the system will pick out something unusable.
 export LANG=en_US.UTF-8
@@ -101,10 +48,10 @@ shopt -s checkwinsize
 #shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
+if [[ -x /usr/bin/lesspipe ]]; then eval "$(SHELL=/bin/sh lesspipe)" || true; fi
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot-}" ] && [ -r /etc/debian_chroot ]; then
+if [[ -z "${debian_chroot-}" ]] && [[ -r /etc/debian_chroot ]]; then
 	debian_chroot=$(cat /etc/debian_chroot)
 fi
 
@@ -181,26 +128,25 @@ export GIT_HOSTING GPG_TTY BASH_IT_LOG_LEVEL SHORT_HOSTNAME TODO
 # location ~/.bash_it/themes/
 
 # Simple prompt for embedded terminals and editors
-if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
-	"$TERM_PROGRAM" = "vscode" || "$TERM_PROGRAM" = "cursor" ||
-	-n "$VSCODE_PID" || -n "$VSCODE_CWD" ||
-	"$TERM" = "dumb" || -n "$EMACS" || -n "$INSIDE_EMACS" ]]; then
+if [[ -n "${CASCADE}" || -n "${VSCODE_SHELL_INTEGRATION}" || -n "${CURSOR_AGENT}" ||
+	"${TERM_PROGRAM}" = "vscode" || "${TERM_PROGRAM}" = "cursor" ||
+	-n "${VSCODE_PID}" || -n "${VSCODE_CWD}" ||
+	"${TERM}" = "dumb" || -n "${EMACS}" || -n "${INSIDE_EMACS}" ]]; then
 	export PS1='\u@\h:\w\$ '
 	unset BASH_IT_THEME
 	return
-
 else
 	# Regular prompt configuration
 	BASH_IT_THEME=${BASH_IT_THEME:-oh-my-posh}
 	# If OMP binary is not installed, fallback to a sensible default
-	if [[ $BASH_IT_THEME == "oh-my-posh" ]]; then
+	if [[ "${BASH_IT_THEME}" == "oh-my-posh" ]]; then
 		type -P oh-my-posh >/dev/null ||
 			BASH_IT_THEME="powerline-multiline"
 	fi
 	export BASH_IT_THEME
 fi
 
-if [ "$BASH_IT_THEME" == "oh-my-posh" ]; then
+if [[ "${BASH_IT_THEME}" == "oh-my-posh" ]]; then
 	# Oh-my-posh redirects to a json elsewhere, customized our use.
 
 	#export POSH_THEME=${HOME}/.local/oh-my-posh/powerlevel10k_classic.omp.json
@@ -224,7 +170,7 @@ else
 	# Most people don't like that right side, so I'm turning it off. comment the
 	# next line if you want to try it:
 	#export POWERLINE_RIGHT_PROMPT=" "
-	[[ "${SSH_CONNECTION}" ]] && export POWERLINE_RIGHT_PROMPT="${POWERLINE_RIGHT_PROMPT} hostname"
+	[[ -n "${SSH_CONNECTION}" ]] && export POWERLINE_RIGHT_PROMPT="${POWERLINE_RIGHT_PROMPT} hostname"
 	export AWS_PROFILE_PROMPT_COLOR="19"
 	export PYTHON_VENV_THEME_PROMPT_COLOR="30"
 	export USER_INFO_THEME_PROMPT_COLOR_SUDO="63"
@@ -255,8 +201,8 @@ fi
 # enable programmable completion features (only for brew,
 # the rest are already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ "$HOMEBREW_PREFIX" ] && ! shopt -oq posix; then
-	if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+if [[ -n "${HOMEBREW_PREFIX}" ]] && ! shopt -oq posix; then
+	if [[ -f "$(brew --prefix)/etc/bash_completion" ]]; then
 		# shellcheck disable=SC1091
 		. "$(brew --prefix)/etc/bash_completion"
 	fi
@@ -264,10 +210,10 @@ fi
 
 # Load completions, functions and aliases
 for dir in ~/.bash_aliases.d ~/.bash_completion.d; do
-	if [[ -d $dir ]]; then
-		for file in "$dir"/*; do
+	if [[ -d "${dir}" ]]; then
+		for file in "${dir}"/*; do
 			# shellcheck disable=SC1090
-			. "$file"
+			. "${file}"
 		done
 	fi
 done
@@ -280,17 +226,18 @@ fi
 
 # Enable homeshick
 # shellcheck disable=SC1091
-[[ -r "$HOME/.homesick/repos/homeshick/homeshick.sh" ]] &&
-	source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+[[ -r "${HOME}/.homesick/repos/homeshick/homeshick.sh" ]] &&
+	source "${HOME}/.homesick/repos/homeshick/homeshick.sh"
 
 # Path to the bash it configuration
 export BASH_IT="${HOME}/.bash_it"
 # Load Bash It
 # shellcheck disable=SC1091
-[[ -d $BASH_IT ]] && source "$BASH_IT/bash_it.sh"
+[[ -d "${BASH_IT}" ]] && source "${BASH_IT}/bash_it.sh"
 
 for key in ~/.ssh/*.pem; do
-	[[ -f ${key} ]] && ssh-add "${key}" &>/dev/null
+	[[ -f "${key}" ]] && ssh-add "${key}" &>/dev/null
 done
 
+# shellcheck disable=SC1091
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash" || true

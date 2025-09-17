@@ -117,7 +117,7 @@
 	#tool = cursor
 	log = true
 	renamelimit = 2000
-	conflictStyle = zdiff3
+	conflictstyle = diff3
 
 [mergetool]
 	keepBackup = false
