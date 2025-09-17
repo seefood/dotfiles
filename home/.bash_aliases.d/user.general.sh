@@ -61,26 +61,5 @@ if [[ "$0" =~ bash ]]; then
 			source ~/.bashrc
 		}
 		complete -o default -C 'theme_change --complete $@' theme_change
-
-	else
-		## These are now handled in bash-it, but in case you haven't installed it:
-		# Setup fzf
-		if hash fzf 2>/dev/null && hash fd 2>/dev/null; then
-			# If FD is installed, let FZF use it.
-			export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-			export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-		fi
-
-		if [ "$HOMEBREW_PREFIX" ]; then
-			# Auto-completion
-			# IC_AWS_ENVIRONMENT
-			# TODO: fix fzf path to be ubuntu and Mac compat.
-			# shellcheck disable=SC1091
-			[[ $- == *i* ]] && source "$(brew --prefix fzf)/shell/completion.bash" 2>/dev/null
-
-			# Key bindings
-			# shellcheck disable=SC1091
-			source "$(brew --prefix fzf)/shell/key-bindings.bash"
-		fi
 	fi
 fi
