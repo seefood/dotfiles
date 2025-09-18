@@ -40,6 +40,7 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
 	/usr/local/cuda-*/bin \
 	/Users/ira/.codeium/windsurf/bin \
 	~/.local/platform-tools \
+	~/.fzf/bin \
 	~/.npm-global/bin; do
 	[[ -d ${newpath} ]] && PATH="$(path_prepend "${newpath}" "${PATH}")"
 	export PATH

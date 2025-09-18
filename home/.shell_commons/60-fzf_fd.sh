@@ -10,15 +10,28 @@ fi
 
 # now that I skipped for no interactive shell, let's do the rest
 
+# fzf from homebrew is nice, but what if it's not installed? I prefer a
+# more universal solution that works on both mac and ubuntu
+
 # Setup fzf
 # ---------
-# commenting out, I already have this in my PATH guaranteed elsewhere
-#if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
-#  PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
-#fi
+if ! type fzf &>/dev/null; then
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+fi
 
-# also the following is generalized to fit both mac and ubuntu
-# feel free to add more paths if needed
+if [[ -n "${ZSH_NAME}" ]]; then
+	source <(fzf --zsh)
+else
+	eval "$(fzf --bash)"
+	# TODO: test if this does not clash with the bash-it fzf plugin
+fi
+
+# the following is the old style of fzf setup, I'm keeping it here for reference
+# if you are using the homebrew or the original install,
+# uncomment this or use the instructions to do this yourself.
+# current versions don't source the completion and key-bindings files, they have
+# fzf push the right settings via eval according to
+
 # Auto-completion
 # ---------------
 #source "/opt/homebrew/opt/fzf/shell/completion.zsh"
@@ -32,22 +45,3 @@ if hash fzf 2>/dev/null && type fd &>/dev/null; then
 	export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 	export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
-
-if [ "$HOMEBREW_PREFIX" ]; then
-	# Auto-completion
-	# IC_AWS_ENVIRONMENT
-	# TODO: fix fzf path to be ubuntu and Mac compat.
-	# shellcheck disable=SC1091
-	source "$(brew --prefix fzf)/shell/completion.${SHELL}" 2>/dev/null
-
-	# Key bindings
-	# shellcheck disable=SC1091
-	source "$(brew --prefix fzf)/shell/key-bindings.${SHELL}"
-else
-
-	for init in /usr/share/doc/fzf/examples/completion.${SHELL} \
-		/usr/share/doc/fzf/examples/key-bindings.${SHELL}; do
-		[[ -f "${init}" ]] && source "${init}"
-	done
-fi
-unset init
