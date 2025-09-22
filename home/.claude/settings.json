@@ -24,6 +24,35 @@
             "command": "node ~/.claude/hooks/play-sound.js"
           }
         ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claudekit-hooks run typecheck-project"
+          },
+          {
+            "type": "command",
+            "command": "claudekit-hooks run lint-project"
+          },
+          {
+            "type": "command",
+            "command": "claudekit-hooks run test-project"
+          },
+          {
+            "type": "command",
+            "command": "claudekit-hooks run check-todos"
+          },
+          {
+            "type": "command",
+            "command": "claudekit-hooks run self-review"
+          },
+          {
+            "type": "command",
+            "command": "claudekit-hooks run create-checkpoint"
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -33,6 +62,88 @@
           {
             "type": "command",
             "command": "node ~/.claude/hooks/play-sound.js done"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claudekit-hooks run lint-changed"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claudekit-hooks run typecheck-changed"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claudekit-hooks run check-any-changed"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claudekit-hooks run test-changed"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claudekit-hooks run check-comment-replacement"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claudekit-hooks run check-unused-parameters"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|MultiEdit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claudekit-hooks run file-guard"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [],
+    "SessionStart": [],
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claudekit-hooks run codebase-map"
+          },
+          {
+            "type": "command",
+            "command": "claudekit-hooks run thinking-level"
           }
         ]
       }
