@@ -82,6 +82,7 @@ For more cool shell tools, see my [Dev-Env gist](https://gist.github.com/seefood
 - [dotfiles by Adir Gabay](https://github.com/adirg/dotfiles).
 - [dotfiles by Jessica Deen](https://github.com/jldeen/dotfiles),
   mainly for the zsh trickeries, though I have rewrote this entirely for zinit by this point...
+- [wezterm config by Kevin Sylvester](https://github.com/KevinSilvester/wezterm-config/)
 
 ## License
 

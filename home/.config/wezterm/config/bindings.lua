@@ -59,8 +59,6 @@ local keys = {
    { key = 'c',          mods = mod.SUPER,     action = act.CopyTo('Clipboard') },    -- MacOS compatibility
    { key = 'v',          mods = mod.SUPER,     action = act.PasteFrom('Clipboard') }, -- MacOS compatibility
 
-   -- terminal control sequences --
-   -- Removed explicit Ctrl-A and Ctrl-R bindings to fix macOS readline issue
 
    -- tabs --
    -- tabs: spawn+close
@@ -110,6 +108,13 @@ local keys = {
          local new_width = dimensions.pixel_width + 50
          local new_height = dimensions.pixel_height + 50
          window:set_inner_size(new_width, new_height)
+      end)
+   },
+   {
+      key = 'Enter',
+      mods = mod.SUPER_REV,
+      action = wezterm.action_callback(function(window, _pane)
+         window:maximize()
       end)
    },
 
@@ -202,7 +207,7 @@ local keys = {
       action = act.ActivateKeyTable({
          name = 'resize_font',
          one_shot = false,
-         timemout_miliseconds = 1000,
+         timemout_milliseconds = 1000,
       }),
    },
    -- resize panes
@@ -212,7 +217,7 @@ local keys = {
       action = act.ActivateKeyTable({
          name = 'resize_pane',
          one_shot = false,
-         timemout_miliseconds = 1000,
+         timemout_milliseconds = 1000,
       }),
    },
 }
@@ -246,7 +251,7 @@ local mouse_bindings = {
 }
 
 return {
-   disable_default_key_bindings = false,
+   disable_default_key_bindings = true,
    -- disable_default_mouse_bindings = true,
    leader = { key = 'Space', mods = mod.SUPER_REV },
    keys = keys,

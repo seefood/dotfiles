@@ -4,6 +4,7 @@ return {
    exit_behavior = 'CloseOnCleanExit', -- if the shell program exited with a successful status
    exit_behavior_messaging = 'Verbose',
    status_update_interval = 1000,
+   audible_bell = 'Disabled',
 
    -- How many lines of scrollback you want to retain per tab
    scrollback_lines = 200000,

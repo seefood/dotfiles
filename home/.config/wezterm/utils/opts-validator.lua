@@ -129,49 +129,49 @@ function OptsValidator:validate(opts)
       end
 
       if
-          (opt.type == 'string' or opt.type == 'number')
-          and opt.enum ~= nil
-          and not tbl_contains(opt.enum, value)
-      then
-         table.insert(
-            errors,
-            string.format('Field "%s" must be one of [%s]', opt.name, table.concat(opt.enum, ', '))
-         )
-         error = true
-      end
-
-      if opt.type == 'table' then
-         for _, v in ipairs(value) do
-            if type(v) ~= opt.table_of then
-               table.insert(
-                  errors,
-                  string.format('Items in field "%s" must be of type "%s"', opt.name, opt.table_of)
-               )
-               error = true
-               goto inner_continue
-            end
+         (opt.type == 'string' or opt.type == 'number')
+         and opt.enum ~= nil
+         and not tbl_contains(opt.enum, value)
+         then
+            table.insert(
+               errors,
+               string.format('Field "%s" must be one of [%s]', opt.name, table.concat(opt.enum, ', '))
+            )
+            error = true
          end
-         ::inner_continue::
+
+         if opt.type == 'table' then
+            for _, v in ipairs(value) do
+               if type(v) ~= opt.table_of then
+                  table.insert(
+                     errors,
+                     string.format('Items in field "%s" must be of type "%s"', opt.name, opt.table_of)
+                  )
+                  error = true
+                  goto inner_continue
+               end
+            end
+            ::inner_continue::
+         end
+
+         if error then
+            valid_opts[opt.name] = opt.default
+            goto continue
+         end
+
+         valid_opts[opt.name] = value
+         ::continue::
       end
 
-      if error then
-         valid_opts[opt.name] = opt.default
-         goto continue
+      if #errors > 0 then
+         local err_msg = '\n~~EventOpts ERRORS~~\n'
+         for _, err in ipairs(errors) do
+            err_msg = err_msg .. '- ' .. err .. '\n'
+         end
+         return valid_opts, err_msg
       end
 
-      valid_opts[opt.name] = value
-      ::continue::
+      return valid_opts, nil
    end
 
-   if #errors > 0 then
-      local err_msg = '\n~~EventOpts ERRORS~~\n'
-      for _, err in ipairs(errors) do
-         err_msg = err_msg .. '- ' .. err .. '\n'
-      end
-      return valid_opts, err_msg
-   end
-
-   return valid_opts, nil
-end
-
-return OptsValidator
+   return OptsValidator
