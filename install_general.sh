@@ -24,7 +24,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
 	brew install --cask qlcolorcode qlstephen qlmarkdown quicklook-json \
 		qlprettypatch quicklook-csv webpquicklook suspicious-package \
-		font-fira-code-nerd-font ipynb-quicklook quickjson syntax-highlight
+		font-fira-code-nerd-font font-maple-mono-nf ipynb-quicklook quickjson syntax-highlight
 
 	# Make QL plugins kosher
 	xattr -d -r com.apple.quarantine ~/Library/QuickLook

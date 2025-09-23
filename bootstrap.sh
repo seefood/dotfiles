@@ -29,10 +29,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
 	brew doctor
 	brew tap homebrew/cask-versions
-	brew tap homebrew/cask-fonts
+	#brew tap homebrew/cask-fonts
 
 	echo "getting some important extra brew packages"
-	brew install screen the_silver_searcher git curl hub fd fzf wget cmake node
+	brew install screen the_silver_searcher git git-extras curl hub fd wget cmake node
 
 	# This little joke kills some of our nicest code.
 	test -r /etc/bashrc_Apple_Terminal &&
@@ -49,10 +49,6 @@ elif [[ -f /etc/redhat-release ]]; then
 
 	sudo dnf install -y the_silver_searcher curl git fd tmux
 
-	[[ ! -d ~/.fzf ]] &&
-		git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf &&
-		~/.fzf/install --all --no-zsh --no-fish --no-update-rc
-
 elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debian" ]]; then
 
 	#####################################
@@ -62,8 +58,8 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
 	echo "installing some essential packages"
 	sudo apt update
 	sudo apt install -y screen silversearcher-ag curl git \
-		software-properties-common python3-pip rubygems tmux build-essential \
-		cmake python3-dev nodejs npm python-dev
+		software-properties-common tmux build-essential \
+		cmake python3-dev nodejs npm python-dev git-extras
 
 	# Adding backports, neovim and other useful bits.
 	sudo add-apt-repository -u "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-backports main restricted universe multiverse"
@@ -88,21 +84,21 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]] || [[ "$(lsb_release -is)" == "Debia
 	if hash fd 2>/dev/null; then
 		echo "fd exists."
 	else
-		fdversion=7.2.0
-		wget -q https://github.com/sharkdp/fd/releases/download/v${fdversion}/fd_${fdversion}_amd64.deb &&
-			sudo dpkg -i fd_${fdversion}_amd64.deb
+		fdversion=10.3.0
+		wget -q https://github.com/sharkdp/fd/releases/download/v${fdversion}/fd_v${fdversion}_amd64.deb &&
+			sudo dpkg -i fd_v${fdversion}_amd64.deb
 
-		rm -Rf fd_${fdversion}_amd64.deb
+		rm -Rf fd_v${fdversion}_amd64.deb
 	fi
-
-	[[ ! -d ~/.fzf ]] &&
-		git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf &&
-		~/.fzf/install --all --no-zsh --no-fish --no-update-rc
 fi
 
 ###########################
 #################### Common
 ###########################
+
+# install uv because it's the closest-to-source way of installing pythong tools these days cleanly.
+
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
 [[ -d "$HOME/.homesick/repos/homeshick" ]] ||
 	git clone https://github.com/andsens/homeshick.git "$HOME/.homesick/repos/homeshick"
@@ -112,7 +108,8 @@ source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 # Have ensured that homesick is available
 hash homeshick 2>/dev/null || (echo "homeshick install failed" && exit 1)
 
-pip3 install --upgrade powerline-status --user
+uv tool install normalizer
+uv tool install powerline-status
 
 if [[ -d "$HOME/.homesick/repos/dotfiles" ]]; then
 	echo "Oh good, the homeshick is already checked out..."
@@ -165,7 +162,7 @@ if ! [[ -r ~/.dircolors ]]; then
 	mv dircolors.256dark ~/.dircolors
 fi
 
-pip3 install thefuck --user
+uv tool install thefuck
 
 ~/bin/imgcat ~/.homesick/repos/dotfiles/images/daft-punk-Approves.gif
 

@@ -28,35 +28,36 @@ having said that, have a ball :-)
 
 ### Slow and Careful
 
-Install homesick first
+Install homebrew first if you are on MacOS and don't have it yet:
 
-    sudo gem install homesick
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    brew istall bash git zip
+
+Install homeshick second
+
+    git clone https://github.com/andsens/homeshick.git "$HOME/.homesick/repos/homeshick"
+    source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 
 Clone the dotfiles repo
 
-    homesick clone seefood/dotfiles
+    homeshick clone seefood/dotfiles
 
 Then symlink the dotfiles to your home directory
 
-    homesick symlink dotfiles
+    homeshick link dotfiles
 
 ### Optional tools installed by my bootstrap.sh
 
 To install additional tools, run the following scripts (in this order):
 
-Install [TheFuck](https://github.com/nvbn/thefuck) by `sudo apt install thefuck`
+Install [TheFuck](https://github.com/nvbn/thefuck) by `sudo apt install thefuck` or `brew install thefuck` depending on your system
 
-Install [FZF](https://github.com/junegunn/fzf):
+Your choice of a powerfull shell env, try one or both... At the time ofwriting, I am not 100% sure yet if I am staying with bash or moving to zsh myself.
 
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
-
-Hub from [github](https://github.com/github/hub/) (see code snippet in my bootstrap.sh for a quick setup)
-
-[fd](https://github.com/sharkdp/fd) (smart, fast alternative to find).
-
-Download and install [my Bash-it fork](https://github.com/nwinkler/bash-it).
-
+* Download and install [Bash-it](https://github.com/bash-it/bash-it).
     ~/.homesick/repos/dotfiles/install_bash_it.sh
+* Download and install zsh, with zinit, themes and lots of flares as well.
+    ~/.homesick/repos/dotfiles/install_zsh.sh
 
 Other nice to have (not auto installed) is [progress](https://github.com/Xfennec/progress).
 
@@ -87,4 +88,5 @@ For more cool shell tools, see my [Dev-Env gist](https://gist.github.com/seefood
 ## License
 
 Copyright (c) 2015 Nils Winkler. Licensed under the MIT license.
-Various other bits [(cc0)](https://creativecommons.org/share-your-work/public-domain/cc0/)/Public domain 2018 Ira Abramov and random people I borrowed ideas from around the web.
+Various other bits also mostly MIT.
+And then my own are (cc0)](https://creativecommons.org/share-your-work/public-domain/cc0/)/Public domain 2018-2025 Ira Abramov and random people I borrowed ideas from around the web.

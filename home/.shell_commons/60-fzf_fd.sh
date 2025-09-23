@@ -6,7 +6,7 @@ if hash fdfind 2>/dev/null; then
 	alias fd='fdfind'
 fi
 
-[[ $- == *i* ]] && return
+[[ $- == *i* ]] || return
 
 # now that I skipped for no interactive shell, let's do the rest
 
@@ -17,6 +17,9 @@ fi
 # ---------
 if ! type fzf &>/dev/null; then
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	PATH="$(path_prepend ~/.fzf/bin "${PATH}")"
+	export PATH
+	~/.fzf/install --xdg --bin --completion --key-bindings --no-update-rc
 fi
 
 if [[ -n "${ZSH_NAME}" ]]; then
