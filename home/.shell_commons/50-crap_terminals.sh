@@ -12,7 +12,7 @@ if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
 	unset ZSH_THEME
 	EMBEDDED_TERM=1
 	if [ -d ~/.bash_aliases.d ]; then
-		for file in ~/.??*.zsh ~/.bash_aliases.d/*.sh; do
+		for file in ~/.bash_aliases.d/*.zsh ~/.bash_aliases.d/*.sh; do
 			. "$file"
 		done
 
