@@ -11,9 +11,10 @@ if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
 	PS1='\u@\h:\w\$ '
 	unset ZSH_THEME
 	EMBEDDED_TERM=1
+	# TODO needs to be separated to bash and zsh specific loops.
 	if [ -d ~/.bash_aliases.d ]; then
 		for file in ~/.bash_aliases.d/*.zsh ~/.bash_aliases.d/*.sh; do
-			. "$file"
+			[[ -r "$file" ]] && source "$file"
 		done
 
 	elif [[ $TERM_PROGRAM = "iTerm.app" ]]; then
