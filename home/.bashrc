@@ -211,9 +211,9 @@ fi
 # Load completions, functions and aliases
 for dir in ~/.bash_aliases.d ~/.bash_completion.d; do
 	if [[ -d "${dir}" ]]; then
-		for file in "${dir}"/*; do
+		for file in "${dir}"/*.bash "${dir}"/*.sh; do
 			# shellcheck disable=SC1090
-			. "${file}"
+			[[ -f "$file" ]] && source "$file"
 		done
 	fi
 done
