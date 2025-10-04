@@ -17,10 +17,9 @@ if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
 		for file in ~/.bash_aliases.d/*.zsh ~/.bash_aliases.d/*.sh; do
 			[[ -r "$file" ]] && source "$file"
 		done
-
-	elif [[ $TERM_PROGRAM = "iTerm.app" ]]; then
-		unset ITERM_SHELL_INTEGRATION_INSTALLED
-		[[ -f ~/.iterm2_shell_integration.${SHELL} ]] &&
-			source ~/".iterm2_shell_integration.${SHELL}"
 	fi
+elif [[ $TERM_PROGRAM = "iTerm.app" ]]; then
+	unset ITERM_SHELL_INTEGRATION_INSTALLED
+	[[ -f ~/.iterm2_shell_integration.${SHELL} ]] &&
+		source ~/".iterm2_shell_integration.${SHELL}"
 fi

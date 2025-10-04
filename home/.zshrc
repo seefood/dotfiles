@@ -92,8 +92,8 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 	complete -o nospace -C /opt/homebrew/bin/mc mc
 
 	if [ -d ~/.bash_aliases.d ]; then
-		for file in ~/.??*.zsh ~/.bash_aliases.d/*.sh; do
-			. "$file"
+		for file in ~/.bash_aliases.d/*.zsh ~/.bash_aliases.d/*.sh; do
+			[[ -f "$file" ]] && source "$file"
 		done
 	fi
 
