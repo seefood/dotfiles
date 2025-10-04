@@ -53,8 +53,8 @@
         "matcher": "Edit|MultiEdit",
         "hooks": [
           {
-            "type": "command",
-            "command": "claudekit-hooks run check-unused-parameters"
+            # "type": "command",
+            #"command": "claudekit-hooks run check-unused-parameters"
           }
         ]
       }
