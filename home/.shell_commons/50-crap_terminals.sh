@@ -5,7 +5,8 @@ unset EMBEDDED_TERM
 if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
 	"$TERM_PROGRAM" = "vscode" || "$TERM_PROGRAM" = "cursor" ||
 	-n "$VSCODE_PID" || -n "$VSCODE_CWD" || "$TERM_PROGRAM" = "Apple_Terminal" ||
-	"$TERM" = "dumb" || -n "$EMACS" || -n "$INSIDE_EMACS" ]]; then
+	"$TERM" = "dumb" || -n "$EMACS" || -n "$INSIDE_EMACS" ||
+	"$TERMINAL_EMULATOR" =~ "JetBrains" ]]; then
 
 	# Use a simple prompt in a simple terminal
 	PS1='\u@\h:\w\$ '
