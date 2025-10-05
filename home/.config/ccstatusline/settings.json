@@ -1,0 +1,102 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "5",
+        "type": "current-working-dir",
+        "color": "magenta"
+      },
+      {
+        "id": "7",
+        "type": "git-changes",
+        "color": "yellow"
+      },
+      {
+        "id": "6ddb4638-254f-4579-a36c-3bbc3717a63b",
+        "type": "custom-command",
+        "backgroundColor": "bgBrightRed",
+        "command": "echo 'Hello, World!'"
+      }
+    ],
+    [
+      {
+        "id": "dd72dc6a-b342-4d66-a654-b75363d292a2",
+        "type": "tokens-input",
+        "merge": true
+      },
+      {
+        "id": "d5019490-865c-4433-90f9-4a8b4a000b42",
+        "type": "tokens-output",
+        "merge": true
+      },
+      {
+        "id": "bc8e9997-22a5-41cb-b8e9-20b6d424199a",
+        "type": "tokens-cached",
+        "merge": true
+      },
+      {
+        "id": "deed374f-b964-4d8d-9d6e-62791a1bbac3",
+        "type": "tokens-total"
+      },
+      {
+        "id": "0a275bb3-fc3e-42d3-ac2a-26aa188d8644",
+        "type": "context-length",
+        "backgroundColor": "bgBrightBlack"
+      },
+      {
+        "id": "f21fc8f0-d5fa-4415-9a5d-fb9044d563c9",
+        "type": "context-percentage",
+        "backgroundColor": "bgBrightWhite",
+        "merge": true
+      },
+      {
+        "id": "0bb566d2-2786-44bd-b13f-3dbca2dc62f2",
+        "type": "context-percentage-usable",
+        "backgroundColor": "bgBrightCyan"
+      }
+    ],
+    [
+      {
+        "id": "8b5f8acc-855c-484d-83ac-a6577efdb7cb",
+        "type": "model",
+        "merge": true
+      },
+      {
+        "id": "dff1df83-2a4b-402e-a8c5-06363b90f87e",
+        "type": "version",
+        "backgroundColor": "bgWhite"
+      },
+      {
+        "id": "fdf64b4b-7c5b-426b-832b-aa7440bd195f",
+        "type": "session-clock",
+        "backgroundColor": "bgRed"
+      }
+    ]
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 3,
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "powerline": {
+    "enabled": true,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [
+      ""
+    ],
+    "endCaps": [
+      "",
+      "",
+      ""
+    ],
+    "autoAlign": true,
+    "theme": "catppuccin"
+  },
+  "defaultPadding": " "
+}

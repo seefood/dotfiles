@@ -4,6 +4,7 @@
 .claude/hooks
 .config
 .config/blesh
+.config/ccstatusline
 .config/fish/completions
 .config/htop
 .config/karabiner
