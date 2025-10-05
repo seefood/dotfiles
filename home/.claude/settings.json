@@ -1,7 +1,7 @@
 {
   "statusLine": {
     "type": "command",
-    "command": "/opt/homebrew/bin/claude-statusline-powerline"
+    "command": "npx -y @owloops/claude-powerline@latest --style=powerline"
   },
   "hooks": {
     "Notification": [
