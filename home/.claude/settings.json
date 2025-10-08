@@ -1,8 +1,8 @@
 {
   "statusLine": {
     "type": "command",
-    "command": "bash ~/.claude/statusline-comprehensive.sh",
-    "powerline_command": "npx -y @owloops/claude-powerline@latest --style=powerline"
+    "plaincommand": "bash ~/.claude/statusline-comprehensive.sh",
+    "command": "npx -y @owloops/claude-powerline@latest --style=powerline"
   },
   "hooks": {
     "Notification": [
