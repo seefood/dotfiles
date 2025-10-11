@@ -1,9 +1,4 @@
 {
-  "statusLine": {
-    "type": "command",
-    "plaincommand": "bash ~/.claude/statusline-comprehensive.sh",
-    "command": "npx -y @owloops/claude-powerline@latest --style=powerline"
-  },
   "hooks": {
     "Notification": [
       {
@@ -51,8 +46,7 @@
         ]
       }
     ],
-    "PreToolUse": [
-    ],
+    "PreToolUse": [],
     "SubagentStop": [],
     "SessionStart": [],
     "UserPromptSubmit": [
@@ -70,5 +64,10 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y @owloops/claude-powerline@latest --style=powerline"
+  },
+  "alwaysThinkingEnabled": false
 }
