@@ -42,11 +42,6 @@ function delta-toggle() {
 	eval "export DELTA_FEATURES='$(_delta-features-toggle "$1" | tee /dev/stderr)'"
 }
 
-# I use cursor right now, but all vscode and derivatives should work with the merge below
-export VISUAL=cursor
-#export VISUAL=windsurf-next
-#export VISUAL=code
-
 function merge() {
 	if [ $# -ne 2 ]; then
 		echo "Usage: merge <local/base> <remote>"

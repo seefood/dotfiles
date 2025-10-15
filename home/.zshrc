@@ -186,13 +186,8 @@ fi
 # User configuration
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-	export EDITOR='vim'
-	export VISUAL='vim'
-else
-	export EDITOR='vim'
-	export VISUAL='cursor'
-fi
+export EDITOR='vim'
+export VISUAL='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
