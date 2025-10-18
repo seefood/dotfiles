@@ -151,6 +151,7 @@ if [[ "${BASH_IT_THEME}" == "oh-my-posh" ]]; then
 
 	#export POSH_THEME=${HOME}/.local/oh-my-posh/powerlevel10k_classic.omp.json
 	export POSH_THEME=${HOME}/.local/oh-my-posh/blue-owl.omp.json
+	export POSH_THEME=${HOME}/.local/oh-my-posh/blue-agrematch.omp.json
 	# Setting for vim, tmux and other tools using poweline
 	export POWERLINE_CONFIG_COMMAND=~/.local/bin/powerline-config
 else
