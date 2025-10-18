@@ -1,4 +1,9 @@
 {
+  "statusLine": {
+    "type": "command",
+    "fancycommand": "bash ~/.claude/statusline-comprehensive.sh",
+    "faultycommand": "npx -y @owloops/claude-powerline@latest --style=powerline"
+  },
   "hooks": {
     "Notification": [
       {
@@ -64,10 +69,5 @@
         ]
       }
     ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "npx -y @owloops/claude-powerline@latest --style=powerline"
-  },
-  "alwaysThinkingEnabled": false
+  }
 }
