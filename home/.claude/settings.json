@@ -69,5 +69,7 @@
         ]
       }
     ]
-  }
+  },
+  "alwaysThinkingEnabled": true,
+  "model": "haiku"
 }

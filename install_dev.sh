@@ -52,6 +52,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 		htop psgrep progress
 		ipcalc
 		git-delta most ripgrep ripgrep-all
+		macpacker
 		oh-my-posh
 		ollama lexido
 		aws-shell awscli opentofu
