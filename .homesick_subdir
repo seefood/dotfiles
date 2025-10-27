@@ -2,6 +2,7 @@
 .claude
 .claude/commands
 .claude/hooks
+.claude/scripts
 .config
 .config/blesh
 .config/ccstatusline
