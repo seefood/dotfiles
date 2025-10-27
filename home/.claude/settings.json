@@ -1,6 +1,8 @@
 {
   "statusLine": {
     "type": "command",
+    "command": "npx vibe-log-cli statusline --with-usage",
+    "padding": 0
     "fancycommand": "bash ~/.claude/statusline-comprehensive.sh",
     "faultycommand": "npx -y @owloops/claude-powerline@latest --style=powerline"
   },
@@ -65,6 +67,10 @@
           {
             "type": "command",
             "command": "claudekit-hooks run thinking-level"
+          },
+          {
+            "type": "command",
+            "command": "npx vibe-log-cli analyze-prompt --silent --stdin"
           }
         ]
       }
