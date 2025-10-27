@@ -43,10 +43,10 @@ get_sound_config() {
 			echo "${cmd}" "/usr/share/sounds/freedesktop/stereo/message.oga"
 			;;
 		done)
-			echo "${cmd}" "/usr/share/sounds/freedesktop/stereo/bell.oga"
+			echo "${cmd}" "/usr/share/sounds/freedesktop/stereo/service-logout.oga"
 			;;
 		*)
-			echo "${cmd}" "/usr/share/sounds/freedesktop/stereo/complete.oga"
+			echo "${cmd}" "/usr/share/sounds/freedesktop/stereo/message-new-instant.oga"
 			;;
 		esac
 		;;
