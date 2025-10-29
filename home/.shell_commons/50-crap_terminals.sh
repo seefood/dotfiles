@@ -20,6 +20,7 @@ if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
 	fi
 elif [[ $TERM_PROGRAM = "iTerm.app" ]]; then
 	unset ITERM_SHELL_INTEGRATION_INSTALLED
-	[[ -f ~/.iterm2_shell_integration.${SHELL} ]] &&
-		source ~/".iterm2_shell_integration.${SHELL}"
+	current_shell=$(basename "${SHELL}")
+	[[ -f ~/.iterm2_shell_integration.${current_shell} ]] &&
+		source ~/".iterm2_shell_integration.${current_shell}"
 fi
