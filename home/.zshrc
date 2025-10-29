@@ -127,16 +127,22 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 		zsh-users/zsh-autosuggestions
 
 	# old OMZ plugins
-	plugins=(sudo git history taskwarrior tmux tmuxinator)
+	omz_plugins=(sudo git history taskwarrior tmux tmuxinator)
 	## Zinit Setting
 	# Must Load OMZ Git library
 	zinit snippet OMZL::git.zsh
 
-	for plug in ${plugins[*]}; do
+	for plug in ${omz_plugins[*]}; do
 		# Load Git and other plugins from OMZ
 		zinit ice wait lucid
 		zinit snippet OMZP::${plug}
 	done
+
+	# Load my favorite old aliases from bash_it
+	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/aliases.sh
+	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/plugins.sh
+	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/completions.sh
+	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/v2gif.sh
 
 	# Themes handling - Maybe needs to be in a seperate script (TODO)
 
