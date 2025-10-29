@@ -2,7 +2,7 @@
   "statusLine": {
     "type": "command",
     "command": "npx vibe-log-cli statusline --with-usage",
-    "padding": 0
+    "padding": 0,
     "fancycommand": "bash ~/.claude/statusline-comprehensive.sh",
     "faultycommand": "npx -y @owloops/claude-powerline@latest --style=powerline"
   },
