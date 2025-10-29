@@ -1,0 +1,6 @@
+**/CLAUDE.md -whitespace
+**/poetry.lock binary
+**/package-lock.json binary
+**/Cargo.lock binary
+**/uv.lock binary
+**/pixi.lock binary
