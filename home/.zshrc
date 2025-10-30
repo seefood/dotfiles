@@ -114,6 +114,9 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 	zinit ice wait lucid
 	zinit light zdharma-continuum/fast-syntax-highlighting
 
+	zinit ice wait lucid
+	zinit light sunlei/zsh-ssh
+
 	# Snippet
 	zinit ice wait lucid
 	zinit snippet https://gist.githubusercontent.com/hightemp/5071909/raw/
