@@ -169,7 +169,7 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 		zinit light romkatv/powerlevel10k
 		unset ZSH_THEME
 	elif [[ "$ZSH_THEME" == "oh-my-posh" ]] && type oh-my-posh &>/dev/null; then
-		eval $(oh-my-posh init zsh)
+		eval $(oh-my-posh init zsh --config $POSH_THEME)
 		unset ZSH_THEME
 	elif [[ "$ZSH_THEME" ]]; then
 		## Based on suggestions at https://github.com/zdharma-continuum/zinit#migration
