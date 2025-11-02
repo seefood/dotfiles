@@ -143,9 +143,20 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 
 	# Load my favorite old aliases from bash_it
 	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/aliases.sh
+	#zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/aliases-git.sh
 	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/plugins.sh
-	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/completions.sh
+	#zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/completions.sh
 	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/v2gif.sh
+
+	_command_exists awless && source <(awless completion zsh)
+
+	_command_exists aws && complete -C aws_completer aws
+
+	_command_exists terraform && complete -o nospace -C $(which terraform) terraform
+
+	_command_exists tofu && complete -o nospace -C $(which tofu) tofu
+
+	alias tf=tofu
 
 	# Themes handling - Maybe needs to be in a seperate script (TODO)
 
