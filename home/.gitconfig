@@ -56,10 +56,10 @@
 	retag = "\"!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r\""
 	review = git-review
 	rh = reset --hard
-	s = status -s
+	s = status --short
 	slog = log --oneline --decorate
 	squash = !"f() { NL=$1; GIT_EDITOR=\"sed -i '2,$NL s/pick/squash/;/# This is the 2nd commit message:/,$ {d}'\"; git rebase -i HEAD~$NL; }; f"
-	st = status
+	st = status --short --branch
 	tags = tag -l
 	type = cat-file -t
 	unstash = stash apply
