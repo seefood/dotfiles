@@ -130,7 +130,8 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 		zsh-users/zsh-autosuggestions
 
 	# old OMZ plugins
-	omz_plugins=(sudo git history taskwarrior tmux tmuxinator)
+	#omz_plugins=(sudo git history taskwarrior tmux tmuxinator)
+	omz_plugins=(sudo git history)
 	## Zinit Setting
 	# Must Load OMZ Git library
 	zinit snippet OMZL::git.zsh
