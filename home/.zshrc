@@ -149,6 +149,8 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 	#zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/completions.sh
 	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/v2gif.sh
 
+	alias gs="git st"
+
 	_command_exists awless && source <(awless completion zsh)
 
 	_command_exists aws && complete -C aws_completer aws
