@@ -1,90 +1,92 @@
 {
-  "statusLine": {
-    "type": "command",
-    "command": "npx vibe-log-cli statusline --with-usage",
-    "padding": 0,
-    "fancycommand": "bash ~/.claude/statusline-comprehensive.sh",
-    "faultycommand": "npx -y @owloops/claude-powerline@latest --style=powerline"
-  },
+  "alwaysThinkingEnabled": true,
   "hooks": {
     "Notification": [
       {
-        "matcher": "",
         "hooks": [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/play-sound.sh notification"
+            "command": "~/.claude/hooks/play-sound.sh notification",
+            "type": "command"
           }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/play-sound.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claudekit-hooks run check-todos"
-          },
-          {
-            "type": "command",
-            "command": "claudekit-hooks run self-review"
-          }
-        ]
+        ],
+        "matcher": ""
       }
     ],
     "PostToolUse": [
       {
-        "matcher": "Edit|Write|MultiEdit",
         "hooks": [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/play-sound.sh done"
+            "command": "~/.claude/hooks/play-sound.sh done",
+            "type": "command"
           }
-        ]
+        ],
+        "matcher": "Edit|Write|MultiEdit"
       }
     ],
     "PreToolUse": [
       {
-        "matcher": "Bash",
         "hooks": [
           {
             "command": "bash .claude/scripts/validate-bash.sh"
           }
-        ]
+        ],
+        "matcher": "Bash"
       }
     ],
-    "SubagentStop": [],
-    "SessionStart": [],
-    "UserPromptSubmit": [
+    "SessionStart": [
+    ],
+    "Stop": [
       {
-        "matcher": "*",
         "hooks": [
           {
-            "type": "command",
-            "command": "claudekit-hooks run codebase-map"
-          },
-          {
-            "type": "command",
-            "command": "claudekit-hooks run thinking-level"
-          },
-          {
-            "type": "command",
-            "command": "npx vibe-log-cli analyze-prompt --silent --stdin"
+            "command": "~/.claude/hooks/play-sound.sh",
+            "type": "command"
           }
-        ]
+        ],
+        "matcher": ""
+      },
+      {
+        "hooks": [
+          {
+            "command": "claudekit-hooks run check-todos",
+            "type": "command"
+          },
+          {
+            "command": "claudekit-hooks run self-review",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "SubagentStop": [
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "claudekit-hooks run codebase-map",
+            "type": "command"
+          },
+          {
+            "command": "claudekit-hooks run thinking-level",
+            "type": "command"
+          },
+          {
+            "command": "npx vibe-log-cli analyze-prompt --silent --stdin",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
       }
     ]
   },
-  "alwaysThinkingEnabled": true,
-  "model": "haiku"
+  "model": "haiku",
+  "statusLine": {
+    "command": "npx vibe-log-cli statusline --with-usage",
+    "fancycommand": "bash ~/.claude/statusline-comprehensive.sh",
+    "faultycommand": "npx -y @owloops/claude-powerline@latest --style=powerline",
+    "padding": 0,
+    "type": "command"
+  }
 }
