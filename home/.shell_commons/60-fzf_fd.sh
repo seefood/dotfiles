@@ -6,7 +6,7 @@ if hash fdfind 2>/dev/null; then
 	alias fd='fdfind'
 fi
 
-[[ $- == *i* ]] || return
+[[ -o interactive ]] || return
 
 # now that I skipped for no interactive shell, let's do the rest
 

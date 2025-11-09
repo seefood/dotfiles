@@ -4,7 +4,7 @@
 #### FIG ENV VARIABLES ####
 # Please make sure this block is at the start of this file.
 # shellcheck disable=SC1090
-[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh || true
 #### END FIG ENV VARIABLES ####
 
 setopt nullglob
@@ -30,10 +30,7 @@ for file in ~/.shell_commons/*.sh; do
 done
 
 # If not running interactively, don't do anything
-case $- in
-*i*) ;;
-*) return ;;
-esac
+[[ -o interactive ]] || return
 
 # # Refresh Function - https://babushk.in/posts/renew-environment-tmux.html
 # if [ -n "$TMUX" ]; then
@@ -220,5 +217,5 @@ export VISUAL='vim'
 
 #### FIG ENV VARIABLES ####
 # Please make sure this block is at the end of this file.
-[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh || true
 #### END FIG ENV VARIABLES ####
