@@ -1,12 +1,6 @@
 #!/bin/zsh
 # shellcheck disable=SC2034
 
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the start of this file.
-# shellcheck disable=SC1090
-[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh || true
-#### END FIG ENV VARIABLES ####
-
 setopt nullglob
 # Now globs that don't match return empty string like bash
 
@@ -104,12 +98,12 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 	source "${ZINIT_HOME}/zinit.zsh"
 
 	# Init a few plugins
-	zinit ice wait lucid
-	zinit load zdharma-continuum/history-search-multi-word
+	#zinit ice wait lucid
+	#zinit load zdharma-continuum/history-search-multi-word
 
 	# plugins loaded without investigating.
-	zinit ice wait lucid
-	zinit light zdharma-continuum/fast-syntax-highlighting
+	#zinit ice wait lucid
+	#zinit light zdharma-continuum/fast-syntax-highlighting
 
 	zinit ice wait lucid
 	zinit light sunlei/zsh-ssh
@@ -128,7 +122,8 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 
 	# old OMZ plugins
 	#omz_plugins=(sudo git history taskwarrior tmux tmuxinator)
-	omz_plugins=(sudo git history)
+	omz_plugins=(sudo git history aws colorize common-aliases cp docker docker-compose)
+	[[ -f /etc/debian_version ]] && omz_plugins+=(debian)
 	## Zinit Setting
 	# Must Load OMZ Git library
 	zinit snippet OMZL::git.zsh
@@ -138,6 +133,12 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 		zinit ice wait lucid
 		zinit snippet OMZP::${plug}
 	done
+
+	# Recommended history plugin till I fix ctrl-R in wezterm
+	zinit load zsh-users/zsh-history-substring-search
+	#zinit ice wait atload'_history_substring_search_config'
+	bindkey '^[[A' history-substring-search-up
+	bindkey '^[[B' history-substring-search-down
 
 	# Load my favorite old aliases from bash_it
 	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/aliases.sh
@@ -214,8 +215,3 @@ export VISUAL='vim'
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the end of this file.
-[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh || true
-#### END FIG ENV VARIABLES ####

@@ -44,7 +44,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 	echo ''
 	bottles=(
 		claudekit
-		attempt-cli bat dust fd ncdu parallel-disk-usage tree up jdupes
+		attempt-cli bat chroma dust fd ncdu parallel-disk-usage tree up jdupes
 		dug wtfis
 		rsync ggh hss
 		git-gui git-lfs git-split-diffs git-who gitui lazygit
