@@ -27,7 +27,8 @@
       {
         "hooks": [
           {
-            "command": "bash .claude/scripts/validate-bash.sh"
+            "command": "bash .claude/scripts/validate-bash.sh",
+            "type": "command"
           }
         ],
         "matcher": "Bash"
