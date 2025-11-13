@@ -1,4 +1,6 @@
 #!/bin/zsh
+# Amazon Q pre block. Keep at the top of this file.
+#[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # shellcheck disable=SC2034
 
 setopt nullglob
@@ -122,7 +124,7 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 
 	# old OMZ plugins
 	#omz_plugins=(sudo git history taskwarrior tmux tmuxinator)
-	omz_plugins=(sudo git history aws colorize common-aliases cp docker docker-compose)
+	omz_plugins=(sudo git history aws colorize common-aliases cp docker-compose)
 	[[ -f /etc/debian_version ]] && omz_plugins+=(debian)
 	## Zinit Setting
 	# Must Load OMZ Git library
@@ -215,3 +217,6 @@ export VISUAL='vim'
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Amazon Q post block. Keep at the bottom of this file.
+#[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
