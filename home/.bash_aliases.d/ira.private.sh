@@ -12,11 +12,11 @@ if [[ $USER =~ ^ira ]]; then
 	alias mgif='v2gif *.webm *.mp4 -d'
 
 	if [[ "$OSTYPE" == "darwin"* ]]; then
-		alias psig='/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Personal &> /dev/null &'
+		alias psig='/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Personal &> /dev/null &; disown'
 		alias upt='brew upgrade'
 		alias uupt='brew upgrade'
 	else
-		alias wsig='signal-desktop --user-data-dir=${HOME}/.config/Signal-Work &> /dev/null &'
+		alias wsig='signal-desktop --user-data-dir=${HOME}/.config/Signal-Work &> /dev/null &; disown'
 		alias upt='sudo apt -u dist-upgrade; \
 			oh-my-posh upgrade; \
 			flatpak update -y; sudo flatpak update -y'
