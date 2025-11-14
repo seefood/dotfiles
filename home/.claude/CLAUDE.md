@@ -41,6 +41,10 @@
 - Small commits better than large
 - Descriptive commit messages
 - Update documentation when relevant
+- Feature branch naming: `feature-name/###-phase-name` (e.g., `queue-ui/001-specification`, `multiqueue/003-phase-2`)
+  - Format: lowercase-with-hyphens / three-digit-number - lowercase-with-hyphens
+  - Never merge to default branch without explicit user request
+  - Each feature typically has multiple phases with sequential numbering
 
 ## Package Management
 
@@ -85,3 +89,4 @@
 - Dense files with mixed priorities reduce rule retrieval
 - Most critical rules get lost in volume
 - 50KB max recommended for optimal performance
+- you can be a bit less verbose, I am a senior engineer

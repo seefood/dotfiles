@@ -115,5 +115,10 @@
       }
     ]
   },
-  "model": "haiku"
+  "model": "haiku",
+  "statusLine": {
+    "command": "npx vibe-log-cli statusline --with-usage",
+    "padding": 0,
+    "type": "command"
+  }
 }
