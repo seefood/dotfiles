@@ -1,6 +1,4 @@
 #!/bin/zsh
-# Amazon Q pre block. Keep at the top of this file.
-#[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # shellcheck disable=SC2034
 
 setopt nullglob
@@ -69,7 +67,7 @@ DEFAULT_USER="$(whoami)"
 # You can also set it to another string to have that shown instead of the default red dots.
 # e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 # Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -217,6 +215,3 @@ export VISUAL='vim'
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Amazon Q post block. Keep at the bottom of this file.
-#[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
