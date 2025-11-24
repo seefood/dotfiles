@@ -203,9 +203,13 @@ fi
 # the rest are already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [[ -n "${HOMEBREW_PREFIX}" ]] && ! shopt -oq posix; then
-	if [[ -f "$(brew --prefix)/etc/bash_completion" ]]; then
-		# shellcheck disable=SC1091
-		. "$(brew --prefix)/etc/bash_completion"
+	if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+		source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+	else
+		for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+			# shellcheck disable=SC1090
+			[[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+		done
 	fi
 fi
 
