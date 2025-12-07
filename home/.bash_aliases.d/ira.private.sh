@@ -41,4 +41,5 @@ if [[ $USER =~ ^ira ]]; then
 	type -p colorls >/dev/null && alias ls='colorls --sort-dirs --gs'
 	export DEBEMAIL="nospam-debmail@ira.abramov.org"
 	export DEBFULLNAME="Ira Abramov"
+	export HOMEBREW_NO_ENV_HINTS=1
 fi

@@ -56,7 +56,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 		oh-my-posh
 		ollama lexido
 		aws-shell awscli opentofu
-		osxutils
+		osxutils devcockpit
 		pixi
 		podman podman-compose podman-tui
 		pwgen

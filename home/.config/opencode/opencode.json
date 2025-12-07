@@ -2,29 +2,33 @@
   "$schema": "https://opencode.ai/config.json",
   "provider": {
     "ollama": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama (local)",
-      "options": {
-        "baseURL": "http://localhost:11434/v1"
-      },
       "models": {
-        "llama3.2:3b": {
-          "name": "Llama 3.2 3B"
-        },
-        "llama3.1:8b": {
-          "name": "Llama 3.1 8B"
-        },
-        "qwen3:14b": {
-          "name": "Qwen 3 14B"
-        },
-        "qwen2.5-coder:7b": {
-          "name": "Qwen 2.5 Coder 7B"
-        },
         "deepseek-coder-v2:16b": {
           "name": "DeepSeek Coder 6.7B"
         },
         "deepseek-coder:6.7b": {
           "name": "DeepSeek Coder 6.7B"
+        },
+        "gemma3:12b": {
+          "name": "Gemma3 12B"
+        },
+        "llama3.1:8b": {
+          "name": "Llama 3.1 8B"
+        },
+        "llama3.2:3b": {
+          "name": "Llama 3.2 3B"
+        },
+        "ministral-3:14b": {
+          "name": "Ministral 3 14B"
+        },
+        "ministral-3:8b": {
+          "name": "Ministral 3 8B"
+        },
+        "qwen3-coder:latest": {
+          "name": "Qwen 3 coder"
+        },
+        "qwen3:14b": {
+          "name": "Qwen 3 14B"
         },
         "starcoder2:15b": {
           "name": "StarCoder 2 15B"
@@ -32,6 +36,11 @@
         "starcoder2:3b": {
           "name": "StarCoder 2 3B"
         }
+      },
+      "name": "Ollama (local)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
       }
     }
   }
