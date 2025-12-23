@@ -60,6 +60,7 @@ for newpath in \
 	/opt/homebrew/opt/coreutils/libexec/gnuman \
 	/usr/local/opt/gnu-sed/libexec/gnuman \
 	/opt/homebrew/opt/gnu-sed/libexec/gnuman \
+	~/.local/share/man \
 	/home/linuxbrew/.linuxbrew/share/man \
 	/home/linuxbrew/.linuxbrew/share/man; do
 	[[ -d ${newpath} ]] && MANPATH="$(path_prepend "${newpath}" "${MANPATH}")"

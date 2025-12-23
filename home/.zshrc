@@ -1,6 +1,4 @@
 #!/bin/zsh
-# Amazon Q pre block. Keep at the top of this file.
-#[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # shellcheck disable=SC2034
 
 setopt nullglob
@@ -69,7 +67,7 @@ DEFAULT_USER="$(whoami)"
 # You can also set it to another string to have that shown instead of the default red dots.
 # e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 # Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -111,8 +109,8 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 	zinit light sunlei/zsh-ssh
 
 	# Snippet
-	zinit ice wait lucid
-	zinit snippet https://gist.githubusercontent.com/hightemp/5071909/raw/
+	#zinit ice wait lucid
+	#zinit snippet https://gist.githubusercontent.com/hightemp/5071909/raw/
 
 	zinit wait lucid for \
 		atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
@@ -124,11 +122,11 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 
 	# old OMZ plugins
 	#omz_plugins=(sudo git history taskwarrior tmux tmuxinator)
-	omz_plugins=(sudo git history aws colorize common-aliases cp docker-compose)
+	omz_plugins=(sudo history aws colorize common-aliases cp docker-compose)
 	[[ -f /etc/debian_version ]] && omz_plugins+=(debian)
 	## Zinit Setting
 	# Must Load OMZ Git library
-	zinit snippet OMZL::git.zsh
+	#zinit snippet OMZL::git.zsh
 
 	for plug in ${omz_plugins[*]}; do
 		# Load Git and other plugins from OMZ
@@ -144,7 +142,7 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 
 	# Load my favorite old aliases from bash_it
 	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/aliases.sh
-	#zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/aliases-git.sh
+	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/aliases-git.sh
 	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/plugins.sh
 	#zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/completions.sh
 	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/v2gif.sh
@@ -159,7 +157,7 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 
 	_command_exists tofu && complete -o nospace -C $(which tofu) tofu
 
-	alias tf=tofu
+	alias tf=tofu && complete -o nospace -C tf tf
 
 	# Themes handling - Maybe needs to be in a seperate script (TODO)
 
@@ -217,6 +215,3 @@ export VISUAL='vim'
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Amazon Q post block. Keep at the bottom of this file.
-#[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
