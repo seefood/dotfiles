@@ -1,5 +1,5 @@
 {
-  "alwaysThinkingEnabled": false,
+  "alwaysThinkingEnabled": true,
   "cleanupPeriodDays": 90,
   "enabledPlugins": {
     "ci-cd-pipeline-builder@claude-code-plugins-plus": true,
@@ -138,5 +138,10 @@
         "matcher": "*"
       }
     ]
+  },
+  "model": "haiku",
+  "statusLine": {
+    "padding": 0,
+    "type": "command"
   }
 }

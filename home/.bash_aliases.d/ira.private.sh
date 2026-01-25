@@ -16,8 +16,9 @@ if [[ $USER =~ ^ira ]]; then
 		alias upt='brew upgrade'
 		alias uupt='brew upgrade'
 	else
-		alias wsig='signal-desktop --user-data-dir=${HOME}/.config/Signal-Work &> /dev/null &; disown'
+		alias wsig='signal-desktop --user-data-dir=${HOME}/.config/Signal-Work &> /dev/null & sleep 1 ; disown'
 		alias upt='sudo apt -u dist-upgrade; \
+			podman pull ghcr.io/open-webui/open-webui:latest; \
 			oh-my-posh upgrade; \
 			flatpak update -y; sudo flatpak update -y'
 		alias uupt='sudo apt update && upt'
