@@ -76,9 +76,35 @@ COMPLETION_WAITING_DOTS="true"
 
 if [[ -z "$EMBEDDED_TERM" ]]; then
 
+	#disable shell suspend via CTRL-s
+	stty -ixon -ixoff
+
+	autoload -U promptinit
+	promptinit
+	setopt prompt_subst
+
+	autoload -U colors && colors  # make ${f,b}g{,_{,no_}bold} available
+	autoload -U edit-command-line # later bound to C-z e or v in vi-cmd-mode
+	#autoload -U zed                  # what, your shell can't edit files? ["zed -f function"]
+	#autoload -U zmv                  # who needs mmv or rename? ["zmv '(*).lis' '\$1.txt"]
+
+	export WORDCHARS=''
+	bindkey -e
+
+	export TIMEFMT="%U user %S system %P cpu %*E total, running %J"
+	export COLORTERM=yes
+
+	[ -e /usr/bin/lessfile ] && eval $(lessfile)
+	[ -e /usr/bin/dircolors ] && eval $(dircolors)
+	export LESSCHARSET=UTF-8
+	export LESS='-iFRSX'
+
+	export GREP_OPTIONS="--color=auto --ignore-case --exclude-dir=.svn --exclude-dir=.git"
+
 	# autoload bashcompinit && bashcompinit
 	autoload -U +X bashcompinit && bashcompinit
 	autoload -Uz +X compinit && compinit
+	setopt complete_in_word
 	#complete -o nospace -C /usr/local/bin/bit bit
 	complete -o nospace -C /opt/homebrew/bin/mc mc
 
@@ -107,6 +133,32 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 
 	zinit ice wait lucid
 	zinit light sunlei/zsh-ssh
+
+	{ #FZF tab
+
+		zinit ice wait lucid
+		zinit light Aloxaf/fzf-tab
+
+		# disable sort when completing `git checkout`
+		zstyle ':completion:*:git-checkout:*' sort false
+		# set descriptions format to enable group support
+		# NOTE: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
+		zstyle ':completion:*:descriptions' format '[%d]'
+		# set list-colors to enable filename colorizing
+		#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+		# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+		zstyle ':completion:*' menu no
+		# preview directory's content with eza when completing cd
+		zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+		# custom fzf flags
+		# NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
+		zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
+		# To make fzf-tab follow FZF_DEFAULT_OPTS.
+		# NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
+		zstyle ':fzf-tab:*' use-fzf-default-opts yes
+		# switch group using `<` and `>`
+		zstyle ':fzf-tab:*' switch-group '<' '>'
+	}
 
 	# Snippet
 	#zinit ice wait lucid
@@ -139,6 +191,14 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 	#zinit ice wait atload'_history_substring_search_config'
 	bindkey '^[[A' history-substring-search-up
 	bindkey '^[[B' history-substring-search-down
+	setopt hist_ignore_space hist_ignore_dups hist_reduce_blanks
+	setopt hist_verify appendhistory sharehistory
+	setopt EXTENDEDHISTORY
+	setopt extended_glob
+	HISTSIZE=100000
+	SAVEHIST=100000
+
+	REPORTTIME=10
 
 	# Load my favorite old aliases from bash_it
 	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/aliases.sh

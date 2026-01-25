@@ -45,7 +45,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 	bottles=(
 		claudekit
 		attempt-cli bat chroma dust fd mcat ncdu parallel-disk-usage tree up jdupes
-		dug wtfis
+		dug wtfis fastrace
 		rsync ggh hss
 		git-gui git-lfs git-split-diffs git-who gitui lazygit
 		gnupg
@@ -55,7 +55,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 		macpacker
 		oh-my-posh
 		ollama lexido
-		aws-shell awscli opentofu
+		aws-shell awscli opentofu e1s
 		osxutils devcockpit
 		pixi
 		podman podman-compose podman-tui
