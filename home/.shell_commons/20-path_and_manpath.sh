@@ -23,6 +23,7 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
 	/opt/homebrew/opt/curl/bin \
 	/opt/homebrew/opt/gnu-getopt/bin \
 	/opt/homebrew/opt/node@*/bin \
+	~/.antigravity/antigravity/bin \
 	/usr/local/opt/python@3.*/libexec/bin \
 	/opt/homebrew/opt/python@3.*/bin \
 	/opt/homebrew/opt/ruby@2.*/bin \

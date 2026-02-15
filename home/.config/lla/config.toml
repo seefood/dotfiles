@@ -12,7 +12,7 @@ default_format = "default"
 enabled_plugins = []
 
 # Directory where plugins are stored
-plugins_dir = "$HOME/.config/lla/plugins"
+plugins_dir = "~/.config/lla/plugins/"
 
 # Maximum depth for recursive directory traversal
 # Set to None for unlimited depth

@@ -1,31 +1,34 @@
 {
   "alwaysThinkingEnabled": true,
-  "cleanupPeriodDays": 90,
+  "cleanupPeriodDays": 365,
+  "enableAllProjectMcpServers": false,
   "enabledPlugins": {
-    "ci-cd-pipeline-builder@claude-code-plugins-plus": true,
+    "ci-cd-pipeline-builder@claude-code-plugins-plus": false,
     "claude-mem@thedotmack": true,
     "code-review@claude-code-plugins": true,
     "commit-commands@claude-code-plugins": true,
     "context7@lefant-claude-code-plugins": true,
-    "devops-automation@claude-code-templates": true,
+    "devops-automation@claude-code-templates": false,
     "elements-of-style@superpowers-marketplace": true,
     "episodic-memory@superpowers-marketplace": true,
     "feature-dev@claude-code-plugins": true,
-    "formatter@claude-code-plugins-plus": true,
+    "formatter@claude-code-plugins-plus": false,
     "github-access@lefant-claude-code-plugins": true,
     "lefant@lefant-claude-code-plugins": true,
     "plugin-dev@claude-code-plugins": true,
     "pr-review-toolkit@claude-code-plugins": true,
-    "ralph-wiggum@claude-code-plugins": true,
+    "ralph-wiggum@claude-code-plugins": false,
     "rpi@lefant-claude-code-plugins": true,
     "security-guidance@claude-code-plugins": true,
-    "security-pro@claude-code-templates": true,
+    "security-pro@claude-code-templates": false,
     "superpowers-developing-for-claude-code@superpowers-marketplace": true,
     "superpowers@superpowers-marketplace": true,
-    "testing-suite@claude-code-templates": true
+    "testing-suite@claude-code-templates": false
   },
   "env": {
+    "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "DISABLE_AUTOUPDATER": "1",
     "DISABLE_BUG_COMMAND": "1",
     "DISABLE_ERROR_REPORTING": "1",
@@ -140,8 +143,43 @@
     ]
   },
   "model": "haiku",
-  "statusLine": {
-    "padding": 0,
-    "type": "command"
+  "permissions": {
+    "allow": [
+      "Bash(git log)",
+      "Bash(git status)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(rm -fr *)",
+      "Bash(sudo *)",
+      "Bash(mkfs *)",
+      "Bash(dd *)",
+      "Bash(curl *|bash*)",
+      "Bash(wget *|bash*)",
+      "Bash(git push --force*)",
+      "Bash(git push *--force*)",
+      "Bash(git reset --hard*)",
+      "Edit(~/.bashrc)",
+      "Edit(~/.zshrc)",
+      "Edit(~/.ssh/**)",
+      "Read(~/.ssh/**)",
+      "Read(~/.gnupg/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.azure/**)",
+      "Read(~/.config/gh/**)",
+      "Read(~/.git-credentials)",
+      "Read(~/.docker/config.json)",
+      "Read(~/.kube/**)",
+      "Read(~/.npmrc)",
+      "Read(~/.npm/**)",
+      "Read(~/.pypirc)",
+      "Read(~/.gem/credentials)",
+      "Read(~/Library/Keychains/**)",
+      "Read(~/Library/Application Support/**/metamask*/**)",
+      "Read(~/Library/Application Support/**/electrum*/**)",
+      "Read(~/Library/Application Support/**/exodus*/**)",
+      "Read(~/Library/Application Support/**/phantom*/**)",
+      "Read(~/Library/Application Support/**/solflare*/**)"
+    ]
   }
 }
