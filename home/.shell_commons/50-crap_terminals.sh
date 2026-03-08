@@ -6,7 +6,7 @@ if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
 	"$TERM_PROGRAM" = "vscode" || "$TERM_PROGRAM" = "cursor" ||
 	-n "$VSCODE_PID" || -n "$VSCODE_CWD" || "$TERM_PROGRAM" = "Apple_Terminal" ||
 	"$TERM" = "dumb" || -n "$EMACS" || -n "$INSIDE_EMACS" ||
-	"$TERMINAL_EMULATOR" =~ "JetBrains" ]]; then
+	"$TERMINAL_EMULATOR" =~ "JetBrains" || "$TERM_PROGRAM" == "kiro" ]]; then
 
 	# Use a simple prompt in a simple terminal
 	PS1='\u@\h:\w\$ '
@@ -18,6 +18,7 @@ if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
 			[[ -r "$file" ]] && source "$file"
 		done
 	fi
+	[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path "$(basename "${SHELL}")")"
 elif [[ $TERM_PROGRAM = "iTerm.app" ]]; then
 	unset ITERM_SHELL_INTEGRATION_INSTALLED
 	current_shell=$(basename "${SHELL}")
