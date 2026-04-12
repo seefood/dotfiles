@@ -3,13 +3,10 @@
   "cleanupPeriodDays": 365,
   "enableAllProjectMcpServers": false,
   "enabledPlugins": {
-    "ci-cd-pipeline-builder@claude-code-plugins-plus": false,
     "claude-mem@thedotmack": false,
     "code-review@claude-code-plugins": true,
-    "commit-commands@claude-code-plugins": true,
-    "context7@lefant-claude-code-plugins": true,
-    "devops-automation@claude-code-templates": false,
-    "elements-of-style@superpowers-marketplace": true,
+    "commit-commands@claude-code-plugins": false,
+    "elements-of-style@superpowers-marketplace": false,
     "episodic-memory@superpowers-marketplace": true,
     "feature-dev@claude-code-plugins": true,
     "formatter@claude-code-plugins-plus": false,
@@ -61,7 +58,7 @@
       {
         "hooks": [
           {
-            "command": "bash .claude/scripts/validate-bash.sh",
+            "command": "~/.claude/scripts/validate-bash.sh",
             "type": "command"
           }
         ],
@@ -116,6 +113,7 @@
       }
     ]
   },
+  "model": "sonnet",
   "permissions": {
     "allow": [
       "Bash(git log *)",
@@ -157,5 +155,6 @@
       "Read(~/Library/Application Support/**/solflare*/**)"
     ]
   },
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "voiceEnabled": true
 }
