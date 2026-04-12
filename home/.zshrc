@@ -174,7 +174,7 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 
 	# old OMZ plugins
 	#omz_plugins=(sudo git history taskwarrior tmux tmuxinator)
-	omz_plugins=(sudo history aws colorize common-aliases cp docker-compose)
+	omz_plugins=(sudo history aws colorize cp docker-compose)
 	[[ -f /etc/debian_version ]] && omz_plugins+=(debian)
 	## Zinit Setting
 	# Must Load OMZ Git library
@@ -206,6 +206,7 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/plugins.sh
 	#zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/completions.sh
 	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/v2gif.sh
+	zinit snippet https://gist.github.com/seefood/896a042ea975b778d93159c6a9e3e0a5/raw/omz-common-aliases-minus-dash-i.zsh
 
 	alias gs="git st"
 
