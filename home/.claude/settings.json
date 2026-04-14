@@ -6,7 +6,7 @@
     "claude-md-management@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
-    "greptile@claude-plugins-official": true,
+    "greptile@claude-plugins-official": false,
     "security-guidance@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true
   },
@@ -105,7 +105,6 @@
       }
     ]
   },
-  "model": "sonnet",
   "permissions": {
     "allow": [
       "Bash(git log *)",
