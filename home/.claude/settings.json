@@ -1,6 +1,7 @@
 {
   "alwaysThinkingEnabled": true,
   "cleanupPeriodDays": 365,
+  "effortLevel": "medium",
   "enableAllProjectMcpServers": false,
   "enabledPlugins": {
     "claude-md-management@claude-plugins-official": true,
@@ -18,7 +19,7 @@
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet",
-    "DISABLE_AUTOUPDATER": "1",
+    "DISABLE_AUTOUPDATER": "0",
     "DISABLE_BUG_COMMAND": "1",
     "DISABLE_ERROR_REPORTING": "1",
     "DISABLE_TELEMETRY": "1"
@@ -72,10 +73,6 @@
       {
         "hooks": [
           {
-            "command": "claudekit-hooks run check-todos",
-            "type": "command"
-          },
-          {
             "command": "claudekit-hooks run self-review",
             "type": "command"
           }
@@ -94,10 +91,6 @@
           },
           {
             "command": "claudekit-hooks run thinking-level",
-            "type": "command"
-          },
-          {
-            "command": "npx vibe-log-cli analyze-prompt --silent --stdin",
             "type": "command"
           }
         ],
