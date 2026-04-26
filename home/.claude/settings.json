@@ -1,7 +1,6 @@
 {
   "alwaysThinkingEnabled": true,
   "cleanupPeriodDays": 365,
-  "effortLevel": "medium",
   "enableAllProjectMcpServers": false,
   "enabledPlugins": {
     "claude-md-management@claude-plugins-official": true,
