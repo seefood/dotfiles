@@ -94,8 +94,8 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 	export TIMEFMT="%U user %S system %P cpu %*E total, running %J"
 	export COLORTERM=yes
 
-	[ -e /usr/bin/lessfile ] && eval $(lessfile)
-	[ -e /usr/bin/dircolors ] && eval $(dircolors)
+	[ -e /usr/bin/lessfile ] && eval "$(lessfile)"
+	[ -e /usr/bin/dircolors ] && eval "$(dircolors)"
 	export LESSCHARSET=UTF-8
 	export LESS='-iFRSX'
 
@@ -119,8 +119,8 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 
 	# zinit install (only init if already installed)
 	ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-	[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
-	[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+	[ ! -d "$ZINIT_HOME" ] && mkdir -p "$(dirname "$ZINIT_HOME")"
+	[ ! -d "$ZINIT_HOME/.git" ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 	source "${ZINIT_HOME}/zinit.zsh"
 
 	# Init a few plugins
@@ -180,10 +180,10 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 	# Must Load OMZ Git library
 	#zinit snippet OMZL::git.zsh
 
-	for plug in ${omz_plugins[*]}; do
+	for plug in "${omz_plugins[@]}"; do
 		# Load Git and other plugins from OMZ
 		zinit ice wait lucid
-		zinit snippet OMZP::${plug}
+		zinit snippet "OMZP::${plug}"
 	done
 
 	# Recommended history plugin till I fix ctrl-R in wezterm
@@ -214,9 +214,9 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 
 	_command_exists aws && complete -C aws_completer aws
 
-	_command_exists terraform && complete -o nospace -C $(which terraform) terraform
+	_command_exists terraform && complete -o nospace -C "$(which terraform)" terraform
 
-	_command_exists tofu && complete -o nospace -C $(which tofu) tofu
+	_command_exists tofu && complete -o nospace -C "$(which tofu)" tofu
 
 	alias tf=tofu && complete -o nospace -C tf tf
 
@@ -245,7 +245,7 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 		zinit light romkatv/powerlevel10k
 		unset ZSH_THEME
 	elif [[ "$ZSH_THEME" == "oh-my-posh" ]] && type oh-my-posh &>/dev/null; then
-		eval $(oh-my-posh init zsh --config $POSH_THEME)
+		eval "$(oh-my-posh init zsh --config "$POSH_THEME")"
 		unset ZSH_THEME
 	elif [[ "$ZSH_THEME" ]]; then
 		## Based on suggestions at https://github.com/zdharma-continuum/zinit#migration
