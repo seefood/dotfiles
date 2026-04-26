@@ -19,9 +19,4 @@ if [[ -n "$CASCADE" || -n "$VSCODE_SHELL_INTEGRATION" || -n "$CURSOR_AGENT" ||
 		done
 	fi
 	[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path "$(basename "${SHELL}")")"
-elif [[ $TERM_PROGRAM = "iTerm.app" ]]; then
-	unset ITERM_SHELL_INTEGRATION_INSTALLED
-	current_shell=$(basename "${SHELL}")
-	[[ -f ~/.iterm2_shell_integration.${current_shell} ]] &&
-		source ~/".iterm2_shell_integration.${current_shell}"
 fi

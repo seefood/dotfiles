@@ -240,6 +240,14 @@ export BASH_IT="${HOME}/.bash_it"
 # shellcheck disable=SC1091
 [[ -d "${BASH_IT}" ]] && source "${BASH_IT}/bash_it.sh"
 
+if [[ $TERM_PROGRAM = "iTerm.app" ]]; then
+	unset ITERM_SHELL_INTEGRATION_INSTALLED
+	current_shell=$(basename "${SHELL}")
+	# shellcheck disable=SC1090
+	[[ -f ~/.iterm2_shell_integration.${current_shell} ]] &&
+		source ~/".iterm2_shell_integration.${current_shell}"
+fi
+
 for key in ~/.ssh/*.pem; do
 	[[ -f "${key}" ]] && ssh-add "${key}" &>/dev/null
 done

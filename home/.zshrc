@@ -263,6 +263,13 @@ if [[ -z "$EMBEDDED_TERM" ]]; then
 		zinit snippet OMZT::${ZSH_THEME}
 		unset ZSH_THEME
 	fi
+
+	if [[ $TERM_PROGRAM = "iTerm.app" ]]; then
+		unset ITERM_SHELL_INTEGRATION_INSTALLED
+		current_shell=$(basename "${SHELL}")
+		[[ -f ~/.iterm2_shell_integration.${current_shell} ]] &&
+			source ~/".iterm2_shell_integration.${current_shell}"
+	fi
 fi
 
 # User configuration
