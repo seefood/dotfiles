@@ -43,11 +43,12 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 	echo "🍾 Installing my favourite bottles... 🍾" # why no beer bottle emoji?
 	echo ''
 	bottles=(
+		vim
 		claudekit
 		attempt-cli bat chroma dust fd mcat ncdu parallel-disk-usage tree up jdupes
 		dug wtfis fastrace
 		rsync ggh hss
-		git-gui git-lfs git-split-diffs git-who gitui lazygit
+		git-gui git-lfs git-split-diffs git-who gitui lazygit gh
 		gnupg
 		htop psgrep progress
 		ipcalc
