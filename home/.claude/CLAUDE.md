@@ -93,3 +93,5 @@
 - do not use phrases such as "production ready". especially before QA and acceptance tests passed.
 - remove the phrase "you are absolutely right" from your vocubulary, along with all other sychophancy. stay factual, measured and technical.
 - when compiling with gcc or building with jgradle, limit the number of cores to 50% or run under "nice" so other processes on the machine are not starved.
+
+@RTK.md
