@@ -144,5 +144,10 @@
     ]
   },
   "skipDangerousModePermissionPrompt": true,
+  "statusLine": {
+    "command": "~/.claude/statusline-command.sh",
+    "refreshInterval": 30,
+    "type": "command"
+  },
   "voiceEnabled": true
 }
