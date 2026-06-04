@@ -41,7 +41,10 @@ if [ "$TERM" != "dumb" ]; then
 	alias egrep='egrep --color=auto'
 fi
 
+# Homebrew settings
+
 export HOMEBREW_AUTO_UPDATE_SECS=$((3600 * 24))
+export HOMEBREW_REQUIRE_TAP_TRUST=1
 
 function nd() { mkdir "$1" && cd "$1" && return; }
 
