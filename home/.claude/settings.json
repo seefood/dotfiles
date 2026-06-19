@@ -1,6 +1,7 @@
 {
   "alwaysThinkingEnabled": true,
   "cleanupPeriodDays": 365,
+  "effortLevel": "medium",
   "enableAllProjectMcpServers": false,
   "enabledPlugins": {
     "claude-md-management@claude-plugins-official": true,
@@ -11,6 +12,7 @@
     "superpowers@claude-plugins-official": true
   },
   "env": {
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "130000",
     "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
     "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1",
     "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "1",
@@ -144,5 +146,11 @@
     ]
   },
   "skipDangerousModePermissionPrompt": true,
+  "statusLine": {
+    "command": "bash /Users/ira/.claude/statusline-command.sh",
+    "type": "command"
+  },
+  "terminalProgressBarEnabled": false,
+  "verbose": true,
   "voiceEnabled": true
 }
