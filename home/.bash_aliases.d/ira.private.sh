@@ -13,6 +13,7 @@ if [[ $USER =~ ^ira ]]; then
 
 	if [[ "$OSTYPE" == "darwin"* ]]; then
 		alias psig='/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Personal &> /dev/null &; disown'
+		alias esig='/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Esti &> /dev/null &; disown'
 		alias upt='brew upgrade'
 		alias uupt='brew upgrade'
 	else
