@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC2034
 
 CALENDAR=☼
 
@@ -10,21 +11,21 @@ LARGE=125
 X_LARGE=150
 
 if [ "$WIDTH" -gt "$X_LARGE" ]; then
-#  MPD="#[fg=colour81]♪ #(~/bin/now_playing.sh)"
-  BATTERY="#(~/bin/battery.sh)"
-  date_colour='colour41'
+	#  MPD="#[fg=colour81]♪ #(~/bin/now_playing.sh)"
+	BATTERY="#(~/bin/battery.sh)"
+	date_colour='colour41'
 fi
 
 if [ "$WIDTH" -ge "$LARGE" ]; then
-  DATE="#[fg=colour255,bg=colour241,bold] $CALENDAR $(date +'%a %m-%d-%y')"
+	DATE="#[fg=colour255,bg=colour241,bold] $CALENDAR $(date +'%a %m-%d-%y')"
 fi
 
 if [ "$WIDTH" -ge "$MEDIUM" ]; then
-  TIME="#[fg=colour255,bg=colour241,bold] $(date +'%H:%M:%S')"
+	TIME="#[fg=colour255,bg=colour241,bold] $(date +'%H:%M:%S')"
 fi
 
 if [ "$WIDTH" -ge "$SMALL" ]; then
-  CLEAR=""
+	CLEAR=""
 fi
 
 echo "$MPD $BATTERY $DATE $TIME " | sed 's/ *$/ /g'

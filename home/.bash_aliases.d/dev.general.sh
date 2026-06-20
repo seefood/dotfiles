@@ -1,4 +1,4 @@
-#!/bin/bash
+# shellcheck shell=bash
 alias json='python3 -mjson.tool'
 export PIPX_HOME=~/.local/pipx
 export GOPATH=~/go

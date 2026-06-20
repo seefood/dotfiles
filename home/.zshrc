@@ -1,4 +1,3 @@
-#!/bin/zsh
 # shellcheck disable=SC2034
 
 setopt nullglob

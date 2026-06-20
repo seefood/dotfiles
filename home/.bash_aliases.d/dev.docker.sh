@@ -1,4 +1,4 @@
-#!/bin/bash
+# shellcheck shell=bash
 #
 # Edit this to your liking, this is what we use to push to a local docker reg
 # that has no TLS layer.

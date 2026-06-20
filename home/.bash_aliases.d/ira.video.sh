@@ -1,5 +1,4 @@
-#!/bin/bash
-
+# shellcheck shell=bash
 # Get cracking on some demuxing
 
 function demuxaudio() {

@@ -1,4 +1,5 @@
-#!/bin/sh
+# shellcheck shell=sh
+# shellcheck disable=SC3009
 # blerc (Example)
 
 bleopt char_width_mode=east

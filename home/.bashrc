@@ -1,4 +1,4 @@
-#!/bin/bash
+# shellcheck shell=bash
 # shellcheck disable=SC2312,SC2015
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
