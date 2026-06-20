@@ -2,10 +2,10 @@
 
 ## Build/Lint/Test Commands
 
-- **Lint**: `pre-commit run --all-files` (runs shellcheck, shfmt, whitespace checks)
-- **Format**: `pre-commit run shfmt --all-files`
+- **Lint**: `prek run --all-files` (runs shellcheck, shfmt, whitespace checks)
+- **Format**: `prek run shfmt --all-files`
 - **Test single file**: No specific test runner; use shellcheck directly: `shellcheck path/to/script.sh`
-- **Full test suite**: Run pre-commit hooks: `pre-commit install && pre-commit run --all-files`
+- **Full test suite**: Run pre-commit hooks: `prek install && prek run --all-files`
 
 ## Code Style Guidelines
 

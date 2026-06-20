@@ -2,7 +2,7 @@
 
 set -e
 
-uv tool install pre-commit
+uv tool install prek
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	export HOMEBREW_CASK_OPTS=--appdir=/Applications
