@@ -1,6 +1,6 @@
 #!/bin/bash
-alias json='python -mjson.tool'
-
+alias json='python3 -mjson.tool'
+export PIPX_HOME=~/.local/pipx
 export GOPATH=~/go
 
 function ps() {
