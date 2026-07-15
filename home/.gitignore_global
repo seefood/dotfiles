@@ -4,6 +4,8 @@
 .claude
 .vscode
 .claude/
+!home/.claude/
+!home/.claude/**
 # JetBrains IDEs
 .idea/
 
