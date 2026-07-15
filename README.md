@@ -72,6 +72,25 @@ Then log out and back in again to apply the changes.
 
 For more cool shell tools, see my [Dev-Env gist](https://gist.github.com/seefood/d70672cccb551935827ece2554592f96), and the dotfiles lovers' page ["GitHub ❤ ~/"](https://dotfiles.github.io/).
 
+## Companion repos
+
+My [Claude Code](https://code.claude.com) setup moved out of this repo and
+into two dedicated ones, both installed by `bootstrap.sh`:
+
+- [dotclaude](https://github.com/seefood/dotclaude) - a homeshick castle for
+  `~/.claude/` (settings, hooks, scripts, skills - both self-authored and
+  vetted/pinned third-party snapshots). Install manually with:
+
+      homeshick clone seefood/dotclaude
+      homeshick symlink dotclaude
+
+- [ira-claude-plugins](https://github.com/seefood/ira-claude-plugins) - my
+  self-authored Claude Code skills, published as an installable plugin
+  marketplace. Install manually with:
+
+      /plugin marketplace add seefood/ira-claude-plugins
+      /plugin install test-before-install@ira-claude-plugins
+
 ## Thanks
 
 - [homesick](https://github.com/technicalpickles/homesick)

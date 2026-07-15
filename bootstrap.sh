@@ -127,6 +127,28 @@ homeshick symlink dotfiles
 [[ -r ~/.gitconfig.local ]] || cp ~/.gitconfig.local.example ~/.gitconfig.local
 chmod 700 ~/.gnupg/
 
+if [[ -d "$HOME/.homesick/repos/dotclaude" ]]; then
+	echo "Oh good, dotclaude is already checked out..."
+else
+	## Clone dotclaude (Claude Code config, hooks, skills)
+	echo "Cloning dotclaude"
+	homeshick clone seefood/dotclaude
+
+	while read -r dir; do
+		mkdir -p ~/"${dir}"
+	done <~/.homesick/repos/dotclaude/.homesick_subdir
+fi
+
+homeshick symlink dotclaude
+
+# Install my Claude Code plugins (skills published as an installable marketplace)
+if hash claude 2>/dev/null; then
+	claude plugin marketplace add seefood/ira-claude-plugins
+	claude plugin install test-before-install@ira-claude-plugins
+else
+	echo "claude CLI not found, skipping ira-claude-plugins install (see https://github.com/seefood/ira-claude-plugins)"
+fi
+
 echo "Make sure you have your correct settings in ~/.gitconfig.local"
 
 # vimrc vundle install
