@@ -1,9 +1,4 @@
 .bash_aliases.d
-.claude
-.claude/commands
-.claude/hooks
-.claude/scripts
-.claude/skills/
 .config
 .config/blesh
 .config/ccstatusline
