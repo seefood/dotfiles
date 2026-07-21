@@ -1,10 +1,10 @@
 # dotfiles
 
-My collection of dotfiles, maintained through [homesick](https://github.com/technicalpickles/homesick).
+My collection of dotfiles, maintained through [homeshick](https://github.com/andsens/homeshick).
 
-Note: My .claude settings are in another castle as of July 2026: https://github.com/seefood/dotclaude
+Note: My .claude settings are in another [castle](https://github.com/seefood/dotclaude) as of July 2026.
 
-Also, original plugins I am putting together (mainly skills at the moment) are at https://github.com/seefood/ira-claude-plugins
+Also, original plugins I am putting together (mainly skills at the moment) are at [ira-claude-plugins](https://github.com/seefood/ira-claude-plugins).
 
 ## Preparation
 
