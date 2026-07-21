@@ -2,6 +2,10 @@
 
 My collection of dotfiles, maintained through [homesick](https://github.com/technicalpickles/homesick).
 
+Note: My .claude settings are in another castle as of July 2026: https://github.com/seefood/dotclaude
+
+Also, original plugins I am putting together (mainly skills at the moment) are at https://github.com/seefood/ira-claude-plugins
+
 ## Preparation
 
 - Make sure that your user is able to run `sudo`. This should work out of the box if your user is listed as an administrator of the machine. If not, follow [this guide](http://osxdaily.com/2014/02/06/add-user-sudoers-file-mac/) to add your user to the `/etc/sudoers` file: `sudo visudo`
