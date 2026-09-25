@@ -45,6 +45,7 @@ for newpath in ~/bin ~/.local/bin /opt/nginx/sbin /usr/local/sbin \
 	~/.fig/bin \
 	~/AppImages \
 	~/Library/Python/3.*/bin \
+	~/go-sdk/go*/bin \
 	~/.codeium/windsurf/bin \
 	~/.local/platform-tools \
 	~/.fzf/bin \
