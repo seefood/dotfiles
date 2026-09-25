@@ -13,6 +13,19 @@
     }
   },
   "provider": {
+    "litellm": {
+      "models": {
+        "qwen3.6-35b-a3b": {
+          "name": "Qwen3.6-35B-A3B (local)"
+        }
+      },
+      "name": "LiteLLM (local)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "apiKey": "{env:LITELLM_MASTER_KEY}",
+        "baseURL": "http://127.0.0.1:4000/v1"
+      }
+    },
     "ollama": {
       "models": {
         "deepseek-coder-v2:16b": {
