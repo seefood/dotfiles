@@ -1,5 +1,6 @@
 # shellcheck shell=bash
 alias json='python3 -mjson.tool'
+alias pup='pi update ; pi update --extensions'
 export PIPX_HOME=~/.local/pipx
 export GOPATH=~/go
 
