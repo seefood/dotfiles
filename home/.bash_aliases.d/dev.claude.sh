@@ -5,3 +5,7 @@
 claude-local() {
 	/home/ira/src/llama-a3b-3060/bin/claude-local "$@"
 }
+
+alias ccusage="npx ccusage@latest"
+
+export SKILLSPECTOR_PROVIDER=claude_cli
