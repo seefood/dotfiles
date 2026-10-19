@@ -14,14 +14,16 @@ if [[ $USER =~ ^ira ]]; then
 	if [[ "$OSTYPE" == "darwin"* ]]; then
 		alias psig='/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Personal &> /dev/null &; disown'
 		alias esig='/Applications/Signal.app/Contents/MacOS/Signal --user-data-dir=${HOME}/.config/Signal-Esti &> /dev/null &; disown'
-		alias upt='brew upgrade'
-		alias uupt='brew upgrade'
+		alias upt='uupt'
+		alias uupt='brew upgrade ; \
+			uv tool upgrade --all ; uv tool install uv@latest'
 	else
 		alias wsig='signal-desktop --user-data-dir=${HOME}/.config/Signal-Work &> /dev/null & sleep 1 ; disown'
 		alias upt='sudo apt -u dist-upgrade; \
 			podman pull ghcr.io/open-webui/open-webui:latest; \
 			oh-my-posh upgrade; \
-			flatpak update -y; sudo flatpak update -y'
+			flatpak update -y; sudo flatpak update -y; \
+			uv tool upgrade --all ; uv tool install uv@latest'
 		alias uupt='sudo apt update && upt'
 		alias uptc='uupt && sudo apt-get --purge autoremove'
 		alias uptcc='uuptc `deborphan` `deborphan  --guess-dev` `deborphan --guess-debug`'
