@@ -19,6 +19,21 @@ local keys = {
    { key = 'F1', mods = 'NONE', action = 'ActivateCopyMode' },
    { key = 'F2', mods = 'NONE', action = act.ActivateCommandPalette },
    { key = 'F3', mods = 'NONE', action = act.ShowLauncher },
+   -- TEMP: for T025 tmux domain-detach manual verification, remove after
+   {
+      key = 'F5',
+      mods = 'CTRL',
+      action = wezterm.action_callback(function(window, _pane)
+         local domain = wezterm.mux.get_domain('tmux')
+         if domain then
+            window:toast_notification('tmux domain', 'state before: ' .. domain:state(), nil, 4000)
+            domain:detach()
+            window:toast_notification('tmux domain', 'state after: ' .. domain:state(), nil, 4000)
+         else
+            window:toast_notification('tmux domain', 'domain not found', nil, 4000)
+         end
+      end),
+   },
    { key = 'F4', mods = 'NONE', action = act.ShowLauncherArgs({ flags = 'FUZZY|TABS' }) },
    {
       key = 'F5',
